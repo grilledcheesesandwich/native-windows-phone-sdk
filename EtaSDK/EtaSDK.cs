@@ -23,7 +23,7 @@ namespace eta.sdk
         public HttpWebRequest request;
         public string sdata;
         public EtaApiOptions options;
-        public AsyncCallback success, error;
+        public Action<object> success, error;
         public string error_message;
         public HttpWebResponse response;
         public string response_body;
@@ -67,7 +67,7 @@ namespace eta.sdk
         /// <param name="options">An EtaApiObjects instance with any data to send</param>
         /// <param name="success">A method taking a ApiState instance to be called on success.</param>
         /// <param name="error">A method taking a ApiState instance to be called on success.</param>
-        public void api(string url, EtaApiOptions options, AsyncCallback success, AsyncCallback error)
+        public void api(string url, EtaApiOptions options, Action<object> success, Action<object> error)
         {
             List<KeyValuePair<string, string>> param = this.FormatParams(options.data);
             string data = this.BuildParams(param);
@@ -139,7 +139,7 @@ namespace eta.sdk
             {
                 state.error_message = e.Message;
                 state.response = (HttpWebResponse)e.Response;
-                Deployment.Current.Dispatcher.BeginInvoke(state.error, state);
+                state.error(state);
                 return;
             }
 
@@ -170,7 +170,7 @@ namespace eta.sdk
             {
                 state.error_message = e.Message;
                 state.response = (HttpWebResponse)e.Response;
-                Deployment.Current.Dispatcher.BeginInvoke(state.error, state);
+                state.error(state);
                 return;
             }
 
@@ -183,7 +183,7 @@ namespace eta.sdk
 
             state.response_body = Encoding.UTF8.GetString(buffer, 0, length);
 
-            Deployment.Current.Dispatcher.BeginInvoke(state.success, state);
+            state.success(state);
         }
         
         /// <summary>
