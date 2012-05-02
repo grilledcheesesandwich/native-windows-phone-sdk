@@ -20,9 +20,11 @@ namespace eta.sdk
         public string type;
         public string contentType;
         public PhoneApplicationPage pageInstance;
+        public bool canceled;
 
         public EtaApiOptions(string dataType, string type, PhoneApplicationPage pageInstance)
         {
+            this.canceled = false;
             this.dataType = dataType;
             this.type = type;
             this.contentType = "application/x-www-form-urlencoded";
