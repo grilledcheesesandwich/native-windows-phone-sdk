@@ -248,6 +248,12 @@ namespace eta.sdk
             return seconds.ToString();
         }
 
+        public static DateTime GetDateTime(string timestamp)
+        {
+            DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            int seconds = Convert.ToInt32(timestamp);
+            return epoch.AddSeconds(seconds);
+        }
         
         /* DEPRECATED */
         private string GetParam(List<KeyValuePair<string, string>> param, string key)
