@@ -37,7 +37,7 @@ namespace eta.sdk
         public string apiSecret;
         public string uuid;
 
-        public const string domain = "http://10.120.24.107:8080"; // Todo: etilbudsavis.dk
+        internal const string domain = "http://web-1540031923.eu-west-1.elb.amazonaws.com"; // Todo: etilbudsavis.dk
         public Dictionary<string, string> accepts;
 
         /// <summary>
@@ -103,6 +103,8 @@ namespace eta.sdk
             state.success = success;
             state.error = error;
 
+            Debug.WriteLine(target);
+
             try
             {
                 if (options.type == "POST")
@@ -119,7 +121,6 @@ namespace eta.sdk
             {
                 throw new EtaException("Could not open connection.\n" + e.Message);
             }
-
         }
 
         /// <summary>
