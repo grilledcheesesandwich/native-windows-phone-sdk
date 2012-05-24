@@ -110,7 +110,7 @@ namespace EtaSDK
 
         }
 
-        public void GetCatalogList(ApiResourceOptions options, Action<string> callback, Action<Exception> error)
+        public void GetCatalogList(ApiResourceOptions options, Action<List<Catalog>> callback, Action<Exception> error)
         {
             if (options == null)
             {
@@ -130,29 +130,141 @@ namespace EtaSDK
                 List<Catalog> catalogs = new List<Catalog>();
                 foreach (var item in json["data"] as JsonArray)
                 {
-                    var catolog = new Catalog();
-
-                    catolog.Id = item["id"];
-                    catolog.PageCount = item["pageCount"].ToString();
-                    catolog.Promoted = item.ContainsKey("promoted") && item["promoted"] != null ? item["promoted"].ToString() : null;
-                    catolog.PublicKey = item["publicKey"];
-                    catolog.RunFrom = item["runFrom"].ToString();
-                    catolog.RunTill = item["runTill"].ToString();
-                    catolog.SelectStores = item["selectStores"].ToString();
-                    
-
-
-                    catalogs.Add(catolog);
+                    var catalog = Catalog.FromJson(item);
+                    catalogs.Add(catalog);
                 }
-
-                var s = onresult;
-            }, onerror =>
+                callback(catalogs);
+                
+            }, (onerror, uri) =>
             {
                 error (onerror);
             });
         }
 
-        public void ApiRaw(string resourceUri,ApiResourceOptions options, Action<string> callback, Action<Exception> error)
+        public void GetStoreInfo(ApiResourceOptions options, Action<string> callback, Action<Exception> error)
+        {
+            if (options == null)
+            {
+                options = new ApiResourceOptions();
+            }
+
+            ApiRaw("/api/v1/store/info/", options, onresult =>
+            {
+                var json = JsonValue.Parse(onresult);
+                callback(onresult);
+
+            }, (onerror, uri) =>
+            {
+                error(onerror);
+            });
+        }
+
+        public void GetStoreList(ApiResourceOptions options, Action<List<Store>> callback, Action<Exception> error)
+        {
+            if (options == null)
+            {
+                options = new ApiResourceOptions();
+                options.AddParm("type", "all");
+            }
+
+            ApiRaw("/api/v1/store/list/", options, onresult =>
+            {
+                var json = JsonValue.Parse(onresult);
+                List<Store> stores = new List<Store>();
+                foreach (var item in json["data"] as JsonArray)
+                {
+                    var store = Store.FromJson(item,isRoot: true);
+                    stores.Add(store);
+                }
+
+                callback(stores);
+
+            }, (onerror, uri) =>
+            {
+                error(onerror);
+            });
+        }
+
+        public void GetOfferInfo(ApiResourceOptions options, Action<string> callback, Action<Exception> error)
+        {
+            if (options == null)
+            {
+                options = new ApiResourceOptions();
+                options.AddParm("type", "all");
+            }
+
+            ApiRaw("/api/v1/store/list/", options, onresult =>
+            {
+                var json = JsonValue.Parse(onresult);
+
+                callback(onresult);
+
+            }, (onerror, uri) =>
+            {
+                error(onerror);
+            });
+        }
+
+        public void GetOfferList(ApiResourceOptions options, Action<string> callback, Action<Exception> error)
+        {
+            if (options == null)
+            {
+                options = new ApiResourceOptions();
+                options.AddParm("type", "all");
+            }
+
+            ApiRaw("/api/v1/offer/list/", options, onresult =>
+            {
+                var json = JsonValue.Parse(onresult);
+
+                callback(onresult);
+
+            }, (onerror, uri) =>
+            {
+                error(onerror);
+            });
+        }
+
+        public void GetOfferSearch(ApiResourceOptions options, string query, Action<string> callback, Action<Exception> error)
+        {
+            if (options == null)
+            {
+                options = new ApiResourceOptions();
+                options.AddParm("q", query);
+            }
+
+            ApiRaw("/api/v1/offer/search/", options, onresult =>
+            {
+                var json = JsonValue.Parse(onresult);
+
+                callback(onresult);
+
+            }, (onerror, uri) =>
+            {
+                error(onerror);
+            });
+        }
+
+        public void GetOfferPopularSearches(Action<string> callback, Action<Exception> error)
+        {
+           
+            var options = new ApiResourceOptions();
+            
+
+            ApiRaw("/api/v1/offer/search/list/", options, onresult =>
+            {
+                var json = JsonValue.Parse(onresult);
+
+                callback(onresult);
+
+            }, (onerror, uri) =>
+            {
+                error(onerror);
+            });
+        }
+
+
+        public void ApiRaw(string resourceUri,ApiResourceOptions options, Action<string> callback, Action<Exception, Uri> error)
         {
             var requestUri = new Uri(new Uri(Resources.Eta_BaseUri), resourceUri + options.AsQueryString());
 
@@ -174,8 +286,8 @@ namespace EtaSDK
                     callback(next);
                     Debug.WriteLine("request rescived");
                 },err => {
-                    error(err);
-                    Debug.WriteLine("request failed");
+                    error(err, request.RequestUri);
+                    Debug.WriteLine("request failed, uri: " + request.RequestUri.ToString());
 
                 }, () => {
                     Debug.WriteLine("request done");

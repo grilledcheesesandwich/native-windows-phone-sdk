@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using System.Json;
 
 namespace EtaSDK.Models
 {
@@ -15,5 +16,18 @@ namespace EtaSDK.Models
     {
         public string Color { get; set; }
         public string Logo { get; set; }
+
+        public static Branding FromJson(JsonValue item)
+        {
+            if (item.ContainsKey("branding"))
+            {
+                Branding branding = new Branding();
+                branding.Color = item["branding"]["color"].ToString();
+                branding.Logo = item["branding"]["logo"];
+                return branding;
+
+            }
+            return null;
+        }
     }
 }

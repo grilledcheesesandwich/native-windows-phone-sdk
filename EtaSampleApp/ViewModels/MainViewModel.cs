@@ -124,11 +124,58 @@ namespace EtaSampleApp
             var api2 = new EtaSDK.EtaSDKv2();
             api2.GetCatalogList(options2, result =>
             {
-                var json = JsonValue.Parse(result);
-                
-
-                var s = result;
+                var catalogs = result;
+                var dealerId = catalogs[0].Dealer.Id;
+                DealerTest(dealerId);
             }, error => {
+                var msg = error.Message;
+            });
+
+            api2.GetStoreList(options2, result =>
+            {
+                var stores = result;
+            }, error =>
+            {
+                var msg = error.Message;
+            });
+
+            // Offer
+            api2.GetOfferList(null, result =>
+            {
+                var res = result;
+            }, error =>
+            {
+                var msg = error.Message;
+            });
+
+            api2.GetOfferPopularSearches(result =>
+            {
+                var res = result;
+            }, error =>
+            {
+                var msg = error.Message;
+            });
+
+            api2.GetOfferSearch(null,"kaffe", result =>
+            {
+                var res = result;
+            }, error =>
+            {
+                var msg = error.Message;
+            });
+        }
+
+        private void DealerTest(string dealerId)
+        {
+            ApiResourceOptions options = new ApiResourceOptions();
+            options.AddParm("dealer", dealerId);
+
+            var api2 = new EtaSDK.EtaSDKv2();
+            api2.GetStoreInfo(options, result =>
+            {
+                var store = result;
+            }, error =>
+            {
                 var msg = error.Message;
             });
         }
