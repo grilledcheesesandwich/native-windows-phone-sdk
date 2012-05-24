@@ -19,22 +19,29 @@ namespace eta.sdk
         public string dataType;
         public string type;
         public string contentType;
-        public PhoneApplicationPage pageInstance;
+        //public PhoneApplicationPage pageInstance;
         public bool canceled;
 
-        public EtaApiOptions(string dataType, string type, PhoneApplicationPage pageInstance)
+        public EtaApiOptions(string dataType, string type/*, PhoneApplicationPage pageInstance*/)
         {
             this.canceled = false;
             this.dataType = dataType;
             this.type = type;
             this.contentType = "application/x-www-form-urlencoded";
             this.data = new Dictionary<string, string>();
-            this.pageInstance = pageInstance;
+            //this.pageInstance = pageInstance;
         }
 
         public void AddData(string key, string value)
         {
-            this.data.Add(key, value);
+            if (data.ContainsKey(key))
+            {
+                data[key] = value;
+            }
+            else
+            {
+                this.data.Add(key, value);
+            }
         }
     }
 }

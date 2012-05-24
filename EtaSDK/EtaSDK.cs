@@ -15,6 +15,8 @@ using System.Text;
 using System.Collections.Generic;
 using System.IO;
 using System.Diagnostics;
+using System.Resources;
+using EtaSDK.Utils;
 
 namespace eta.sdk
 {
@@ -37,7 +39,7 @@ namespace eta.sdk
         public string apiSecret;
         public string uuid;
 
-        internal const string domain = "http://web-1540031923.eu-west-1.elb.amazonaws.com"; // Todo: etilbudsavis.dk
+        internal const string domain = "https://staging.etilbudsavis.dk";//"http://web-1540031923.eu-west-1.elb.amazonaws.com"; // Todo: etilbudsavis.dk
         public Dictionary<string, string> accepts;
 
         /// <summary>
@@ -129,6 +131,7 @@ namespace eta.sdk
         /// <param name="result">The async result, internally generated.</param>
         private static void RequestOpen(IAsyncResult result)
         {
+            //System.Resources.
             ApiState state = (ApiState)result.AsyncState;
 
             Stream ostream = null;
@@ -185,6 +188,7 @@ namespace eta.sdk
             state.response_body = Encoding.UTF8.GetString(buffer, 0, length);
 
             state.success(state);
+            var hello = EtaSDK.Properties.Resources.Hello;
         }
         
         /// <summary>
@@ -199,7 +203,7 @@ namespace eta.sdk
 
             param.Add(new KeyValuePair<string, string>("api_key", this.apiKey));
             param.Add(new KeyValuePair<string, string>("api_uuid", this.uuid));
-            param.Add(new KeyValuePair<string, string>("api_timestamp", Eta.GetTimestamp(DateTime.Now)));
+            param.Add(new KeyValuePair<string, string>("api_timestamp", UNIXTime.GetTimestamp(DateTime.Now)));
 
             foreach (KeyValuePair<string, string> kvp in data)
             {
@@ -230,31 +234,14 @@ namespace eta.sdk
             {
                 values += this.apiSecret;
 
-                data += "checksum=" + MD5Core.GetHashString(values);
+                data += "api_checksum=" + MD5Core.GetHashString(values);
             }
 
             return data;
         }
 
 
-        /// <summary>
-        /// Gets the UNIX timestamp of a datetime object.
-        /// </summary>
-        /// <param name="time"></param>
-        /// <returns></returns>
-        public static string GetTimestamp(DateTime time)
-        {
-            DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-            int seconds = (int)time.Subtract(epoch).TotalSeconds;
-            return seconds.ToString();
-        }
-
-        public static DateTime GetDateTime(string timestamp)
-        {
-            DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-            int seconds = Convert.ToInt32(timestamp);
-            return epoch.AddSeconds(seconds);
-        }
+       
         
         /* DEPRECATED */
         private string GetParam(List<KeyValuePair<string, string>> param, string key)

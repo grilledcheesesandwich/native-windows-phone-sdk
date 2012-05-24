@@ -1,0 +1,11 @@
+﻿<xapCache source="C:\Git\eTilbudsavis\native-windows-phone-sdk\EtaSampleApp\Bin\Debug\EtaSampleApp.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="24-05-2012 13:37:58">
+  <file source="C:\Git\eTilbudsavis\native-windows-phone-sdk\EtaSampleApp\Bin\Debug\WMAppManifest.xml" archivePath="WMAppManifest.xml" lastWriteTime="24-05-2012 08:25:43" />
+  <file source="C:\Git\eTilbudsavis\native-windows-phone-sdk\EtaSampleApp\Background.png" archivePath="Background.png" lastWriteTime="24-05-2012 08:25:38" />
+  <file source="C:\Git\eTilbudsavis\native-windows-phone-sdk\EtaSampleApp\ApplicationIcon.png" archivePath="ApplicationIcon.png" lastWriteTime="24-05-2012 08:25:38" />
+  <file source="C:\Git\eTilbudsavis\native-windows-phone-sdk\EtaSampleApp\obj\Debug\EtaSampleApp.dll" archivePath="EtaSampleApp.dll" lastWriteTime="24-05-2012 13:37:58" />
+  <file source="C:\Git\eTilbudsavis\native-windows-phone-sdk\EtaSDK\Bin\Debug\EtaSDK.dll" archivePath="EtaSDK.dll" lastWriteTime="24-05-2012 13:37:58" />
+  <file source="c:\Program Files (x86)\Microsoft SDKs\Windows Phone\v7.1\Libraries\Silverlight\Microsoft.Phone.Controls.dll" archivePath="Microsoft.Phone.Controls.dll" lastWriteTime="19-03-2012 15:29:06" />
+  <file source="C:\Program Files (x86)\Microsoft SDKs\Silverlight\v4.0\Libraries\Client\System.Json.dll" archivePath="System.Json.dll" lastWriteTime="09-03-2011 23:08:16" />
+  <file source="C:\Git\eTilbudsavis\native-windows-phone-sdk\EtaSampleApp\SplashScreenImage.jpg" archivePath="SplashScreenImage.jpg" lastWriteTime="24-05-2012 08:25:38" />
+  <file source="C:\Git\eTilbudsavis\native-windows-phone-sdk\EtaSampleApp\Bin\Debug\AppManifest.xaml" archivePath="AppManifest.xaml" lastWriteTime="24-05-2012 12:59:32" />
+</xapCache>
