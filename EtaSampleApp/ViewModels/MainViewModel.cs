@@ -16,6 +16,7 @@ using eta.sdk;
 using EtaSDK;
 using EtaSDK.Utils;
 using System.Json;
+using EtaSDK.Models;
 
 
 namespace EtaSampleApp
@@ -25,12 +26,15 @@ namespace EtaSampleApp
         public MainViewModel()
         {
             this.Items = new ObservableCollection<ItemViewModel>();
+            this.Catalogs = new ObservableCollection<Catalog>();
         }
 
         /// <summary>
         /// A collection for ItemViewModel objects.
         /// </summary>
         public ObservableCollection<ItemViewModel> Items { get; private set; }
+        public ObservableCollection<Catalog> Catalogs { get; private set; }
+
 
         private string _sampleProperty = "Sample Runtime Property Value";
         /// <summary>
@@ -84,9 +88,29 @@ namespace EtaSampleApp
 
 
 
-            LoadEtaData();
+            //LoadEtaData();
 
             this.IsDataLoaded = true;
+
+            LoadEtaCatalogList();
+        }
+
+        private void LoadEtaCatalogList()
+        {
+            var api = new EtaSDKv2();
+            api.GetCatalogList(null, catalogs =>
+            {
+                Deployment.Current.Dispatcher.BeginInvoke(() => { 
+                    foreach (var catalog in catalogs)
+                    {
+                        this.Catalogs.Add(catalog);
+                        
+                    }
+                });
+
+            }, error => {
+                var msg = error.Message;
+            });
         }
 
         private void LoadEtaData()
@@ -113,7 +137,7 @@ namespace EtaSampleApp
 
             //});
 
-            ApiResourceOptions options2 = new ApiResourceOptions();
+            EtaApiQueryStringParameterOptions options2 = new EtaApiQueryStringParameterOptions();
             options2.AddParm(EtaApiConstants.EtaApi_Latitude, "55.77012");
             options2.AddParm(EtaApiConstants.EtaApi_Longitude, "12.46320");
             options2.AddParm(EtaApiConstants.EtaApi_LocationDetermined, UNIXTime.GetTimestamp(DateTime.Now));
@@ -122,31 +146,33 @@ namespace EtaSampleApp
             options2.AddParm(EtaApiConstants.EtaApi_Ditance, "10000");
             
             var api2 = new EtaSDK.EtaSDKv2();
-            api2.GetCatalogList(options2, result =>
-            {
-                var catalogs = result;
-                var dealerId = catalogs[0].Dealer.Id;
-                DealerTest(dealerId);
-            }, error => {
-                var msg = error.Message;
-            });
+            // done
+            //api2.GetCatalogList(options2, result =>
+            //{
+            //    var catalogs = result;
+            //    var dealerId = catalogs[0].Dealer.Id;
+            //    StoreTest(dealerId);
+            //}, error => {
+            //    var msg = error.Message;
+            //});
 
-            api2.GetStoreList(options2, result =>
-            {
-                var stores = result;
-            }, error =>
-            {
-                var msg = error.Message;
-            });
+            // done
+            //api2.GetStoreList(options2, result =>
+            //{
+            //    var stores = result;
+            //}, error =>
+            //{
+            //    var msg = error.Message;
+            //});
 
             // Offer
-            api2.GetOfferList(null, result =>
-            {
-                var res = result;
-            }, error =>
-            {
-                var msg = error.Message;
-            });
+            //api2.GetOfferList(null, result =>
+            //{
+            //    var res = result;
+            //}, error =>
+            //{
+            //    var msg = error.Message;
+            //});
 
             api2.GetOfferPopularSearches(result =>
             {
@@ -156,21 +182,23 @@ namespace EtaSampleApp
                 var msg = error.Message;
             });
 
-            api2.GetOfferSearch(null,"kaffe", result =>
-            {
-                var res = result;
-            }, error =>
-            {
-                var msg = error.Message;
-            });
+            //api2.GetOfferSearch(null,"kaffe", result =>
+            //{
+            //    var res = result;
+            //}, error =>
+            //{
+            //    var msg = error.Message;
+            //});
         }
 
-        private void DealerTest(string dealerId)
+        private void StoreTest(string dealerId)
         {
-            ApiResourceOptions options = new ApiResourceOptions();
-            options.AddParm("dealer", dealerId);
+
+            EtaApiQueryStringParameterOptions options = new EtaApiQueryStringParameterOptions();
+            options.AddParm("store", dealerId);
 
             var api2 = new EtaSDK.EtaSDKv2();
+            // done
             api2.GetStoreInfo(options, result =>
             {
                 var store = result;

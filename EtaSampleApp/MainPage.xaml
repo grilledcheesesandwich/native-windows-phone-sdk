@@ -1,5 +1,4 @@
-﻿<phone:PhoneApplicationPage 
-    x:Class="EtaSampleApp.MainPage"
+﻿<phone:PhoneApplicationPage
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -7,6 +6,8 @@
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:EtaSDK_Models="clr-namespace:EtaSDK.Models;assembly=EtaSDK" 
+    x:Class="EtaSampleApp.MainPage" 
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768" 
     d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -20,24 +21,25 @@
         <!--Pivot Control-->
         <controls:Pivot Title="MY APPLICATION">
             <!--Pivot item one-->
-            <controls:PivotItem Header="first">
+            <controls:PivotItem Header="Catalogs">
                 <!--Double line list with text wrapping-->
-                <ListBox x:Name="FirstListBox" Margin="0,0,-12,0" ItemsSource="{Binding Items}">
+                <ListBox x:Name="CatalogsListBox" Margin="0,0,-12,0" ItemsSource="{Binding Catalogs}" SelectionChanged="CatalogsListBox_SelectionChanged">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                          <StackPanel Margin="0,0,0,17" Width="432" Height="78">
-                              <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                              <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                          </StackPanel>
+                          <StackPanel Margin="0,0,0,17" Width="432" Height="120">
+                              <TextBlock Text="{Binding Dealer.Name}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                              <TextBlock Text="{Binding PageCount}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                <Image Source="{Binding Branding.Logo}" Width="50" Height="50"/>
+                            </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
             </controls:PivotItem>
  
             <!--Pivot item two-->
-            <controls:PivotItem Header="second"> 
+            <controls:PivotItem Header="Secound"> 
                 <!--Triple line list no text wrapping-->
-                    <ListBox x:Name="SecondListBox" Margin="0,0,-12,0" ItemsSource="{Binding Items}">
+                <ListBox x:Name="SecondListBox" Margin="0,0,-12,0" ItemsSource="{Binding Catalogs}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Margin="0,0,0,17">

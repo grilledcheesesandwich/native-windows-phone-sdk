@@ -25,9 +25,10 @@ namespace EtaSDK.Utils
         public const string EtaApi_Geocoded = "api_geocoded";
         public const string EtaApi_Accuracy = "api_accuracy";
         public const string EtaApi_Ditance = "api_distance";
-        
+    }
 
-      
+    public enum EtaParamOptions
+    {
 
     }
 }

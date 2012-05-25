@@ -22,99 +22,13 @@ using EtaSDK.Models;
 
 namespace EtaSDK
 {
-    public class ApiResourceOptions
-    {
-        readonly DateTime Epoch = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-        public Dictionary<string, string> queryStringParams = new Dictionary<string,string>();
-        public string responseType = "json";
-        public string webMethod = "GET";
-        public string contentType = "application/x-www-form-urlencoded";
-
-        public ApiResourceOptions()
-        {
-            queryStringParams.Add(EtaApiConstants.EtaApi_ApiKey, Resources.Eta_API_Key);
-            queryStringParams.Add(EtaApiConstants.EtaApi_Uuid, Uuid);
-            queryStringParams.Add(EtaApiConstants.EtaApi_Timestamp, GetTimestamp(DateTime.Now));
-        }
-
-        public void AddParm(string key, string value)
-        {
-            if (queryStringParams.ContainsKey(key))
-            {
-                queryStringParams[key] = value;
-            }
-            else
-            {
-                this.queryStringParams.Add(key, value);
-            }
-        }
-
-        public string GetTimestamp(DateTime time)
-        {
-            int seconds = (int)time.Subtract(Epoch).TotalSeconds;
-            return seconds.ToString();
-        }
-        private string _Uuid = null; 
-        public string Uuid { 
-            get{
-                if (_Uuid == null)
-                {
-                    _Uuid = UuidHelper.GetUuid();
-                }
-                return _Uuid;
-            } 
-        }
-
-        
-
-        public DateTime GetDateTime(string timestamp)
-        {
-            int seconds = Convert.ToInt32(timestamp);
-            return Epoch.AddSeconds(seconds);
-        }
-
-        public string AsQueryString()
-        {
-            StringBuilder sb = new StringBuilder("?");
-            StringBuilder checkSumValues = new StringBuilder();            
-            foreach (var param in queryStringParams)
-            {
-                sb.Append(param.Key);
-                sb.Append("=");
-                sb.Append(param.Value);
-                sb.Append("&");
-                checkSumValues.Append(param.Value);
-            }
-
-            sb = sb.Remove(sb.Length-1,1);
-
-            if (Resources.Eta_API_Secret != "")
-            {
-                checkSumValues.Append(Resources.Eta_API_Secret);
-
-                sb.Append("&");
-                sb.Append(EtaApiConstants.EtaApi_Checksum);
-                sb.Append("=");
-                sb.Append(MD5Core.GetHashString(checkSumValues.ToString()));
-            }
-
-            return sb.ToString();
-        }
-    }
-
-
     public class EtaSDKv2
     {
-        public EtaSDKv2()
-        {
-
-        }
-
-        public void GetCatalogList(ApiResourceOptions options, Action<List<Catalog>> callback, Action<Exception> error)
+        public void GetCatalogList(EtaApiQueryStringParameterOptions options, Action<List<Catalog>> callback, Action<Exception> error)
         {
             if (options == null)
             {
-                options = new ApiResourceOptions();
+                options = new EtaApiQueryStringParameterOptions();
                 options.AddParm(EtaApiConstants.EtaApi_Latitude, "55.77012");
                 options.AddParm(EtaApiConstants.EtaApi_Longitude, "12.46320");
                 options.AddParm(EtaApiConstants.EtaApi_LocationDetermined, UNIXTime.GetTimestamp(DateTime.Now));
@@ -123,8 +37,9 @@ namespace EtaSDK
                 options.AddParm(EtaApiConstants.EtaApi_Ditance, "10000");
             }
 
-            ApiRaw("/api/v1/catalog/list/", options, onresult =>
+            ApiRaw("/api/v1/catalog/list/", options, _onresult =>
             {
+                string onresult = _onresult;
                 var json = JsonValue.Parse(onresult);
 
                 List<Catalog> catalogs = new List<Catalog>();
@@ -141,17 +56,40 @@ namespace EtaSDK
             });
         }
 
-        public void GetStoreInfo(ApiResourceOptions options, Action<string> callback, Action<Exception> error)
+        public void GetCatalogInfo(string catalogId, Action<Catalog> callback, Action<Exception> error)
+        {
+            var options = new EtaApiQueryStringParameterOptions();
+            options.AddParm("catalog", catalogId);
+
+            ApiRaw("/api/v1/catalog/info/", options, _onresult =>
+            {
+                string onresult = _onresult;
+                var json = JsonValue.Parse(onresult);
+                var catalog = Catalog.FromJson(json);
+                callback(catalog);
+                
+            }, (onerror, uri) =>
+            {
+                error (onerror);
+            });
+        }
+
+        public void GetStoreInfo(EtaApiQueryStringParameterOptions options, Action<Store> callback, Action<Exception> error)
         {
             if (options == null)
             {
-                options = new ApiResourceOptions();
+                options = new EtaApiQueryStringParameterOptions();
+                options.AddParm("store", "0a63T");
             }
 
             ApiRaw("/api/v1/store/info/", options, onresult =>
             {
                 var json = JsonValue.Parse(onresult);
-                callback(onresult);
+                if(json.ContainsKey("data")){
+                    var store = Store.FromJson(json["data"],isRoot : true);
+                    callback(store);
+                }
+                callback(null);
 
             }, (onerror, uri) =>
             {
@@ -159,16 +97,17 @@ namespace EtaSDK
             });
         }
 
-        public void GetStoreList(ApiResourceOptions options, Action<List<Store>> callback, Action<Exception> error)
+        public void GetStoreList(EtaApiQueryStringParameterOptions options, Action<List<Store>> callback, Action<Exception> error)
         {
             if (options == null)
             {
-                options = new ApiResourceOptions();
+                options = new EtaApiQueryStringParameterOptions();
                 options.AddParm("type", "all");
             }
 
-            ApiRaw("/api/v1/store/list/", options, onresult =>
+            ApiRaw("/api/v1/store/list/", options, _onresult =>
             {
+                string onresult = _onresult;
                 var json = JsonValue.Parse(onresult);
                 List<Store> stores = new List<Store>();
                 foreach (var item in json["data"] as JsonArray)
@@ -185,11 +124,11 @@ namespace EtaSDK
             });
         }
 
-        public void GetOfferInfo(ApiResourceOptions options, Action<string> callback, Action<Exception> error)
+        public void GetOfferInfo(EtaApiQueryStringParameterOptions options, Action<string> callback, Action<Exception> error)
         {
             if (options == null)
             {
-                options = new ApiResourceOptions();
+                options = new EtaApiQueryStringParameterOptions();
                 options.AddParm("type", "all");
             }
 
@@ -205,16 +144,20 @@ namespace EtaSDK
             });
         }
 
-        public void GetOfferList(ApiResourceOptions options, Action<string> callback, Action<Exception> error)
+        public void GetOfferList(EtaApiQueryStringParameterOptions options, Action<string> callback, Action<Exception> error)
         {
             if (options == null)
             {
-                options = new ApiResourceOptions();
-                options.AddParm("type", "all");
+                options = new EtaApiQueryStringParameterOptions();
+                //options.AddParm("type", "all");
+                //options.AddParm("from",Utils.UNIXTime.GetTimestamp(DateTime.Now));
+                //options.AddParm("to", Utils.UNIXTime.GetTimestamp(DateTime.Now.AddDays(14)));
+
             }
 
-            ApiRaw("/api/v1/offer/list/", options, onresult =>
+            ApiRaw("/api/v1/offer/list/", options, _onresult =>
             {
+                string onresult = _onresult;
                 var json = JsonValue.Parse(onresult);
 
                 callback(onresult);
@@ -225,11 +168,11 @@ namespace EtaSDK
             });
         }
 
-        public void GetOfferSearch(ApiResourceOptions options, string query, Action<string> callback, Action<Exception> error)
+        public void GetOfferSearch(EtaApiQueryStringParameterOptions options, string query, Action<string> callback, Action<Exception> error)
         {
             if (options == null)
             {
-                options = new ApiResourceOptions();
+                options = new EtaApiQueryStringParameterOptions();
                 options.AddParm("q", query);
             }
 
@@ -247,9 +190,7 @@ namespace EtaSDK
 
         public void GetOfferPopularSearches(Action<string> callback, Action<Exception> error)
         {
-           
-            var options = new ApiResourceOptions();
-            
+            var options = new EtaApiQueryStringParameterOptions();
 
             ApiRaw("/api/v1/offer/search/list/", options, onresult =>
             {
@@ -264,7 +205,7 @@ namespace EtaSDK
         }
 
 
-        public void ApiRaw(string resourceUri,ApiResourceOptions options, Action<string> callback, Action<Exception, Uri> error)
+        public void ApiRaw(string resourceUri,EtaApiQueryStringParameterOptions options, Action<string> callback, Action<Exception, Uri> error)
         {
             var requestUri = new Uri(new Uri(Resources.Eta_BaseUri), resourceUri + options.AsQueryString());
 
@@ -282,9 +223,18 @@ namespace EtaSDK
                     }
                     return result;
                 })
-                .Subscribe(next => {
-                    callback(next);
-                    Debug.WriteLine("request rescived");
+                .Subscribe(result => {
+                    string next = result;
+                    if (string.IsNullOrWhiteSpace(next))
+                    {
+                        error(new ArgumentNullException("result from server is null or empty"), request.RequestUri);
+                        Debug.WriteLine("request rescived with errors");
+                    }
+                    else
+                    {
+                        callback(next);
+                        Debug.WriteLine("request rescived");
+                    }
                 },err => {
                     error(err, request.RequestUri);
                     Debug.WriteLine("request failed, uri: " + request.RequestUri.ToString());

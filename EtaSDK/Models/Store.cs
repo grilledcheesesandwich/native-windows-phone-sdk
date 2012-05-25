@@ -46,7 +46,7 @@ namespace EtaSDK.Models
 
                 store.City = jsonStore["city"];
                 store.Dealer = Dealer.FromJson(jsonStore);
-                store.Distance = jsonStore["distance"].ToString();
+                store.Distance = jsonStore.ContainsKey("distance") && jsonStore["distance"] != null ? jsonStore["distance"].ToString() : "null";
                 store.Id = jsonStore["id"];
                 store.Latitude = jsonStore["latitude"].ToString();
                 store.Longitude = jsonStore["longitude"].ToString();

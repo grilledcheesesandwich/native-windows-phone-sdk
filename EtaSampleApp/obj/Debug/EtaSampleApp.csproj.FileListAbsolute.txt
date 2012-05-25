@@ -26,3 +26,4 @@ C:\Git\eTilbudsavis\native-windows-phone-sdk\EtaSampleApp\Bin\Debug\ko\System.Js
 C:\Git\eTilbudsavis\native-windows-phone-sdk\EtaSampleApp\Bin\Debug\ru\System.Json.resources.dll
 C:\Git\eTilbudsavis\native-windows-phone-sdk\EtaSampleApp\Bin\Debug\zh-Hans\System.Json.resources.dll
 C:\Git\eTilbudsavis\native-windows-phone-sdk\EtaSampleApp\Bin\Debug\zh-Hant\System.Json.resources.dll
+C:\git\eTilbudsavis\native-windows-phone-sdk\EtaSampleApp\obj\Debug\Pages\CatalogDetails.g.i.cs

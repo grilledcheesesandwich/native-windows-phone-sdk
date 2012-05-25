@@ -58,6 +58,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EtaApiQueryStringParameterOptions.cs" />
     <Compile Include="EtaException.cs" />
     <Compile Include="EtaSDK.cs" />
     <Compile Include="EtaApiOptions.cs" />

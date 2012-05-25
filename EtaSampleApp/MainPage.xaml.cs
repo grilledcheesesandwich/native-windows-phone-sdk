@@ -33,5 +33,14 @@ namespace EtaSampleApp
                 App.ViewModel.LoadData();
             }
         }
+
+        private void CatalogsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var catalog = (sender as ListBox).SelectedItem as EtaSDK.Models.Catalog;
+            if (catalog != null)
+            {
+                NavigationService.Navigate(new Uri("/Pages/CatalogDetails.xaml?catalogId=" + catalog.Id, UriKind.Relative));
+            }
+        }
     }
 }
