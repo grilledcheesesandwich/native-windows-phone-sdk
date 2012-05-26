@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010 Express for Windows Phone
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EtaSDK", "EtaSDK\EtaSDK.csproj", "{5C21228C-3BB7-45A4-B5C4-F074CA622B0B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EtaSampleApp", "EtaSampleApp\EtaSampleApp.csproj", "{77C411BA-AD43-4793-958B-54C40215B63B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EtaSDK.Test", "EtaSDK.Test\EtaSDK.Test.csproj", "{1C7EA729-14A0-4F75-8973-D83F5D208536}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,12 @@ Global
 		{77C411BA-AD43-4793-958B-54C40215B63B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77C411BA-AD43-4793-958B-54C40215B63B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{77C411BA-AD43-4793-958B-54C40215B63B}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{1C7EA729-14A0-4F75-8973-D83F5D208536}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C7EA729-14A0-4F75-8973-D83F5D208536}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C7EA729-14A0-4F75-8973-D83F5D208536}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{1C7EA729-14A0-4F75-8973-D83F5D208536}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C7EA729-14A0-4F75-8973-D83F5D208536}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C7EA729-14A0-4F75-8973-D83F5D208536}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -85,11 +85,15 @@ namespace EtaSDK
             ApiRaw("/api/v1/store/info/", options, onresult =>
             {
                 var json = JsonValue.Parse(onresult);
-                if(json.ContainsKey("data")){
-                    var store = Store.FromJson(json["data"],isRoot : true);
+                if (json.ContainsKey("data"))
+                {
+                    var store = Store.FromJson(json["data"], isRoot: true);
                     callback(store);
                 }
-                callback(null);
+                else
+                {
+                    callback(null);
+                }
 
             }, (onerror, uri) =>
             {
@@ -102,6 +106,12 @@ namespace EtaSDK
             if (options == null)
             {
                 options = new EtaApiQueryStringParameterOptions();
+                options.AddParm(EtaApiConstants.EtaApi_Latitude, "55.77012");
+                options.AddParm(EtaApiConstants.EtaApi_Longitude, "12.46320");
+                options.AddParm(EtaApiConstants.EtaApi_LocationDetermined, UNIXTime.GetTimestamp(DateTime.Now));
+                options.AddParm(EtaApiConstants.EtaApi_Geocoded, "0");
+                options.AddParm(EtaApiConstants.EtaApi_Accuracy, "0");
+                options.AddParm(EtaApiConstants.EtaApi_Ditance, "10000");
                 options.AddParm("type", "all");
             }
 
@@ -149,7 +159,8 @@ namespace EtaSDK
             if (options == null)
             {
                 options = new EtaApiQueryStringParameterOptions();
-                //options.AddParm("type", "all");
+                options.AddParm("type", "all");
+                //options.AddData("api_distance", Slider.Distance().ToString());
                 //options.AddParm("from",Utils.UNIXTime.GetTimestamp(DateTime.Now));
                 //options.AddParm("to", Utils.UNIXTime.GetTimestamp(DateTime.Now.AddDays(14)));
 
@@ -215,8 +226,20 @@ namespace EtaSDK
             
             Observable.FromAsyncPattern<WebResponse>(request.BeginGetResponse, request.EndGetResponse)()
                 .ObserveOn(Scheduler.ThreadPool)
-                .Select(response => response.GetResponseStream())
+                .Select(response => {
+                    if (response == null)
+                    {
+                        return null;
+                    }
+                    else { 
+                        return response.GetResponseStream(); 
+                    }
+                })
                 .Select(stream => {
+                    if (stream == null)
+                    {
+                        return null; ;
+                    }
                     string result;
                     using(var reader = new StreamReader(stream)){
                         result = reader.ReadToEnd();
@@ -227,7 +250,7 @@ namespace EtaSDK
                     string next = result;
                     if (string.IsNullOrWhiteSpace(next))
                     {
-                        error(new ArgumentNullException("result from server is null or empty"), request.RequestUri);
+                        error(new ArgumentNullException("result from server is null, empty or with errors"), request.RequestUri);
                         Debug.WriteLine("request rescived with errors");
                     }
                     else
