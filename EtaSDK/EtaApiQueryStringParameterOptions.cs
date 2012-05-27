@@ -10,7 +10,7 @@ namespace EtaSDK
     {
         readonly DateTime Epoch = new DateTime(1970, 1, 1, 0, 0, 0, 0);
         public Dictionary<string, string> queryStringParams = new Dictionary<string, string>();
-        public string responseType = "json";
+        public string responseType = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";//"application/json";// text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
         public string webMethod = "GET";
         public string contentType = "application/x-www-form-urlencoded";
 

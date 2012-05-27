@@ -46,7 +46,7 @@ namespace EtaSDK.Test.Tests.EtaSDKv2Tests
 
                     if (catalog.Store == null || catalog.Store.Id == null)
                     {
-                        TestCompleteWithErrorsUISafe( "Catalog.Store == null");
+                        TestCompleteWithErrorsUISafe("Catalog.Store == null");
                     }
 
                     if (catalog.Store.Country == null || catalog.Store.Country.Id == null)
@@ -73,5 +73,29 @@ namespace EtaSDK.Test.Tests.EtaSDKv2Tests
                 TestCompleteWithErrorsUISafe(msg);
             });
         }
+
+        //[Ignore]
+        [TestMethod, Asynchronous]
+        public void GetCatalogInfo_test()
+        {
+            string id = "2905aO"; // matas catalog id ?!
+            var api = new EtaSDKv2();
+            api.GetCatalogInfo(id, catalog =>
+            {
+                if (catalog != null && string.IsNullOrWhiteSpace( catalog.Id))
+                {
+                    TestCompleteWithErrorsUISafe("catalog is null or empty");
+                }
+                else
+                {
+                    TestCompleteUISafe();
+                }
+
+            }, error =>
+            {
+                TestCompleteWithErrorsUISafe(error.Message);
+            });
+        }
+
     }
 }

@@ -160,9 +160,15 @@ namespace EtaSDK
             {
                 options = new EtaApiQueryStringParameterOptions();
                 options.AddParm("type", "all");
-                //options.AddData("api_distance", Slider.Distance().ToString());
-                //options.AddParm("from",Utils.UNIXTime.GetTimestamp(DateTime.Now));
-                //options.AddParm("to", Utils.UNIXTime.GetTimestamp(DateTime.Now.AddDays(14)));
+                options.AddParm("from",Utils.UNIXTime.GetTimestamp(DateTime.Now));
+                options.AddParm("to", Utils.UNIXTime.GetTimestamp(DateTime.Now.AddDays(14)));
+
+                options.AddParm(EtaApiConstants.EtaApi_Latitude, "55.77012");
+                options.AddParm(EtaApiConstants.EtaApi_Longitude, "12.46320");
+                options.AddParm(EtaApiConstants.EtaApi_LocationDetermined, UNIXTime.GetTimestamp(DateTime.Now));
+                options.AddParm(EtaApiConstants.EtaApi_Geocoded, "0");
+                options.AddParm(EtaApiConstants.EtaApi_Accuracy, "0");
+                options.AddParm(EtaApiConstants.EtaApi_Ditance, "10000");
 
             }
 
@@ -215,9 +221,22 @@ namespace EtaSDK
             });
         }
 
+        private void TESTURI(string uri)
+        {
+            WebClient c = new WebClient();
+            c.DownloadStringAsync(new Uri(uri));
+            c.DownloadStringCompleted += new DownloadStringCompletedEventHandler(c_DownloadStringCompleted);
+        }
+
+        void c_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
+        {
+            var res = e.Result;
+        }
 
         public void ApiRaw(string resourceUri,EtaApiQueryStringParameterOptions options, Action<string> callback, Action<Exception, Uri> error)
         {
+         //   TESTURI("https://staging.etilbudsavis.dk/api/v1/catalog/info/?api_key=c2a0bb532723548de341506555749d8f&api_uuid=2ba8af5c97984a8495093da3f19e958b&api_timestamp=1338125722&catalog=2905aO&api_checksum=27303F1635DC4713268BC7698486178E");
+
             var requestUri = new Uri(new Uri(Resources.Eta_BaseUri), resourceUri + options.AsQueryString());
 
             var request = HttpWebRequest.CreateHttp( requestUri );
@@ -259,7 +278,8 @@ namespace EtaSDK
                         Debug.WriteLine("request rescived");
                     }
                 },err => {
-                    error(err, request.RequestUri);
+                    var exception = err is WebException ? err as WebException : err;
+                    error(exception, request.RequestUri);
                     Debug.WriteLine("request failed, uri: " + request.RequestUri.ToString());
 
                 }, () => {
