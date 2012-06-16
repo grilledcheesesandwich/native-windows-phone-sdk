@@ -14,12 +14,12 @@ namespace EtaSDK.ApiModels
 {
     public class Country
     {
-        //public string Id { get; set; }
-        //public string Code { get; set; }
-        //public string Name { get; set; }
+        public string Id { get; set; }
+        public string Code { get; set; }
+        public string Name { get; set; }
         public string Alpha2 { get; set; }
-
-        public Name Name { get; set; }
+        
+        //public Name Name { get; set; }
 
         public static Country FromJson(JsonValue item)
         {
@@ -27,11 +27,11 @@ namespace EtaSDK.ApiModels
             {
                 Country country = new Country();
                 var json = item["country"];
-                country.Alpha2 = json["alpha2"];
-                country.Name = Name.FromJson(json);
-                //country.Code = json.ContainsKey("code") ? json["code"] : null;
-                //country.sId = item["country"]["id"].ToString();
-                //country.Name = item["country"]["name"];
+                country.Name = json.ContainsKey("name") ? json["name"].ToString() : null;
+                country.Code = json.ContainsKey("code") ? json["code"] : null;
+                country.Id = json.ContainsKey("id") ? json["id"].ToString() : null;
+                country.Alpha2 = json.ContainsKey("alpha2") ? json["alpha2"].ToString() : null;
+
                 return country;
 
             }

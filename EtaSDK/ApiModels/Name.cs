@@ -12,6 +12,7 @@ using System.Json;
 
 namespace EtaSDK.ApiModels
 {
+    [Obsolete("is not used any more", true)]
     public class Name
     {
         public string Local { get; set; }
