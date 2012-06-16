@@ -91,7 +91,7 @@ namespace EtaSampleApp.Pages
         void source_ItemNeeded(object sender, LoopingListDataItemEventArgs e)
         {
         }
-        int lastSelectedIndex = -1;
+        //int lastSelectedIndex = -1;
         private void CatalogListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (sender == null)

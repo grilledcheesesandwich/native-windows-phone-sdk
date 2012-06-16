@@ -121,8 +121,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <None Include="EtaSampleApp_2012_06_07_19_22_33.sap" />
-    <None Include="EtaSampleApp_2012_06_07_19_32_12.sap" />
     <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml">
