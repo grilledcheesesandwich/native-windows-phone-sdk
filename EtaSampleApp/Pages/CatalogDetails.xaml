@@ -6,6 +6,9 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"    
+    xmlns:telerikPrimitivesSlideView="clr-namespace:Telerik.Windows.Controls.SlideView;assembly=Telerik.Windows.Controls.Primitives"
+    
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -21,25 +24,23 @@
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,12,12">
             <TextBlock x:Name="ApplicationTitle" Text="MY APPLICATION" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock x:Name="PageTitle" Text="page name" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-
-            <ListBox x:Name="CatalogListBox" Margin="0,0,-12,0" ItemsSource="{Binding Catalog}" SelectionChanged="CatalogListBox_SelectionChanged">
-                <ListBox.ItemTemplate>
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,12">
+            <ListBox x:Name="slideView" Style="{StaticResource CatalogPagesListBox}" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemsSource="{Binding Pages}" DataContext="{Binding}" SelectionChanged="CatalogListBox_SelectionChanged" />
+            <!--<telerikPrimitives:RadSlideView x:Name="slideView" Margin="-14,0,-14,0" ItemsSource="{Binding Pages}" IsLoopingEnabled="False">
+                <telerikPrimitives:RadSlideView.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Margin="0,0,0,17" Width="432" Height="120">
-                            <TextBlock Text="{Binding Dealer.Name}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                            <TextBlock Text="{Binding PageCount}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                            <Image Source="{Binding Branding.Logo}" Width="50" Height="50"/>
-                        </StackPanel>
+                        <telerikPrimitivesSlideView:PanAndZoomImage ZoomMode="Free" Source="{Binding PageUri}"/>
+                        <Image Width="400" Source="{Binding PageUri}" Stretch="Uniform" Margin="2"/>
+
                     </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+                </telerikPrimitives:RadSlideView.ItemTemplate>
+            </telerikPrimitives:RadSlideView>-->
+            <telerikPrimitivesSlideView:PanAndZoomImage Margin="0" x:Name="zoomImage" Visibility="Collapsed" Source="{Binding ZoomImagePath, Converter={StaticResource IsoFileToBitmapImageConverter}}" ZoomMode="Free"  />
 
         </Grid>
     </Grid>

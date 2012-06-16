@@ -15,18 +15,36 @@ using System.Collections.ObjectModel;
 using eta.sdk;
 using EtaSDK;
 using EtaSDK.Utils;
-using System.Json;
-using EtaSDK.Models;
+using EtaSDK.ApiModels;
+using System.Linq.Expressions;
+using System.Windows.Threading;
 
 
 namespace EtaSampleApp
 {
+    public static class ReflectionUtility
+    {
+        public static string GetPropertyName<T>(Expression<Func<T>> expression)
+        {
+            MemberExpression body = (MemberExpression)expression.Body;
+            return body.Member.Name;
+        }
+    } 
+
     public class MainViewModel : INotifyPropertyChanged
     {
+        internal void NotifyPropertyChanged(object value)
+        {
+            var name = ReflectionUtility.GetPropertyName(() => value);
+            NotifyPropertyChanged(name);
+        }
+
         public MainViewModel()
         {
             this.Items = new ObservableCollection<ItemViewModel>();
             this.Catalogs = new ObservableCollection<Catalog>();
+
+            NotifyPropertyChanged(Catalogs);
         }
 
         /// <summary>
@@ -104,7 +122,6 @@ namespace EtaSampleApp
                     foreach (var catalog in catalogs)
                     {
                         this.Catalogs.Add(catalog);
-                        
                     }
                 });
 

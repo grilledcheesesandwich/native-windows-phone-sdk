@@ -19,7 +19,12 @@ namespace EtaSDK.Test.Tests.EtaSDKv2Tests
     [TestClass]
     public class EtaCatalogTests : SilverlightTestEx
     {
-
+        /*
+         * Minimum requirements, to implement and pass the following API calls:
+             /catalog/list/
+             /catalog/stats/collect/ (til pageflip)
+         */
+        
         //[TestMethod, Asynchronous]
         //public void Test_LoadCatalogList()
         //{
@@ -49,7 +54,7 @@ namespace EtaSDK.Test.Tests.EtaSDKv2Tests
                         TestCompleteWithErrorsUISafe("Catalog.Store == null");
                     }
 
-                    if (catalog.Store.Country == null || catalog.Store.Country.Id == null)
+                    if (catalog.Store.Country == null || catalog.Store.Country.Alpha2 == null)
                     {
                         TestCompleteWithErrorsUISafe("Catalog.Store.Country == null");
                     }
@@ -78,9 +83,10 @@ namespace EtaSDK.Test.Tests.EtaSDKv2Tests
         [TestMethod, Asynchronous]
         public void GetCatalogInfo_test()
         {
-            string id = "2905aO"; // matas catalog id ?!
+            string id = "1a94vO"; // Irma catalog id ?!
+            string publicKey = "1a94vO"; // Irma publickey ?!
             var api = new EtaSDKv2();
-            api.GetCatalogInfo(id, catalog =>
+            api.GetCatalogInfo(id,publicKey, catalog =>
             {
                 if (catalog != null && string.IsNullOrWhiteSpace( catalog.Id))
                 {

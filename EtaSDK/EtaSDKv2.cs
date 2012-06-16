@@ -18,10 +18,20 @@ using System.IO;
 using System.Diagnostics;
 using EtaSDK.Utils;
 using System.Json;
-using EtaSDK.Models;
+using EtaSDK.ApiModels;
 
 namespace EtaSDK
 {
+    /// <summary>
+    /// Must impelment:
+    /// /catalog/list/
+    /// /catalog/stats/collect/ (til pageflip)
+    /// /offer/list/
+    /// /offer/search/
+    /// /offer/info/
+    /// /store/list/
+    /// /store/info/
+    /// </summary>
     public class EtaSDKv2
     {
         public void GetCatalogList(EtaApiQueryStringParameterOptions options, Action<List<Catalog>> callback, Action<Exception> error)
@@ -48,7 +58,7 @@ namespace EtaSDK
                     var catalog = Catalog.FromJson(item);
                     catalogs.Add(catalog);
                 }
-                callback(catalogs);
+                    callback(catalogs);
                 
             }, (onerror, uri) =>
             {
@@ -56,7 +66,7 @@ namespace EtaSDK
             });
         }
 
-        public void GetCatalogInfo(string catalogId, Action<Catalog> callback, Action<Exception> error)
+        public void GetCatalogInfo(string catalogId, string publicKey, Action<Catalog> callback, Action<Exception> error)
         {
             var options = new EtaApiQueryStringParameterOptions();
             options.AddParm("catalog", catalogId);
@@ -274,6 +284,11 @@ namespace EtaSDK
                     }
                     else
                     {
+                        if (next.StartsWith("<textarea>"))
+                        {
+                            next = next.Remove(0, 10);
+                            next = next.Remove(next.Length - 11, 11);
+                        }
                         callback(next);
                         Debug.WriteLine("request rescived");
                     }

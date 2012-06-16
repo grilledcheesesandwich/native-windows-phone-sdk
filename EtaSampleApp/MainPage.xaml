@@ -23,6 +23,8 @@
             <!--Pivot item one-->
             <controls:PivotItem Header="Catalogs">
                 <!--Double line list with text wrapping-->
+                <StackPanel>
+                    <Button x:Name="btn1" Content="click" Click="btn1_Click" />
                 <ListBox x:Name="CatalogsListBox" Margin="0,0,-12,0" ItemsSource="{Binding Catalogs}" SelectionChanged="CatalogsListBox_SelectionChanged">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -34,6 +36,7 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
+                </StackPanel>
             </controls:PivotItem>
  
             <!--Pivot item two-->

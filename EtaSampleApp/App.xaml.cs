@@ -12,11 +12,14 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Esmann.WP.Common.MemoryDiagnostics;
+using System.Windows.Threading;
 
 namespace EtaSampleApp
 {
     public partial class App : Application
     {
+        
         private static MainViewModel viewModel = null;
 
         /// <summary>
@@ -46,6 +49,7 @@ namespace EtaSampleApp
         /// </summary>
         public App()
         {
+
             // Global handler for uncaught exceptions. 
             UnhandledException += Application_UnhandledException;
 
@@ -55,9 +59,17 @@ namespace EtaSampleApp
             // Phone-specific initialization
             InitializePhoneApplication();
 
+            // Display memory usage counters
+            MemoryDiagnosticsHelper.Start(TimeSpan.FromMilliseconds(100), true);
+
+            SmartDispatcher.Initialize();
+
             // Show graphics profiling information while debugging.
             if (System.Diagnostics.Debugger.IsAttached)
             {
+                //// Display memory usage counters
+                //MemoryDiagnosticsHelper.Start(TimeSpan.FromMilliseconds(100), true);
+
                 // Display the current frame rate counters
                 Application.Current.Host.Settings.EnableFrameRateCounter = true;
 
@@ -75,7 +87,7 @@ namespace EtaSampleApp
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
         }
-
+       
         // Code to execute when the application is launching (eg, from Start)
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
@@ -86,6 +98,7 @@ namespace EtaSampleApp
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
+            
             // Ensure that application state is restored appropriately
             if (!App.ViewModel.IsDataLoaded)
             {

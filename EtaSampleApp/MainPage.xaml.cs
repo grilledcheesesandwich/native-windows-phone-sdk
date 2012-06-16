@@ -34,13 +34,27 @@ namespace EtaSampleApp
             }
         }
 
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            CatalogsListBox.SelectedIndex = -1;
+        }
+
         private void CatalogsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var catalog = (sender as ListBox).SelectedItem as EtaSDK.Models.Catalog;
+            var catalog = (sender as ListBox).SelectedItem as EtaSDK.ApiModels.Catalog;
             if (catalog != null)
             {
-                NavigationService.Navigate(new Uri("/Pages/CatalogDetails.xaml?catalogId=" + catalog.Id, UriKind.Relative));
+                string uri = String.Format("/Pages/CatalogDetails.xaml?catalogId={0}&pageCount={1}", catalog.Id, catalog.PageCount);
+                NavigationService.Navigate(new Uri(uri, UriKind.Relative));
             }
+        }
+
+        private void btn1_Click(object sender, RoutedEventArgs e)
+        {
+            string uri = String.Format("/Pages/CatalogDetails.xaml");
+            NavigationService.Navigate(new Uri(uri, UriKind.Relative));
+
         }
     }
 }

@@ -21,6 +21,7 @@
     </Capabilities>
     <Tasks>
       <DefaultTask  Name ="_default" NavigationPage="MainPage.xaml"/>
+      <!--<DefaultTask  Name ="_default" NavigationPage="/Pages/CatalogDetails.xaml"/>-->
     </Tasks>
     <Tokens>
       <PrimaryToken TokenID="EtaSampleAppToken" TaskName="_default">

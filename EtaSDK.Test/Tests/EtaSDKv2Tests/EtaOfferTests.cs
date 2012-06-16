@@ -16,7 +16,7 @@ using EtaSDK.Utils;
 
 namespace EtaSDK.Test.Tests.EtaSDKv2Tests
 {
-    [Ignore]
+    //[Ignore]
     [Tag("Offer API")]
     [TestClass]
     public class EtaOfferTests : SilverlightTestEx
@@ -44,6 +44,25 @@ namespace EtaSDK.Test.Tests.EtaSDKv2Tests
             {
                 TestCompleteWithErrorsUISafe(error.Message);
 
+            });
+
+        }
+
+        [TestMethod, Asynchronous]
+        public void GetOfferSearch_test()
+        {
+            var api = new EtaSDKv2();
+            api.GetOfferSearch(null, "kaffe", offers =>
+            {
+                if (string.IsNullOrWhiteSpace(offers))
+                {
+                    TestCompleteWithErrorsUISafe("Offer Search result is null or Empty");
+                }
+                TestCompleteUISafe();
+
+            }, error =>
+            {
+                TestCompleteWithErrorsUISafe(error.Message);
             });
 
         }
