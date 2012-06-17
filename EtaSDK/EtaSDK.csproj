@@ -74,7 +74,7 @@
     <Compile Include="ApiModels\Dealer.cs" />
     <Compile Include="ApiModels\Images.cs" />
     <Compile Include="ApiModels\Store.cs" />
-    <Compile Include="ApiModels\Week.cs" />
+    <Compile Include="ApiModels\Weeks.cs" />
     <Compile Include="Utils\CatalogPageHelper.cs" />
     <Compile Include="Utils\MD5.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -92,6 +92,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Esmann.WP.Common\Esmann.WP.Common.csproj">
+      <Project>{CD71F393-2797-4B23-8B25-B56F0F8F1E46}</Project>
+      <Name>Esmann.WP.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />

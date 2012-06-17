@@ -69,6 +69,8 @@
     <Compile Include="Diagnostics\MemoryDiagnosticsHelper.cs" />
     <Compile Include="IsolatedStorage\ImageHelper.cs" />
     <Compile Include="IsolatedStorage\IsoStorageHelper.cs" />
+    <Compile Include="Json\JsonHelper.cs" />
+    <Compile Include="Json\JsonName.cs" />
     <Compile Include="Networking\IsolatedStorageCacheHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProptertyChangedBase.cs" />

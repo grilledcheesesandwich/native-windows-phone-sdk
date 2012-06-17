@@ -6,7 +6,7 @@
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:EtaSDK_Models="clr-namespace:EtaSDK.Models;assembly=EtaSDK" 
+    xmlns:EtaSDK_Models="clr-namespace:EtaSDK.ApiModels;assembly=EtaSDK" 
     x:Class="EtaSampleApp.MainPage" 
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768" 
     d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
@@ -25,10 +25,10 @@
                 <!--Double line list with text wrapping-->
                 <StackPanel>
                     <Button x:Name="btn1" Content="click" Click="btn1_Click" />
-                <ListBox x:Name="CatalogsListBox" Margin="0,0,-12,0" ItemsSource="{Binding Catalogs}" SelectionChanged="CatalogsListBox_SelectionChanged">
+                <ListBox x:Name="CatalogsListBox" Margin="12" Height="500"  ItemsSource="{Binding Catalogs}" SelectionChanged="CatalogsListBox_SelectionChanged">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                          <StackPanel Margin="0,0,0,17" Width="432" Height="120">
+                          <StackPanel Margin="0,0,0,17" Width="432">
                               <TextBlock Text="{Binding Dealer.Name}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
                               <TextBlock Text="{Binding PageCount}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
                                 <Image Source="{Binding Branding.Logo}" Width="50" Height="50"/>

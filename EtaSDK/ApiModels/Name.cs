@@ -1,28 +1,19 @@
 ﻿using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using System.Json;
 
 namespace EtaSDK.ApiModels
 {
     [Obsolete("is not used any more", true)]
-    public class Name
+    public class _Name
     {
         public string Local { get; set; }
         public string International { get; set; }
 
-        public static Name FromJson(JsonValue item)
+        public static _Name FromJson(JsonValue item)
         {
             if (item.ContainsKey("name"))
             {
-                Name name = new Name();
+                _Name name = new _Name();
                 var json = item["name"];
                 name.Local = json["local"];
                 name.International = json["international"];

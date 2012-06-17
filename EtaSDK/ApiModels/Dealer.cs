@@ -1,14 +1,5 @@
-﻿using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using System.Json;
+﻿using System.Json;
+using Esmann.WP.Common.Json;
 
 namespace EtaSDK.ApiModels
 {
@@ -27,11 +18,12 @@ namespace EtaSDK.ApiModels
             if (item.ContainsKey("dealer"))
             {
                 Dealer dealer = new Dealer();
-                dealer.Branding = Branding.FromJson(item["dealer"]);
-                dealer.Id = item["dealer"]["id"];
-                dealer.Name = item["dealer"]["name"];
-                dealer.Url = item["dealer"].ContainsKey("url") && item["dealer"]["url"] != null ? item["dealer"]["url"].ToString() : "null";
-                dealer.Website = item["dealer"]["website"];
+                var json = item.GetJsonValue(() => dealer);
+                dealer.Branding = Branding.FromJson(json);
+                dealer.Id = json.GetJsonValue(() => dealer.Id);
+                dealer.Name = json.GetJsonValue(() => dealer.Name);
+                dealer.Url = json.GetJsonValue(() => dealer.Url);
+                dealer.Website = json.GetJsonValue(() => dealer.Website);
                 return dealer;
             }
             

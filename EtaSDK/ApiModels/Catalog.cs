@@ -1,14 +1,5 @@
-﻿using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using System.Json;
+﻿using System.Json;
+using Esmann.WP.Common.Json;
 
 namespace EtaSDK.ApiModels
 {
@@ -19,11 +10,12 @@ namespace EtaSDK.ApiModels
         public string Promoted { get; set; }
         public string SelectStores { get; set; }
         public string RunFrom { get; set; }
+        [JsonName("runTill")]
         public string RunTill { get; set; }
         public string Expires { get; set; }
         public string PageCount { get; set; }
         
-        public Week Week { get; set; }
+        public Weeks Week { get; set; }
         public Dealer Dealer { get; set; }
         public Store Store { get; set; }
         public Branding Branding { get; set; }
@@ -32,30 +24,30 @@ namespace EtaSDK.ApiModels
 
         public string _RawJsonString{get;set;}
 
-        public static Catalog FromJson(JsonValue item)
+        public static Catalog FromJson(JsonValue json)
         {
-            if(item != null){
+            if(json != null){
                 var catalog = new Catalog();
-                catalog._RawJsonString = item.ToString();
+                catalog._RawJsonString = json.ToString();
 
-                catalog.Id = item["id"];
-                catalog.PageCount = item["pageCount"].ToString();
-                catalog.Promoted = item.ContainsKey("promoted") && item["promoted"] != null ? item["promoted"].ToString() : "null";
-                catalog.Expires = item["expires"].ToString();
-                
-                catalog.PublicKey = item["publicKey"];
-                catalog.RunFrom = item["runFrom"].ToString();
-                catalog.RunTill = item["runTill"].ToString();
-                catalog.SelectStores = item["selectStores"].ToString();
+                catalog.Id = json.GetJsonValue(()=>catalog.Id);
+                catalog.PageCount = json.GetJsonValue(() => catalog.PageCount);
+                catalog.Promoted = json.GetJsonValue(() => catalog.Promoted);
+                catalog.Expires = json.GetJsonValue(() => catalog.Expires);
 
-                catalog.Week = Week.FromJson(item);
+                catalog.PublicKey = json.GetJsonValue(() => catalog.PublicKey);
+                catalog.RunFrom = json.GetJsonValue(() => catalog.RunFrom);
+                catalog.RunTill = json.GetJsonValue(() => catalog.RunTill);
+                catalog.SelectStores = json.GetJsonValue(() => catalog.SelectStores);
 
-                catalog.Branding = Branding.FromJson(item);
+                catalog.Week = Weeks.FromJson(json);
 
-                catalog.Dealer = Dealer.FromJson(item);
-                catalog.Store = Store.FromJson(item);
+                catalog.Branding = Branding.FromJson(json);
 
-                catalog.Images = Images.FromJson(item);
+                catalog.Dealer = Dealer.FromJson(json);
+                catalog.Store = Store.FromJson(json);
+
+                catalog.Images = Images.FromJson(json);
 
                 return catalog;
             }

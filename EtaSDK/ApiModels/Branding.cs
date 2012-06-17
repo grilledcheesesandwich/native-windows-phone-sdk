@@ -1,14 +1,5 @@
-﻿using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using System.Json;
+﻿using System.Json;
+using Esmann.WP.Common.Json;
 
 namespace EtaSDK.ApiModels
 {
@@ -22,8 +13,9 @@ namespace EtaSDK.ApiModels
             if (item.ContainsKey("branding"))
             {
                 Branding branding = new Branding();
-                branding.Color = item["branding"]["color"].ToString();
-                branding.Logo = item["branding"]["logo"];
+                var json = item.GetJsonValue(() => branding);
+                branding.Color = json.GetJsonValue(() => branding.Color);
+                branding.Logo = json.GetJsonValue(() => branding.Logo);
                 return branding;
 
             }

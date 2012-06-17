@@ -1,14 +1,6 @@
-﻿using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using System.Json;
+﻿using System.Json;
+using Esmann.WP.Common.Json;
+
 
 namespace EtaSDK.ApiModels
 {
@@ -23,12 +15,12 @@ namespace EtaSDK.ApiModels
             if (item.ContainsKey("images"))
             {
                 Images images = new Images();
-                images.Thumb = item["images"]["thumb"];
-                images.View = item["images"]["view"];
-                images.Zoom = item["images"]["zoom"];
+                var json = item.GetJsonValue(() => images);
+                images.Thumb = json.GetJsonValue(() => images.Thumb);
+                images.View = json.GetJsonValue(() => images.View);
+                images.Zoom = json.GetJsonValue(() => images.Zoom);
                 return images;
             }
-
             return null;
         }
     }

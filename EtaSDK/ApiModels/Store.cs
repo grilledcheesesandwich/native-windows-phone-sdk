@@ -1,14 +1,5 @@
-﻿using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using System.Json;
+﻿using System.Json;
+using Esmann.WP.Common.Json;
 
 namespace EtaSDK.ApiModels
 {
@@ -39,20 +30,20 @@ namespace EtaSDK.ApiModels
 
             if (item.ContainsKey("store") || isRoot)
             {
-                var jsonStore = isRoot ? item : item["store"]; 
-
                 Store store = new Store();
-                store._RawJsonString = jsonStore.ToString();
+                var json = isRoot ? item : item.GetJsonValue(()=>store); 
 
-                store.City = jsonStore["city"];
-                store.Dealer = Dealer.FromJson(jsonStore);
-                store.Distance = jsonStore.ContainsKey("distance") && jsonStore["distance"] != null ? jsonStore["distance"].ToString() : "null";
-                store.Id = jsonStore["id"];
-                store.Latitude = jsonStore["latitude"].ToString();
-                store.Longitude = jsonStore["longitude"].ToString();
-                store.Street = jsonStore["street"];
-                store.Zipcode = jsonStore["zipcode"].ToString();
-                store.Country = Country.FromJson(jsonStore);
+                store._RawJsonString = json.ToString();
+
+                store.City = json.GetJsonValue(() => store.City); 
+                store.Dealer = Dealer.FromJson(json);
+                store.Distance = json.GetJsonValue(() => store.Distance);
+                store.Id = json.GetJsonValue(() => store.Id);
+                store.Latitude = json.GetJsonValue(() => store.Latitude);
+                store.Longitude = json.GetJsonValue(() => store.Longitude);
+                store.Street = json.GetJsonValue(() => store.Street);
+                store.Zipcode = json.GetJsonValue(() => store.Zipcode); 
+                store.Country = Country.FromJson(json);
                 return store;
             }
 
