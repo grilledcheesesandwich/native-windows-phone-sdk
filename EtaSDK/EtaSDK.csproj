@@ -67,7 +67,6 @@
     <Compile Include="EtaSDK.cs" />
     <Compile Include="EtaApiOptions.cs" />
     <Compile Include="EtaSDKv2.cs" />
-    <Compile Include="EtaSDKv3.cs" />
     <Compile Include="ApiModels\Branding.cs" />
     <Compile Include="ApiModels\Catalog.cs" />
     <Compile Include="ApiModels\Country.cs" />

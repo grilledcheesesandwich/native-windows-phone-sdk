@@ -18,7 +18,7 @@
                 <DataTemplate>
                     <Grid Background="Red" Margin="17,17,17,17">
                         <!--<TextBlock FontSize="100" Text="{Binding Id}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" />-->
-                        <Image Visibility="{Binding IsSelected,Converter={StaticResource BoolToVisibilityN},Mode=TwoWay}" Width="460" Source="{Binding PageUri, Converter={StaticResource IsoFileToBitmapImageConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        <Image Visibility="{Binding IsSelected,Converter={StaticResource BoolToVisibilityN},Mode=TwoWay}" Width="460" Source="{Binding ViewUri, Converter={StaticResource IsoFileToBitmapImageConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" />
                         
                         <!--<telerikPrimitivesSlideView:PanAndZoomImage Height="400" Width="300" Visibility="{Binding ZoomVisibility}" ZoomMode="Free" Source="{Binding ZoomPageUri,Mode=TwoWay, Converter={StaticResource IsoFileToBitmapImageConverter}}"/>-->
                         <!--<telerikPrimitivesSlideView:PanAndZoomImage Visibility="{Binding IsSelected,Converter={StaticResource BoolToVisibility},Mode=TwoWay}"  Width="460" ZoomMode="Free" Source="{Binding PageUri, Converter={StaticResource IsoFileToBitmapImageConverter}}" />-->
@@ -35,6 +35,15 @@
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled" />
 
+    </Style>
+
+
+    <Style x:Key="EtaMainPageGrid" TargetType="Grid">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush ImageSource="/Images/win.png" />
+            </Setter.Value>
+        </Setter>
     </Style>
     
 </ResourceDictionary>
