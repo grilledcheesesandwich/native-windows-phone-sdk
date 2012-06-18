@@ -15,11 +15,11 @@
     		<RowDefinition Height="200"/>
     		<RowDefinition/>
     	</Grid.RowDefinitions>
-    	<Rectangle Fill="Black" Stroke="Black" Opacity="0.7"/>
+    	<Rectangle Fill="Black" Stroke="Black" Opacity="0.4"/>
         
     	<Rectangle Fill="Black" Stroke="Black" Grid.Row="1"/>
         
-    	<Rectangle Fill="Black" Stroke="Black" Opacity="0.7" Grid.Row="2"/>
+    	<Rectangle Fill="Black" Stroke="Black" Opacity="0.4" Grid.Row="2"/>
         
     	<Grid x:Name="content" Height="200" Width="480" VerticalAlignment="Center" HorizontalAlignment="Center" Background="Black" Grid.Row="1">
     		<Grid.RowDefinitions>
