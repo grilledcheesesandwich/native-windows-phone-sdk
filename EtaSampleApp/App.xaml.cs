@@ -117,6 +117,7 @@ namespace EtaSampleApp
         private void Application_Closing(object sender, ClosingEventArgs e)
         {
             // Ensure that required application state is persisted here.
+            EtaSDK.Utils.EtaCatalogStorageHelper.ResetStorage();
         }
 
         // Code to execute if a navigation fails
