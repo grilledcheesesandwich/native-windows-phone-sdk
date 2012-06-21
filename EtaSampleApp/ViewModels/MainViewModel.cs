@@ -28,17 +28,79 @@ namespace EtaSampleApp
         public MainViewModel()
         {
             this.Catalogs = new ObservableCollection<Catalog>();
+            this.OffersSearch = new ObservableCollection<Offer>();
         }
 
         /// <summary>
         /// A collection for ItemViewModel objects.
         /// </summary>
         public ObservableCollection<Catalog> Catalogs { get; private set; }
+        public ObservableCollection<Offer> OffersSearch { get; private set; }
         
         public bool IsDataLoaded
         {
             get;
             private set;
+        }
+
+        private string offerSearchQueryText = "kaffe";
+        public string OfferSearchQueryText
+        {
+            get
+            {
+                return offerSearchQueryText;
+            }
+            set
+            {
+                if (value != offerSearchQueryText)
+                {
+                    offerSearchQueryText = value;
+                    this.NotifyPropertyChanged(() => OfferSearchQueryText);
+                }
+            }
+        }
+
+        private Offer selectedOffer;
+        public Offer SelectedOffer
+        {
+            get
+            {
+                return selectedOffer;
+            }
+            set
+            {
+                if (value != selectedOffer)
+                {
+                    selectedOffer = value;
+                    this.NotifyPropertyChanged(() => SelectedOffer);
+                }
+            }
+        }
+
+        public void LoadOfferSearchResult(string q){
+            if (string.IsNullOrWhiteSpace(q))
+            {
+                return;
+            }
+            OffersSearch.Clear();            
+            var api = new EtaSDKv2();
+            api.GetOfferSearch(null, 
+                q, 
+                result => {
+                    if (result != null)
+                    {
+                        Deployment.Current.Dispatcher.BeginInvoke(() => { 
+                            foreach (var item in result)
+                            {
+                                OffersSearch.Add(item);
+                            }
+                        });
+                    }
+                },
+                error =>
+                {
+                    MessageBox.Show("Ups! Kunne ikke gennemfører søgning");
+                });
         }
 
         /// <summary>
@@ -62,9 +124,12 @@ namespace EtaSampleApp
                     }
                 });
 
-            }, error => {
+            }, (error,uri) => {
                 var msg = error.Message;
                 Deployment.Current.Dispatcher.BeginInvoke(() => {
+#if DEBUG
+                    MessageBox.Show(msg + "\n"+uri, "Exception", MessageBoxButton.OK);           
+#endif
                     IsDataLoaded = false;
                 });
             });

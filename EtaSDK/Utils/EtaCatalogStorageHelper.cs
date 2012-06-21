@@ -8,15 +8,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using System.Threading.Tasks;
 
-namespace EtaSDK
+namespace EtaSDK.Utils
 {
-    public class EtaSDKv3
+    public class EtaCatalogStorageHelper
     {
-        private async Task<string> GetWebpage()
+        public static void ResetStorage()
         {
-            return await new WebClient().DownloadStringTaskAsync(new Uri("http://www.bing.com"));
+            IsoStorageHelper iso = new IsoStorageHelper();
+            iso.DeleteDiretory(EtaSDK.Properties.Resources.CatalogBaseIsoFolder);
         }
     }
 }

@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using EtaSDK.ApiModels;
 
 namespace EtaSampleApp.Views
 {
@@ -29,6 +30,7 @@ namespace EtaSampleApp.Views
             }
             base.OnNavigatedTo(e);
             CatalogsListBox.SelectedIndex = -1;
+            searchListBox.SelectedIndex = -1;
         }
 
         private void LocationUserControl_Click(object sender, RoutedEventArgs e)
@@ -62,6 +64,41 @@ namespace EtaSampleApp.Views
                 string uri = String.Format("/Views/CatalogBrowsingView.xaml?catalogId={0}", catalog.Id);
                 NavigationService.Navigate(new Uri(uri, UriKind.Relative));
             }
+        }
+
+        private void searchListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender == null)
+            {
+                return;
+            }
+            var listbox = sender as ListBox;
+            if (listbox == null)
+            {
+                return;
+            }
+            if (listbox.SelectedIndex == -1)
+            {
+                return;
+            }
+
+            if (listbox.SelectedItem == null)
+            {
+                return;
+            }
+            var offer = listbox.SelectedItem as Offer;
+            if (offer == null)
+            {
+                return;
+            }
+            App.ViewModel.SelectedOffer = offer;
+            NavigationService.Navigate(new Uri("/Views/OfferView.xaml?offerId=" + offer.Id,UriKind.Relative));
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            searchListBox.SelectedIndex = -1;
+            App.ViewModel.LoadOfferSearchResult(App.ViewModel.OfferSearchQueryText);
         }
     }
 }

@@ -38,6 +38,7 @@ namespace EtaSDK
             int seconds = (int)time.Subtract(Epoch).TotalSeconds;
             return seconds.ToString();
         }
+        
         private string _Uuid = null;
         public string Uuid
         {

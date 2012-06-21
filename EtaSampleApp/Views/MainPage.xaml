@@ -24,7 +24,38 @@
 
             <!--Panorama item one-->
             <controls:PanoramaItem Header="søg">
-                <Grid/>
+                <Grid Height="400">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" Grid.Row="0" Text="{Binding OfferSearchQueryText, Mode=TwoWay}" />
+                    <Button Grid.Column="1" Grid.Row="0" Content="Search..." Click="Button_Click" />
+
+                    <ListBox Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="0" x:Name="searchListBox" Margin="12" Height="450"  ItemsSource="{Binding OffersSearch}" SelectionChanged="searchListBox_SelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,0,0,17" Width="432">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="60"/>
+                                        <RowDefinition Height="25"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Price}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Heading}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                    <Image Grid.Row="0" Grid.Column="0" Source="{Binding Dealer.Branding.Logo}" Width="50" Height="50"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
             </controls:PanoramaItem>
 
             <!--Panorama item two-->

@@ -61,12 +61,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiModels\CatalogIndex.cs" />
     <Compile Include="ApiModels\Name.cs" />
+    <Compile Include="ApiModels\Offer.cs" />
+    <Compile Include="ApiModels\Timespan.cs" />
+    <Compile Include="EtaSDKv2.offer.cs" />
+    <Compile Include="EtaSDKv2.store.cs" />
+    <Compile Include="EtaSDKv2.catalog.cs" />
     <Compile Include="EtaApiQueryStringParameterOptions.cs" />
     <Compile Include="EtaException.cs" />
     <Compile Include="EtaSDK.cs" />
     <Compile Include="EtaApiOptions.cs" />
-    <Compile Include="EtaSDKv2.cs" />
+    <Compile Include="EtaSDKv2.raw.cs" />
     <Compile Include="ApiModels\Branding.cs" />
     <Compile Include="ApiModels\Catalog.cs" />
     <Compile Include="ApiModels\Country.cs" />
@@ -74,7 +80,9 @@
     <Compile Include="ApiModels\Images.cs" />
     <Compile Include="ApiModels\Store.cs" />
     <Compile Include="ApiModels\Weeks.cs" />
+    <Compile Include="EtaSDKv3.cs" />
     <Compile Include="Utils\CatalogPageHelper.cs" />
+    <Compile Include="Utils\EtaCatalogStorageHelper.cs" />
     <Compile Include="Utils\MD5.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -88,7 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>

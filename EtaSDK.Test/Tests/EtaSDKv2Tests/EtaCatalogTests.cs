@@ -15,6 +15,7 @@ using EtaSDK.Test.Tests.Common;
 
 namespace EtaSDK.Test.Tests.EtaSDKv2Tests
 {
+    [Ignore]
     [Tag("Catalog API")]
     [TestClass]
     public class EtaCatalogTests : SilverlightTestEx
@@ -72,7 +73,7 @@ namespace EtaSDK.Test.Tests.EtaSDKv2Tests
 
                 TestCompleteUISafe();
 
-            }, error =>
+            }, (error, uri) =>
             {
                 var msg = error.Message;
                 TestCompleteWithErrorsUISafe(msg);

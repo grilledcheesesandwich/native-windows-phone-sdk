@@ -30,12 +30,42 @@ namespace EtaSampleApp.Views
             {
                 id = NavigationContext.QueryString["catalogId"];
             }
+            
             model = new CatalogBrowsingViewModel(id);
             this.DataContext = model;
             model.LoadData();
+            int startPage = 0;
+            if (NavigationContext.QueryString.ContainsKey("GoToPage"))
+            {
+                if (int.TryParse(NavigationContext.QueryString["GoToPage"], out startPage))
+                {
+                    int catalogPages = 0;
+                    if (int.TryParse(model.Catalog.PageCount, out catalogPages))
+                    {
+                        if (startPage > catalogPages)
+                        {
+                            startPage = 0;
+                        }
+                    }
+                }
+            }
             base.OnNavigatedTo(e);
             catalogSlideView.SelectedIndex = -1;
+            ScrollToPage(startPage);
         }
+
+        private void ScrollToPage(int startPage)
+        {
+            startPage = startPage - 1;
+            if (startPage > 0)
+            {
+                catalogSlideView.UpdateLayout();
+                catalogSlideView.ScrollIntoView(model.Pages[startPage]);
+                catalogSlideView.UpdateLayout();
+            }
+        }
+
+
 
         private void catalogSlideView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

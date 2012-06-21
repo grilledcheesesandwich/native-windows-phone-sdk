@@ -16,6 +16,7 @@ using EtaSDK.Utils;
 
 namespace EtaSDK.Test.Tests.EtaSDKv2Tests
 {
+    [Ignore]
     [Tag("Store API")]
     [TestClass]
     public class EtaStoreTests : SilverlightTestEx

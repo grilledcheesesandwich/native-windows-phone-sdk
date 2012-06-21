@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CatalogBaseIsoFolder" xml:space="preserve">
+    <value>/Catalogs</value>
+  </data>
   <data name="Eta_API_Key" xml:space="preserve">
     <value>c2a0bb532723548de341506555749d8f</value>
   </data>
@@ -124,9 +127,18 @@
     <value>80366342196ea27b14632a5b4e764b9d</value>
   </data>
   <data name="Eta_BaseUri" xml:space="preserve">
-    <value>https://staging.etilbudsavis.dk</value>
+    <value>https://etilbudsavis.dk</value>
   </data>
   <data name="Hello" xml:space="preserve">
     <value>World</value>
+  </data>
+  <data name="LoadingCatalogPageImageThumb" xml:space="preserve">
+    <value>/Images/bg.png</value>
+  </data>
+  <data name="LoadingCatalogPageImageView" xml:space="preserve">
+    <value>/Images/bg.png</value>
+  </data>
+  <data name="LoadingCatalogPageImageZoom" xml:space="preserve">
+    <value>/Images/bg.png</value>
   </data>
 </root>

@@ -201,9 +201,15 @@ namespace Esmann.WP.Common.Virtualizing
             throw new NotImplementedException();
         }
 
+        public virtual int ConvertObjectToIndexOf(object value)
+        {
+            return 0;
+        }
+        
+
         public int IndexOf(object value)
         {
-            throw new NotImplementedException();
+            return ConvertObjectToIndexOf(value);
         }
 
         public void Insert(int index, object value)

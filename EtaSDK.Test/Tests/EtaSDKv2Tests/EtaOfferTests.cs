@@ -13,6 +13,7 @@ using Microsoft.Silverlight.Testing;
 using WindowsPhoneEssentials.Testing.Threading;
 using EtaSDK.Test.Tests.Common;
 using EtaSDK.Utils;
+using EtaSDK.ApiModels;
 
 namespace EtaSDK.Test.Tests.EtaSDKv2Tests
 {
@@ -28,7 +29,7 @@ namespace EtaSDK.Test.Tests.EtaSDKv2Tests
         //    TestCompleteWithErrorsUISafe("msg"); // witnh erros!
         //    TestCompleteUISafe(); // success
         //}
-
+        [Ignore]
         [TestMethod, Asynchronous]
         public void GetOfferList_test()
         {
@@ -54,7 +55,7 @@ namespace EtaSDK.Test.Tests.EtaSDKv2Tests
             var api = new EtaSDKv2();
             api.GetOfferSearch(null, "kaffe", offers =>
             {
-                if (string.IsNullOrWhiteSpace(offers))
+                if (offers == null || offers.Count == 0)
                 {
                     TestCompleteWithErrorsUISafe("Offer Search result is null or Empty");
                 }
