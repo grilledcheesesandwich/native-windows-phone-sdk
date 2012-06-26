@@ -13,6 +13,7 @@ using Esmann.WP.Common.AppSettings;
 using System.ComponentModel;
 using BingServices;
 using Esmann.WP.Common.Location;
+using System.Threading.Tasks;
 
 namespace EtaSampleApp.ViewModels
 {
@@ -20,37 +21,24 @@ namespace EtaSampleApp.ViewModels
     {
         const string SettingsKeyName = "UserViewModel";
 
-        [Obsolete("Use GetUserViewModel", true)]
+        #region Statics
+        #endregion
+
+        #region Properties
+
+        #endregion
+
+
+
+        //[Obsolete("Use GetUserViewModel", true)]
         public UserViewModel()
         {
-
+            Location = new Location();
         }
 
         private UserViewModel(object dummy)
         {
 
-        }
-
-        private static UserViewModel instance;
-        public static UserViewModel GetUserViewModel
-        {
-            get
-            {
-                if (Application.Current.RootVisual != null && DesignerProperties.GetIsInDesignMode(Application.Current.RootVisual))
-                {
-                    return new UserViewModel(null);
-                }
-
-                if (instance == null)
-                {
-                    instance = Load();
-                }
-                if (instance.AllowGPS)
-                {
-                    instance.UpdateLocationInformationGPS();
-                }
-                return instance;
-            }
         }
 
         private static UserViewModel Load()
@@ -59,19 +47,18 @@ namespace EtaSampleApp.ViewModels
             return settings.GetValueOrNew<UserViewModel>(SettingsKeyName);
         }
 
-        public static bool Save()
+        public bool Save()
         {
-            
-            if (instance != null)
-            {
-                if (instance.firstTimeApplicationRuns)
+            //if (instance != null)
+            //{
+                if (FirstTimeApplicationRuns)
                 {
-                    instance.firstTimeApplicationRuns = false;
+                    FirstTimeApplicationRuns = false;
                 }
                 var settings = new AppSettingsHelper();
-                return settings.SetValue(SettingsKeyName, instance);
-            }
-            return false;
+                return settings.SetValue(SettingsKeyName, this);
+            //}
+            //return false;
         }
 
         bool isUpdateingLocation = false;
@@ -87,82 +74,139 @@ namespace EtaSampleApp.ViewModels
                 }
             }
         }
-        public void UpdateLocationInformationGPS(){
-            if (!IsUpdateingLocation)
-            {
-                IsUpdateingLocation = true;
-                UpdateLocationInformationGPSInternal();
-            }
-        }
-        private async void UpdateLocationInformationGPSInternal()
+        //public void UpdateLocationInformationGPS(){
+        //    if (!IsUpdateingLocation)
+        //    {
+        //        IsUpdateingLocation = true;
+        //        UpdateLocationInformationGPSInternal();
+        //    }
+        //}
+        public async Task<UserViewModel> LoadModelAsync()
         {
-            var gps = new GPSHelper();
-            var result = await gps.GetPositionAsync();
-            if (result != null)
+            var userModel = await GetUserViewModelFromISOAsync();
+            if (userModel != null)
             {
-                Location =
-                    new Location()
-                    {
-                        IsGeoCoded = true,
-                        IsValid = true,
-                        Latitude = result.Latitude,
-                        Longitude = result.Longitude,
-                        Timestamp = DateTime.Now.Ticks
-                    };
-                var locationAPI = new LocationsAPIHelper();
-                var address = await locationAPI.GeoCoordinateToZipCodeAsync(result.Latitude, result.Longitude);
-                int zipCode = 0;
+                this.AllowGPS = userModel.AllowGPS;
+                this.Distance = userModel.Distance;
+                this.FirstTimeApplicationRuns = userModel.FirstTimeApplicationRuns;
+                this.Location = userModel.Location;
+            }
 
-                if (!string.IsNullOrWhiteSpace(address) && int.TryParse(address, out zipCode))
+            var tcs = new TaskCompletionSource<UserViewModel>();
+            Location location = null;
+            if (FirstTimeApplicationRuns)
+            {
+                FirstTimeApplicationRuns = false;
+            }
+
+            if (AllowGPS)
+            {
+                location = await GetLocationFromGPSAsync();
+            }
+            else
+            {
+                if (userModel != null && userModel.Location != null)
                 {
-                    ZipCode = zipCode;
+                    location = await GetLocationFromPostalCodeAsync(userModel.Location.ZipCode.ToString());
                 }
                 else
                 {
-                    ZipCode = 0;
-                    MessageBox.Show("Kunne ikke matche din lokation med et postnummer.", "Postnummer", MessageBoxButton.OK);
+                    location = await GetLocationFromPostalCodeAsync("2900");
                 }
-                IsUpdateingLocation = false;
             }
+
+            tcs.SetResult(this);
+
+            return await tcs.Task;
         }
 
-        public void UpdateLocationInformationZipCode(string zip)
+        public async Task<UserViewModel> GetUserViewModelFromISOAsync()
         {
-            if (!IsUpdateingLocation)
-            {
-                IsUpdateingLocation = true;
-                UpdateLocationZipCodeInternal(zip);
-            }
+            var tcs = new TaskCompletionSource<UserViewModel>();
+            var settings = new AppSettingsHelper();
+            var model = settings.GetValueOrNew<UserViewModel>(SettingsKeyName);
+            tcs.SetResult(model);
+            return await tcs.Task;
         }
 
-        private async void UpdateLocationZipCodeInternal(string zip)
+        private async Task<Location> GetLocationFromGPSAsync()
         {
-            var location = new BingServices.LocationsAPIHelper();
-            var result = await location.ZipCodeToGeoCoordinateAsync(zip);
-            if (result != null)
+            var tcs = new TaskCompletionSource<Location>();
+            var gps = new GPSHelper();
+            var result = await gps.GetPositionAsync();
+            Location location = null;
+            if (result == null)
             {
-                Location = new ViewModels.Location
+                tcs.SetException(new Exception("Could not get position from GPS"));
+            }
+            location = new Location()
                 {
-                    IsGeoCoded = false,
+                    IsGeoCoded = true,
                     IsValid = true,
                     Latitude = result.Latitude,
                     Longitude = result.Longitude,
                     Timestamp = DateTime.Now.Ticks
                 };
+
+            var locationAPI = new LocationsAPIHelper();
+            var address = await locationAPI.GeoCoordinateToZipCodeAsync(result.Latitude, result.Longitude);
+
+            int zipCode = 0;
+            if (!string.IsNullOrWhiteSpace(address) && int.TryParse(address, out zipCode))
+            {
+                location.ZipCode = zipCode;
             }
             else
             {
-                Location = new ViewModels.Location
-                {
-                    IsGeoCoded = false,
-                    IsValid = false,
-                    Latitude = 0,
-                    Longitude = 0,
-                    Timestamp = DateTime.Now.Ticks
-                };
-                MessageBox.Show("Kunne ikke genkende postnummeret.", "Postnummer", MessageBoxButton.OK);
+                location.ZipCode = 0;
+                MessageBox.Show("Kunne ikke matche din lokation med et postnummer.", "Postnummer", MessageBoxButton.OK);
             }
+            tcs.SetResult(location);
             IsUpdateingLocation = false;
+            return await tcs.Task;
+
+        }
+
+        public async Task<Location> GetLocationFromPostalCodeAsync(string postalCode)
+        {
+            var tcs = new TaskCompletionSource<Location>();
+
+            if (Location != null && Location.ZipCode.ToString() == postalCode)
+            {
+                tcs.SetResult(Location);
+            }
+            else
+            {
+                var location = new BingServices.LocationsAPIHelper();
+                var result = await location.ZipCodeToGeoCoordinateAsync(postalCode);
+                Location locationResult = null;
+                if (result != null)
+                {
+                    locationResult = new Location
+                    {
+                        IsGeoCoded = false,
+                        IsValid = true,
+                        Latitude = result.Latitude,
+                        Longitude = result.Longitude,
+                        Timestamp = DateTime.Now.Ticks
+                    };
+                }
+                else
+                {
+                    Location = new Location
+                    {
+                        IsGeoCoded = false,
+                        IsValid = false,
+                        Latitude = 0,
+                        Longitude = 0,
+                        Timestamp = DateTime.Now.Ticks
+                    };
+                    MessageBox.Show("Kunne ikke genkende postnummeret.", "Postnummer", MessageBoxButton.OK);
+                }
+                tcs.SetResult(locationResult);
+                IsUpdateingLocation = false;
+            }
+            return await tcs.Task;
         }
 
         bool firstTimeApplicationRuns = true;
@@ -193,19 +237,7 @@ namespace EtaSampleApp.ViewModels
             }
         }
 
-        int zipCode = -1;
-        public int ZipCode
-        {
-            get { return zipCode; }
-            set
-            {
-                if (value != zipCode)
-                {
-                    zipCode = value;
-                    NotifyPropertyChanged(() => ZipCode);
-                }
-            }
-        }
+        
 
         int distance = 10000;
         public int Distance
@@ -221,7 +253,7 @@ namespace EtaSampleApp.ViewModels
             }
         }
 
-        Location location = null;
+        Location location = new Location();
         public Location Location
         {
             get { return location; }
@@ -304,6 +336,20 @@ namespace EtaSampleApp.ViewModels
                 {
                     isGeoCoded = value;
                     NotifyPropertyChanged(() => IsGeoCoded);
+                }
+            }
+        }
+        
+        int zipCode = -1;
+        public int ZipCode
+        {
+            get { return zipCode; }
+            set
+            {
+                if (value != zipCode)
+                {
+                    zipCode = value;
+                    NotifyPropertyChanged(() => ZipCode);
                 }
             }
         }

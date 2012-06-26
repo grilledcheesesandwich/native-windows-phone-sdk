@@ -31,6 +31,7 @@ namespace EtaSampleApp.Views
             var offer = App.ViewModel.SelectedOffer;
             if (offer == null)
             {
+                
                 return;
             }
             var catalogId = offer.Catalog.Id;

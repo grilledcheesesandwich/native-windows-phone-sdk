@@ -202,6 +202,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\" />
+    <Folder Include="Providers\" />
     <Folder Include="Themes\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />

@@ -21,6 +21,7 @@ using System.Windows.Threading;
 using esmann.WP.Common.ViewModels;
 using System.Linq;
 using EtaSampleApp.ViewModels;
+using System.Threading.Tasks;
 
 namespace EtaSampleApp
 {
@@ -44,11 +45,16 @@ namespace EtaSampleApp
             private set;
         }
 
-        private UserViewModel userViewModel = UserViewModel.GetUserViewModel;
+        private UserViewModel userViewModel = null;
         public UserViewModel UserViewModel
         {
             get
             {
+                if (userViewModel == null)
+                {
+                    userViewModel = new UserViewModel();
+                    userViewModel.LoadModelAsync();//GetUserViewModel;
+                }
                 return userViewModel;
             }
             set
@@ -100,7 +106,7 @@ namespace EtaSampleApp
             {
                 return;
             }
-            var userModel = App.ViewModel.UserViewModel;
+            var userModel = UserViewModel;// App.ViewModel.UserViewModel;
             var options = new EtaApiQueryStringParameterOptions();
             options.AddParm(EtaApiConstants.EtaApi_Latitude, userModel.Location.Latitude.ToString("0.00000"));
             options.AddParm(EtaApiConstants.EtaApi_Longitude, userModel.Location.Longitude.ToString("0.00000"));
@@ -146,20 +152,32 @@ namespace EtaSampleApp
         /// </summary>
         public void LoadData()
         {
+           
+            
             LoadEtaCatalogList();
             IsDataLoaded = true;
         }
 
         private void LoadEtaCatalogList()
         {
+            var userModel = UserViewModel;
+            var options = new EtaApiQueryStringParameterOptions();
+            options.AddParm(EtaApiConstants.EtaApi_Latitude, userModel.Location.Latitude.ToString("0.00000"));
+            options.AddParm(EtaApiConstants.EtaApi_Longitude, userModel.Location.Longitude.ToString("0.00000"));
+            options.AddParm(EtaApiConstants.EtaApi_LocationDetermined, UNIXTime.GetTimestamp(DateTime.Now));
+            options.AddParm(EtaApiConstants.EtaApi_Geocoded, userModel.Location.IsGeoCoded ? "0" : "0");
+            options.AddParm(EtaApiConstants.EtaApi_Accuracy, "0");//userModel.Location.Accuracy.ToString());
+            options.AddParm(EtaApiConstants.EtaApi_Ditance, userModel.Distance.ToString());
+
             var api = new EtaSDKv2();
-            api.GetCatalogList(null, catalogs =>
+            api.GetCatalogList(options, catalogs =>
             {
                 Deployment.Current.Dispatcher.BeginInvoke(() => { 
                     foreach (var catalog in catalogs)
                     {
                         this.Catalogs.Add(catalog);
                     }
+                    IsDataLoaded = true;
                 });
 
             }, (error,uri) => {

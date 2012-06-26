@@ -34,11 +34,17 @@ namespace EtaSampleApp.Views
         
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
+            App.ViewModel.UserViewModel.PropertyChanged += (prop, args) => {
+                if (args.PropertyName == "Location" && App.ViewModel.UserViewModel.Location != null)
+                {
+                    if (!App.ViewModel.IsDataLoaded)
+                    {
+                        App.ViewModel.LoadData();
+                    }
+                }
+            };
             this.DataContext = App.ViewModel;
-            if (!App.ViewModel.IsDataLoaded)
-            {
-                App.ViewModel.LoadData();
-            }
+            var test = App.ViewModel.UserViewModel;
             base.OnNavigatedTo(e);
             CatalogsListBox.SelectedIndex = -1;
             searchListBox.SelectedIndex = -1;

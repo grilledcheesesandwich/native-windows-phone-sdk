@@ -121,7 +121,7 @@ namespace EtaSampleApp
         {
             // Ensure that required application state is persisted here.
             EtaSDK.Utils.EtaCatalogStorageHelper.ResetStorage();
-            UserViewModel.Save();
+            App.ViewModel.UserViewModel.Save();// UserViewModel.Save();
         }
 
         // Code to execute if a navigation fails

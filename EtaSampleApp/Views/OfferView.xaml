@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
      xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"    
     xmlns:telerikPrimitivesSlideView="clr-namespace:Telerik.Windows.Controls.SlideView;assembly=Telerik.Windows.Controls.Primitives"
-   
+    d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -17,7 +17,7 @@
     shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid x:Name="LayoutRoot" Background="#FF9CB227">
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
             <RowDefinition Height="*"/>
@@ -25,7 +25,7 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="[Catalog Name]" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock x:Name="ApplicationTitle" Text="{Binding Store.Dealer.Name, Mode=OneWay}" Style="{StaticResource PhoneTextNormalStyle}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
@@ -37,15 +37,30 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
 
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Image Grid.Column="0" Grid.Row="0" Height="80" Source="{Binding Dealer.Branding.Logo}" />
-                    <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Price}" />
-                    <Button  Grid.Column="1" Grid.Row="2" x:Name="OpenCatalogButton" Content="Se i catalog" Click="OpenCatalogButton_Click"/>
+                    <Image Grid.Column="0" Grid.Row="0" Height="80" Source="{Binding Dealer.Branding.Logo}" Grid.ColumnSpan="2" />
+                    <!--<TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Price}" />-->
+                    <Button Grid.Row="5" x:Name="OpenCatalogButton" Content="Se i catalog" Click="OpenCatalogButton_Click" Grid.ColumnSpan="2" VerticalAlignment="Center"/>
+                    <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="Vare" VerticalAlignment="Top" Grid.Row="1"/>
+                    <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding Header}" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1"/>
+                    <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="Beskrivelse" VerticalAlignment="Top" Grid.Row="2"/>
+                    <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding Description}" VerticalAlignment="Top" Grid.Row="2" Margin="0,0,-0.517,0" Grid.Column="1"/>
+                    <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="Pris" VerticalAlignment="Top" Grid.Row="3" Margin="0,0,-0.56,0"/>
+                    <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding Price}" VerticalAlignment="Top" Grid.Row="3" Margin="0,0,-1.507,0" Grid.Column="1"/>
+                    <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="Før" VerticalAlignment="Top" Grid.Row="4" Margin="0,0,-1.077,0"/>
+                    <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding Preprice}" VerticalAlignment="Top" Grid.Row="4" Margin="0,0,-2.497,0" Grid.Column="1"/>
                 </Grid>
             </ScrollViewer>
             <!--<telerikPrimitivesSlideView:PanAndZoomImage Margin="0" x:Name="zoomImage" Visibility="Visible" Source="{Binding SelectedPageItem.ZoomUri, Converter={StaticResource IsoFileToBitmapImageConverter}}" ZoomMode="Free"  />-->
