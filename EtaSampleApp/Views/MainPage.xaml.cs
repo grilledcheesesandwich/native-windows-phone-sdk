@@ -106,13 +106,11 @@ namespace EtaSampleApp.Views
             NavigationService.Navigate(new Uri("/Views/OfferView.xaml?offerId=" + offer.Id,UriKind.Relative));
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             searchListBox.SelectedIndex = -1;
             App.ViewModel.LoadOfferSearchResult(App.ViewModel.OfferSearchQueryText);
         }
-
-        
 
         private void settingsMenuItem_Click(object sender, EventArgs e)
         {
