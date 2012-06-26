@@ -61,7 +61,7 @@ namespace EtaSDK.Test.Tests.EtaSDKv2Tests
                 }
                 TestCompleteUISafe();
 
-            }, error =>
+            }, (error,uri) =>
             {
                 TestCompleteWithErrorsUISafe(error.Message);
             });

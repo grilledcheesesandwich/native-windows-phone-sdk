@@ -16,13 +16,13 @@
         <Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <Grid Background="Red" Margin="17,17,17,17">
+                    <Grid Margin="24" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxWidth="300" >
                         <!--<TextBlock FontSize="100" Text="{Binding Id}" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" />-->
-                        <Image Visibility="{Binding IsSelected,Converter={StaticResource BoolToVisibilityN},Mode=TwoWay}" Width="460" Source="{Binding ViewUri, Converter={StaticResource IsoFileToBitmapImageConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        <Image Visibility="{Binding IsSelected,Converter={StaticResource BoolToVisibilityN},Mode=TwoWay}" Source="{Binding ViewUri, Converter={StaticResource IsoFileToBitmapImageConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" />
                         
                         <!--<telerikPrimitivesSlideView:PanAndZoomImage Height="400" Width="300" Visibility="{Binding ZoomVisibility}" ZoomMode="Free" Source="{Binding ZoomPageUri,Mode=TwoWay, Converter={StaticResource IsoFileToBitmapImageConverter}}"/>-->
                         <!--<telerikPrimitivesSlideView:PanAndZoomImage Visibility="{Binding IsSelected,Converter={StaticResource BoolToVisibility},Mode=TwoWay}"  Width="460" ZoomMode="Free" Source="{Binding PageUri, Converter={StaticResource IsoFileToBitmapImageConverter}}" />-->
-                        <Rectangle Visibility="{Binding IsSelected,Converter={StaticResource BoolToVisibility},Mode=TwoWay}"  Width="480" Height="100" Opacity="0.8" VerticalAlignment="Center" HorizontalAlignment="Center" Fill="Pink"  />
+                        <!--<Rectangle Visibility="{Binding IsSelected,Converter={StaticResource BoolToVisibility},Mode=TwoWay}"  Width="480" Height="100" Opacity="0.8" VerticalAlignment="Center" HorizontalAlignment="Center" Fill="Pink"  />-->
                     </Grid>
                     <!--<StackPanel Margin="17,17,17,17">
                         <TextBlock Text="{Binding Id}" />

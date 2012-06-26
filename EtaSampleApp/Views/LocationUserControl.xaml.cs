@@ -9,6 +9,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using System.Device.Location;
+using Esmann.WP.Common.Location;
+using EtaSampleApp.ViewModels;
 
 namespace EtaSampleApp.Views
 {
@@ -17,8 +20,30 @@ namespace EtaSampleApp.Views
         public LocationUserControl()
         {
             InitializeComponent();
+            InitializeGPS();
         }
 
+        private async void InitializeGPS()
+        {
+            if (App.ViewModel.UserViewModel.AllowGPS)
+            {
+                var gps = new GPSHelper();
+                var result = await gps.GetPositionAsync();
+                if (result != null)
+                {
+                    App.ViewModel.UserViewModel.Location = 
+                        new Location() { 
+                            IsGeoCoded = true, 
+                            IsValid = true,
+                            Latitude = result.Latitude,
+                            Longitude = result.Longitude
+                        };
+                }
+            }
+            
+        }
+
+        public string ZipCode { get { return inputFiled.Text; } }
         public event EventHandler<RoutedEventArgs> Click;
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -27,5 +52,7 @@ namespace EtaSampleApp.Views
                 Click(this, e);
             }
         }
+
+
     }
 }

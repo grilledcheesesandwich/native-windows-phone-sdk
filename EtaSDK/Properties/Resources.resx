@@ -133,12 +133,12 @@
     <value>World</value>
   </data>
   <data name="LoadingCatalogPageImageThumb" xml:space="preserve">
-    <value>/Images/bg.png</value>
+    <value>/Images/listbg.png</value>
   </data>
   <data name="LoadingCatalogPageImageView" xml:space="preserve">
-    <value>/Images/bg.png</value>
+    <value>/Images/listbg.png</value>
   </data>
   <data name="LoadingCatalogPageImageZoom" xml:space="preserve">
-    <value>/Images/bg.png</value>
+    <value>/Images/listbg.png</value>
   </data>
 </root>

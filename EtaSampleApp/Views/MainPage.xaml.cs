@@ -11,6 +11,9 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using EtaSDK.ApiModels;
+using EtaSDK;
+using EtaSDK.Utils;
+using System.Globalization;
 
 namespace EtaSampleApp.Views
 {
@@ -19,7 +22,15 @@ namespace EtaSampleApp.Views
         public MainPage()
         {
             InitializeComponent();
+
+            if (!App.ViewModel.UserViewModel.FirstTimeApplicationRuns)
+            {
+                locationControl.Visibility = System.Windows.Visibility.Collapsed;
+            }
+           
         }
+
+       
         
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
@@ -95,10 +106,32 @@ namespace EtaSampleApp.Views
             NavigationService.Navigate(new Uri("/Views/OfferView.xaml?offerId=" + offer.Id,UriKind.Relative));
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
+            //string zipcode = locationcontrol.zipcode;
+            //var location = new bingservices.locationsapihelper();
+            //var result = await location.zipcodetogeocoordinateasync(zipcode);
+            //var longitude = result.longitude;
+
             searchListBox.SelectedIndex = -1;
-            App.ViewModel.LoadOfferSearchResult(App.ViewModel.OfferSearchQueryText);
+
+            var options = new EtaApiQueryStringParameterOptions();
+            var enUSCulture = new CultureInfo("en-US");
+            options.AddParm(EtaApiConstants.EtaApi_Latitude, App.ViewModel.UserViewModel.Location.Latitude.ToString(enUSCulture));
+            options.AddParm(EtaApiConstants.EtaApi_Longitude, App.ViewModel.UserViewModel.Location.Longitude.ToString(enUSCulture));
+            options.AddParm(EtaApiConstants.EtaApi_LocationDetermined, UNIXTime.GetTimestamp(DateTime.Now));
+            options.AddParm(EtaApiConstants.EtaApi_Geocoded, App.ViewModel.UserViewModel.Location.IsGeoCoded ? "1" : "0");
+            options.AddParm(EtaApiConstants.EtaApi_Accuracy, App.ViewModel.UserViewModel.Location.Accuracy.ToString(enUSCulture));
+            options.AddParm(EtaApiConstants.EtaApi_Ditance, App.ViewModel.UserViewModel.Distance.ToString(enUSCulture));
+
+            App.ViewModel.LoadOfferSearchResult(App.ViewModel.OfferSearchQueryText, options);
+        }
+
+        
+
+        private void settingsMenuItem_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Views/UserView.xaml",UriKind.Relative));
         }
     }
 }

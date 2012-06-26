@@ -19,7 +19,8 @@ using EtaSDK.ApiModels;
 using System.Linq.Expressions;
 using System.Windows.Threading;
 using esmann.WP.Common.ViewModels;
-
+using System.Linq;
+using EtaSampleApp.ViewModels;
 
 namespace EtaSampleApp
 {
@@ -41,6 +42,23 @@ namespace EtaSampleApp
         {
             get;
             private set;
+        }
+
+        private UserViewModel userViewModel = UserViewModel.GetUserViewModel;
+        public UserViewModel UserViewModel
+        {
+            get
+            {
+                return userViewModel;
+            }
+            set
+            {
+                if (value != userViewModel)
+                {
+                    userViewModel = value;
+                    this.NotifyPropertyChanged(() => UserViewModel);
+                }
+            }
         }
 
         private string offerSearchQueryText = "kaffe";
@@ -77,29 +95,40 @@ namespace EtaSampleApp
             }
         }
 
-        public void LoadOfferSearchResult(string q){
+        public void LoadOfferSearchResult(string q, EtaApiQueryStringParameterOptions options){
             if (string.IsNullOrWhiteSpace(q))
             {
                 return;
             }
             OffersSearch.Clear();            
             var api = new EtaSDKv2();
-            api.GetOfferSearch(null, 
+            api.GetOfferSearch(options, 
                 q, 
                 result => {
                     if (result != null)
                     {
                         Deployment.Current.Dispatcher.BeginInvoke(() => { 
-                            foreach (var item in result)
-                            {
-                                OffersSearch.Add(item);
-                            }
+                            var byDistance = result.OrderBy(item => int.Parse(item.Store.Distance));                        Deployment.Current.Dispatcher.BeginInvoke(() => { 
+                                foreach (var item in byDistance)
+                                {
+                                    var dis = item.Store.Distance;
+                                    OffersSearch.Add(item);
+                                }
+                            });
                         });
                     }
                 },
-                error =>
+                (error,uri) =>
                 {
-                    MessageBox.Show("Ups! Kunne ikke gennemfører søgning");
+                    Deployment.Current.Dispatcher.BeginInvoke(() =>
+                    {
+                        var msg = "Ups! Kunne ikke gennemfører søgning";
+#if DEBUG
+                        msg += " " + error.Message + " " + uri.ToString(); 
+
+#endif
+                        MessageBox.Show(msg);
+                    });
                 });
         }
 

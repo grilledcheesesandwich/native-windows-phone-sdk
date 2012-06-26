@@ -18,6 +18,7 @@
         <helpers:IsoFileToBitmapImageConverter x:Key="IsoFileToBitmapImageConverter"/>
         <helpers:BoolToVisibilityN x:Key="BoolToVisibilityN"/>
         <helpers:BoolToVisibility x:Key="BoolToVisibility"/>
+        <helpers:BoolNegationConverter x:Key="BoolNegationConverter" />
 
 
     </Application.Resources>

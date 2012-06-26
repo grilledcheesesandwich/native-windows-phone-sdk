@@ -34,8 +34,10 @@
     			<ColumnDefinition/>
     			<ColumnDefinition Width="12"/>
     		</Grid.ColumnDefinitions>
-    		<TextBox TextWrapping="Wrap" Text="2900" d:LayoutOverrides="Width" Grid.Row="1" VerticalAlignment="Center" Grid.Column="1"/>
-    		<Button Content="Fortsæt" d:LayoutOverrides="Height" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Click="Button_Click" />
+            <TextBox InputScope="Number" x:Name="inputFiled" TextWrapping="Wrap" Text="2900" d:LayoutOverrides="Width" Grid.Row="1" VerticalAlignment="Center" Grid.Column="1">
+                
+            </TextBox>
+            <Button Content="Fortsæt" d:LayoutOverrides="Height" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Click="Button_Click" />
     	</Grid>
         
     </Grid>

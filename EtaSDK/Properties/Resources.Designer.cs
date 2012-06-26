@@ -106,7 +106,7 @@ namespace EtaSDK.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /Images/bg.png.
+        ///   Looks up a localized string similar to /Images/listbg.png.
         /// </summary>
         public static string LoadingCatalogPageImageThumb {
             get {
@@ -115,7 +115,7 @@ namespace EtaSDK.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /Images/bg.png.
+        ///   Looks up a localized string similar to /Images/listbg.png.
         /// </summary>
         public static string LoadingCatalogPageImageView {
             get {
@@ -124,7 +124,7 @@ namespace EtaSDK.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /Images/bg.png.
+        ///   Looks up a localized string similar to /Images/listbg.png.
         /// </summary>
         public static string LoadingCatalogPageImageZoom {
             get {

@@ -29,7 +29,7 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <ListBox x:Name="catalogSlideView" Style="{StaticResource CatalogPagesListBox}" ItemsSource="{Binding Pages}" DataContext="{Binding}" SelectionChanged="catalogSlideView_SelectionChanged" />
+            <ListBox  x:Name="catalogSlideView" Style="{StaticResource CatalogPagesListBox}" ItemsSource="{Binding Pages}" DataContext="{Binding}" SelectionChanged="catalogSlideView_SelectionChanged" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" />
             <telerikPrimitivesSlideView:PanAndZoomImage Margin="0" x:Name="zoomImage" Visibility="Collapsed" Source="{Binding SelectedPageItem.ZoomUri, Converter={StaticResource IsoFileToBitmapImageConverter}}" ZoomMode="Free"  />
 
         </Grid>

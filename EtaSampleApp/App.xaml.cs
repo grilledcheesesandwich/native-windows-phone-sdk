@@ -14,6 +14,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Esmann.WP.Common.MemoryDiagnostics;
 using System.Windows.Threading;
+using EtaSampleApp.ViewModels;
 
 namespace EtaSampleApp
 {
@@ -118,6 +119,7 @@ namespace EtaSampleApp
         {
             // Ensure that required application state is persisted here.
             EtaSDK.Utils.EtaCatalogStorageHelper.ResetStorage();
+            UserViewModel.Save();
         }
 
         // Code to execute if a navigation fails
@@ -138,6 +140,9 @@ namespace EtaSampleApp
                 // An unhandled exception has occurred; break into the debugger
                 System.Diagnostics.Debugger.Break();
             }
+            e.Handled = true;
+            MessageBox.Show(e.ExceptionObject.Message, "Application_UnhandledException",MessageBoxButton.OK);
+            RootFrame.Navigate(new Uri("/Views/MainPage.xaml",UriKind.Relative));
         }
 
         #region Phone application initialization

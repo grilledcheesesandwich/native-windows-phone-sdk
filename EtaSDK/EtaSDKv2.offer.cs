@@ -82,7 +82,7 @@ namespace EtaSDK
             });
         }
 
-        public void GetOfferSearch(EtaApiQueryStringParameterOptions options, string query, Action<List<Offer>> callback, Action<Exception> error)
+        public void GetOfferSearch(EtaApiQueryStringParameterOptions options, string query, Action<List<Offer>> callback, Action<Exception,Uri> error)
         {
             if (options == null)
             {
@@ -95,8 +95,9 @@ namespace EtaSDK
                 options.AddParm(EtaApiConstants.EtaApi_Accuracy, "0");
                 options.AddParm(EtaApiConstants.EtaApi_Ditance, "10000");
 
-                options.AddParm("q", query);
             }
+
+            options.AddParm("q", query);
 
             ApiRaw("/api/v1/offer/search/", options, onresult =>
             {
@@ -111,7 +112,7 @@ namespace EtaSDK
 
             }, (onerror, uri) =>
             {
-                error(onerror);
+                error(onerror,uri);
             });
         }
 
