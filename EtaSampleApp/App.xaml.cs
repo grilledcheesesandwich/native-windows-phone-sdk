@@ -15,6 +15,7 @@ using Microsoft.Phone.Shell;
 using Esmann.WP.Common.MemoryDiagnostics;
 using System.Windows.Threading;
 using EtaSampleApp.ViewModels;
+using System.Threading;
 
 namespace EtaSampleApp
 {
@@ -50,6 +51,7 @@ namespace EtaSampleApp
         /// </summary>
         public App()
         {
+            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
             // Global handler for uncaught exceptions. 
             UnhandledException += Application_UnhandledException;

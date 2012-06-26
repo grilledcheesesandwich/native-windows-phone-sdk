@@ -95,11 +95,20 @@ namespace EtaSampleApp
             }
         }
 
-        public void LoadOfferSearchResult(string q, EtaApiQueryStringParameterOptions options){
+        public void LoadOfferSearchResult(string q){
             if (string.IsNullOrWhiteSpace(q))
             {
                 return;
             }
+            var userModel = App.ViewModel.UserViewModel;
+            var options = new EtaApiQueryStringParameterOptions();
+            options.AddParm(EtaApiConstants.EtaApi_Latitude, userModel.Location.Latitude.ToString("0.00000"));
+            options.AddParm(EtaApiConstants.EtaApi_Longitude, userModel.Location.Longitude.ToString("0.00000"));
+            options.AddParm(EtaApiConstants.EtaApi_LocationDetermined, UNIXTime.GetTimestamp(DateTime.Now));
+            options.AddParm(EtaApiConstants.EtaApi_Geocoded, userModel.Location.IsGeoCoded ? "0" : "0");
+            options.AddParm(EtaApiConstants.EtaApi_Accuracy, "0");//userModel.Location.Accuracy.ToString());
+            options.AddParm(EtaApiConstants.EtaApi_Ditance, userModel.Distance.ToString());
+            
             OffersSearch.Clear();            
             var api = new EtaSDKv2();
             api.GetOfferSearch(options, 

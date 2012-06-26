@@ -108,23 +108,8 @@ namespace EtaSampleApp.Views
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            //string zipcode = locationcontrol.zipcode;
-            //var location = new bingservices.locationsapihelper();
-            //var result = await location.zipcodetogeocoordinateasync(zipcode);
-            //var longitude = result.longitude;
-
             searchListBox.SelectedIndex = -1;
-
-            var options = new EtaApiQueryStringParameterOptions();
-            var enUSCulture = new CultureInfo("en-US");
-            options.AddParm(EtaApiConstants.EtaApi_Latitude, App.ViewModel.UserViewModel.Location.Latitude.ToString(enUSCulture));
-            options.AddParm(EtaApiConstants.EtaApi_Longitude, App.ViewModel.UserViewModel.Location.Longitude.ToString(enUSCulture));
-            options.AddParm(EtaApiConstants.EtaApi_LocationDetermined, UNIXTime.GetTimestamp(DateTime.Now));
-            options.AddParm(EtaApiConstants.EtaApi_Geocoded, App.ViewModel.UserViewModel.Location.IsGeoCoded ? "1" : "0");
-            options.AddParm(EtaApiConstants.EtaApi_Accuracy, App.ViewModel.UserViewModel.Location.Accuracy.ToString(enUSCulture));
-            options.AddParm(EtaApiConstants.EtaApi_Ditance, App.ViewModel.UserViewModel.Distance.ToString(enUSCulture));
-
-            App.ViewModel.LoadOfferSearchResult(App.ViewModel.OfferSearchQueryText, options);
+            App.ViewModel.LoadOfferSearchResult(App.ViewModel.OfferSearchQueryText);
         }
 
         
