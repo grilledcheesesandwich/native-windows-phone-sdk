@@ -14,6 +14,7 @@ using EtaSDK.ApiModels;
 using EtaSDK;
 using EtaSDK.Utils;
 using System.Globalization;
+using Microsoft.Phone.Shell;
 
 namespace EtaSampleApp.Views
 {
@@ -22,32 +23,38 @@ namespace EtaSampleApp.Views
         public MainPage()
         {
             InitializeComponent();
-
-            if (!App.ViewModel.UserViewModel.FirstTimeApplicationRuns)
-            {
-                locationControl.Visibility = System.Windows.Visibility.Collapsed;
-            }
-           
+            this.ApplicationBar.IsVisible = false;
         }
 
-       
-        
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
-            App.ViewModel.UserViewModel.PropertyChanged += (prop, args) => {
-                if (args.PropertyName == "Location" && App.ViewModel.UserViewModel.Location != null)
-                {
-                    if (!App.ViewModel.IsDataLoaded)
-                    {
-                        App.ViewModel.LoadData();
-                    }
-                }
-            };
             this.DataContext = App.ViewModel;
-            var test = App.ViewModel.UserViewModel;
+            App.ViewModel.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(ViewModel_PropertyChanged);
+            
+            //var test = App.ViewModel.UserViewModel;
             base.OnNavigatedTo(e);
             CatalogsListBox.SelectedIndex = -1;
             searchListBox.SelectedIndex = -1;
+        }
+        protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            App.ViewModel.PropertyChanged += ViewModel_PropertyChanged;
+            base.OnNavigatedFrom(e);
+        }
+
+        void ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "IsUserDataLoaded")
+            {
+                if (App.ViewModel.IsUserDataLoaded)
+                {
+                    this.ApplicationBar.IsVisible = true;
+                }
+                else
+                {
+                    this.ApplicationBar.IsVisible = false;
+                }
+            }
         }
 
         private void LocationUserControl_Click(object sender, RoutedEventArgs e)

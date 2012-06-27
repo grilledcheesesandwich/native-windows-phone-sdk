@@ -53,26 +53,22 @@ namespace EtaSampleApp.Helpers
                 return value.ToString();
             }
 
+        }
 
-            //BitmapImage image = new BitmapImage(new Uri(value.ToString(),UriKind.Relative));
-            //return image;
-            //return null;
-//            if (value == null)
-//            {
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 
-//            }
-//            WriteableBitmap bitmap = new WriteableBitmap(200,200);
-//            using (IsolatedStorageFile myIsolatedStorage = IsolatedStorageFile.GetUserStoreForApplication())
-//            {
-//                using (IsolatedStorageFileStream fileStream = myIsolatedStorage.OpenFile(fileName, FileMode.Open, FileAccess.Read))
-//                {
-//                    // Decode the JPEG stream.
-//                     bitmap = PictureDecoder.DecodeJpeg(fileStream);
-//                }
-//            }
-//            this.img.Source = bitmap;
-//}
-
+    public class BoolToVisibility : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            bool helper = (bool)value;
+            var result = helper ? Visibility.Visible : Visibility.Collapsed;
+            //Debug.Assert(result != (Visibility)value);
+            return result;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
@@ -99,24 +95,6 @@ namespace EtaSampleApp.Helpers
 
     }
 
-    public class BoolToVisibility : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            bool helper = (bool)value;
-            var result = helper ? Visibility.Visible : Visibility.Collapsed;
-            //Debug.Assert(result != (Visibility)value);
-            return result;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-
-
-    }
-
     public class BoolNegationConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
@@ -129,7 +107,5 @@ namespace EtaSampleApp.Helpers
         {
             throw new NotImplementedException();
         }
-
-
     }
 }

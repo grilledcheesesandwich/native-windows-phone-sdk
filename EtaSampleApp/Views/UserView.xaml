@@ -68,7 +68,7 @@
 					<toolkitPrimitives:ToggleSwitchButton Content="ToggleSwitchButton" d:LayoutOverrides="Width, Height" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" IsChecked="{Binding UserViewModel.AllowGPS, Mode=TwoWay}" Checked="ToggleSwitchButton_Checked" Unchecked="ToggleSwitchButton_Unchecked" />
 					<TextBlock TextWrapping="Wrap" Text="Din aktuelle position bruges til at forbedre søgningen og vise mest relevante tilbud. Dine lokationsdata deles ikke med 3. part og du forbliver anonym." VerticalAlignment="Center" Grid.Row="1" Grid.ColumnSpan="2"/>
 					<TextBlock TextWrapping="Wrap" Text="Post nr." FontSize="26.667" Grid.Row="2" VerticalAlignment="Center"/>
-					<TextBox TextWrapping="Wrap" d:LayoutOverrides="Width, Height" Grid.Row="2" Grid.Column="2" Text="{Binding UserViewModel.ZipCode, Mode=TwoWay}" InputScope="Number" IsEnabled="{Binding UserViewModel.AllowGPS, Converter={StaticResource BoolNegationConverter}}" TextChanged="TextBox_TextChanged" />
+                    <TextBox TextWrapping="Wrap" d:LayoutOverrides="Width, Height" Grid.Row="2" Grid.Column="2" Text="{Binding UserViewModel.Location.ZipCode, Mode=TwoWay}" InputScope="Number" IsEnabled="{Binding UserViewModel.AllowGPS, Converter={StaticResource BoolNegationConverter}}" TextChanged="TextBox_TextChanged" />
 				</Grid>
 			</ScrollViewer></Grid>
 	</Grid>

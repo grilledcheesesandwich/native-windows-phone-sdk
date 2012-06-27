@@ -45,16 +45,32 @@ namespace EtaSampleApp
             private set;
         }
 
+        private bool isUserDataLoaded = false;
+        public bool IsUserDataLoaded
+        {
+            get
+            {
+                return isUserDataLoaded;
+            }
+            set
+            {
+                if (value != isUserDataLoaded)
+                {
+                    isUserDataLoaded = value;
+                    if (IsUserDataLoaded)
+                    {
+                        LoadEtaCatalogList();
+                    }
+                    this.NotifyPropertyChanged(() => IsUserDataLoaded);
+                }
+            }
+        }
+
         private UserViewModel userViewModel = null;
         public UserViewModel UserViewModel
         {
             get
             {
-                if (userViewModel == null)
-                {
-                    userViewModel = new UserViewModel();
-                    userViewModel.LoadModelAsync();//GetUserViewModel;
-                }
                 return userViewModel;
             }
             set
@@ -152,10 +168,19 @@ namespace EtaSampleApp
         /// </summary>
         public void LoadData()
         {
-           
-            
+            InitializeModel();
+        }
+
+        private async void InitializeModel()
+        {
+            UserViewModel = await UserViewModel.LoadModelAsync();
+
+            //UserViewModel
+            //if (UserViewModel.Location.IsValid)
+            //{
+            IsUserDataLoaded = true;
+            //}
             LoadEtaCatalogList();
-            IsDataLoaded = true;
         }
 
         private void LoadEtaCatalogList()

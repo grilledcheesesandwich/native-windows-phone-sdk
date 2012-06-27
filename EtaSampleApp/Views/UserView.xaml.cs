@@ -38,7 +38,7 @@ namespace EtaSampleApp.Views
 
         private void ToggleSwitchButton_Checked(object sender, RoutedEventArgs e)
         {
-            App.ViewModel.UserViewModel.LoadModelAsync();// UpdateLocationInformationGPS();
+            //App.ViewModel.UserViewModel.LoadModelAsync();// UpdateLocationInformationGPS();
         }
 
         private void ToggleSwitchButton_Unchecked(object sender, RoutedEventArgs e)
@@ -55,8 +55,11 @@ namespace EtaSampleApp.Views
                 text = text.Trim();
                 int test = 0;
                 if(text.Length == 4 && int.TryParse(text,out test)){
-                   var result = await App.ViewModel.UserViewModel.GetLocationFromPostalCodeAsync(text);// UpdateLocationInformationZipCode(text);
-                   App.ViewModel.UserViewModel.Location = result;
+                    if (App.ViewModel.UserViewModel.Location.ZipCode != test && !App.ViewModel.UserViewModel.Location.IsValid)
+                    {
+                        var result = await UserViewModel.GetLocationFromPostalCodeAsync(text);// UpdateLocationInformationZipCode(text);
+                        App.ViewModel.UserViewModel.Location = result;
+                    }
                 }
             }
         }

@@ -88,6 +88,9 @@
     </Compile>
     <Compile Include="Helpers\Converters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserControls\SplashScreenLoadingUserControl.xaml.cs">
+      <DependentUpon>SplashScreenLoadingUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\CatalogBrowsingViewModel.cs" />
     <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -129,6 +132,10 @@
     <Page Include="Styles\Styles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\SplashScreenLoadingUserControl.xaml">
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\CatalogBrowsingView.xaml">
       <SubType>Designer</SubType>
@@ -181,6 +188,7 @@
     <Content Include="Images\win.png" />
     <Content Include="Images\yellow.png" />
     <Content Include="SplashScreenImage.jpg" />
+    <Content Include="SplashScreenImage.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />
