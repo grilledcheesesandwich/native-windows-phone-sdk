@@ -1,8 +1,9 @@
-﻿<UserControl x:Class="EtaSampleApp.Views.LocationUserControl"
+﻿<UserControl
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkitPrimitives="clr-namespace:Microsoft.Phone.Controls.Primitives;assembly=Microsoft.Phone.Controls.Toolkit" xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit" x:Class="EtaSampleApp.Views.LocationUserControl"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -34,10 +35,10 @@
     			<ColumnDefinition/>
     			<ColumnDefinition Width="12"/>
     		</Grid.ColumnDefinitions>
-            <TextBox InputScope="Number" x:Name="inputFiled" TextWrapping="Wrap" Text="2900" d:LayoutOverrides="Width" Grid.Row="1" VerticalAlignment="Center" Grid.Column="1">
-                
-            </TextBox>
-            <Button Content="Fortsæt" d:LayoutOverrides="Height" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Click="Button_Click" />
+    		<toolkit:PhoneTextBox TextChanged="inputFiled_TextChanged" x:Name="inputFiled" TextWrapping="NoWrap" d:LayoutOverrides="Width" VerticalAlignment="Center" Hint="Post nr." ActionIcon="/Images/GPSIcon.png" DisplayedMaxLength="4" InputScope="Number" AcceptsReturn="True" Grid.Row="1" Grid.Column="1" LengthIndicatorThreshold="4" MaxLength="4" ActionIconTapped="inputFiled_ActionIconTapped" KeyUp="inputFiled_KeyUp" />
+        
+    		<Button x:Name="btnNext" Visibility="Collapsed" Content="Fortsæt" d:LayoutOverrides="Height" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Click="Button_Click" />
+    		<toolkit:PerformanceProgressBar x:Name="progressBar" Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="1" Height="8" VerticalAlignment="Top" IsIndeterminate="True" ActualIsIndeterminate="True" Visibility="Collapsed"/>
     	</Grid>
         
     </Grid>

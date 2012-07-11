@@ -54,7 +54,7 @@ namespace BingServices
                 var geoCodeResult = e.Result.Results.FirstOrDefault();
                 if (geoCodeResult == null)
                 {
-                    tcs.SetResult(null);
+                    tcs.TrySetResult(null);
                 }
                 if(geoCodeResult.Locations == null || geoCodeResult.Locations.Count == 0){
                      tcs.SetResult(null);

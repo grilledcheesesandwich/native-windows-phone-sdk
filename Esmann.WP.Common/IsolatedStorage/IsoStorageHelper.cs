@@ -1,12 +1,7 @@
-﻿using System;
-using System.Net;
-using System.IO;
+﻿using System.IO;
 using System.IO.IsolatedStorage;
-using System.Windows.Media.Imaging;
-using System.Diagnostics;
 
-
-namespace EtaSDK.Utils
+namespace Esmann.WP.Common.IsolatedStorage
 {
     public class IsoStorageHelper
     {

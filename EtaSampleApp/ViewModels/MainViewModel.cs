@@ -30,6 +30,7 @@ namespace EtaSampleApp
         public MainViewModel()
         {
             this.Catalogs = new ObservableCollection<Catalog>();
+            this.Stores = new ObservableCollection<Store>();
             this.OffersSearch = new ObservableCollection<Offer>();
         }
 
@@ -37,6 +38,8 @@ namespace EtaSampleApp
         /// A collection for ItemViewModel objects.
         /// </summary>
         public ObservableCollection<Catalog> Catalogs { get; private set; }
+        public ObservableCollection<Store> Stores { get; private set; }
+
         public ObservableCollection<Offer> OffersSearch { get; private set; }
         
         public bool IsDataLoaded
@@ -60,8 +63,27 @@ namespace EtaSampleApp
                     if (IsUserDataLoaded)
                     {
                         LoadEtaCatalogList();
+                        LoadEtaStoreList();
                     }
                     this.NotifyPropertyChanged(() => IsUserDataLoaded);
+                }
+            }
+        }
+
+        private bool isSearching = false;
+        public bool IsSearching
+        {
+            get
+            {
+                return isSearching;
+            }
+            set
+            {
+                if (value != isSearching)
+                {
+                    isSearching = value;
+
+                    this.NotifyPropertyChanged(() => IsSearching);
                 }
             }
         }
@@ -118,10 +140,11 @@ namespace EtaSampleApp
         }
 
         public void LoadOfferSearchResult(string q){
-            if (string.IsNullOrWhiteSpace(q))
+            if (string.IsNullOrWhiteSpace(q) || IsSearching)
             {
                 return;
             }
+            IsSearching = true;
             var userModel = UserViewModel;// App.ViewModel.UserViewModel;
             var options = new EtaApiQueryStringParameterOptions();
             options.AddParm(EtaApiConstants.EtaApi_Latitude, userModel.Location.Latitude.ToString("0.00000"));
@@ -148,6 +171,7 @@ namespace EtaSampleApp
                             });
                         });
                     }
+                    IsSearching = false;
                 },
                 (error,uri) =>
                 {
@@ -159,6 +183,8 @@ namespace EtaSampleApp
 
 #endif
                         MessageBox.Show(msg);
+                        IsSearching = false;
+
                     });
                 });
         }
@@ -176,14 +202,13 @@ namespace EtaSampleApp
             UserViewModel = await UserViewModel.LoadModelAsync();
 
             //UserViewModel
-            //if (UserViewModel.Location.IsValid)
-            //{
-            IsUserDataLoaded = true;
-            //}
-            LoadEtaCatalogList();
+            if (UserViewModel != null && UserViewModel.Location != null && UserViewModel.Location.IsValid)
+            {
+                IsUserDataLoaded = true;
+            }
         }
 
-        private void LoadEtaCatalogList()
+        public void LoadEtaCatalogList()
         {
             var userModel = UserViewModel;
             var options = new EtaApiQueryStringParameterOptions();
@@ -212,6 +237,42 @@ namespace EtaSampleApp
                     MessageBox.Show(msg + "\n"+uri, "Exception", MessageBoxButton.OK);           
 #endif
                     IsDataLoaded = false;
+                });
+            });
+        }
+
+        public void LoadEtaStoreList()
+        {
+            var userModel = UserViewModel;
+            var options = new EtaApiQueryStringParameterOptions();
+            options.AddParm(EtaApiConstants.EtaApi_Latitude, userModel.Location.Latitude.ToString("0.00000"));
+            options.AddParm(EtaApiConstants.EtaApi_Longitude, userModel.Location.Longitude.ToString("0.00000"));
+            options.AddParm(EtaApiConstants.EtaApi_LocationDetermined, UNIXTime.GetTimestamp(DateTime.Now));
+            options.AddParm(EtaApiConstants.EtaApi_Geocoded, userModel.Location.IsGeoCoded ? "0" : "0");
+            options.AddParm(EtaApiConstants.EtaApi_Accuracy, "0");//userModel.Location.Accuracy.ToString());
+            options.AddParm(EtaApiConstants.EtaApi_Ditance, userModel.Distance.ToString());
+
+            var api = new EtaSDKv2();
+            api.GetStoreList(options, stores =>
+            {
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    foreach (var store in stores)
+                    {
+                        this.Stores.Add(store);
+                    }
+                    //IsDataLoaded = true;
+                });
+
+            }, (error, uri) =>
+            {
+                var msg = error.Message;
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+#if DEBUG
+                    MessageBox.Show(msg + "\n" + uri, "Exception", MessageBoxButton.OK);
+#endif
+                    //IsDataLoaded = false;
                 });
             });
         }

@@ -29,11 +29,16 @@ namespace EtaSampleApp.Views
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             this.DataContext = App.ViewModel;
+            if (App.ViewModel.IsUserDataLoaded && !App.ViewModel.UserViewModel.FirstTimeApplicationRuns)
+            {
+                this.ApplicationBar.IsVisible = true;
+            }
             App.ViewModel.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(ViewModel_PropertyChanged);
             
             //var test = App.ViewModel.UserViewModel;
             base.OnNavigatedTo(e);
             CatalogsListBox.SelectedIndex = -1;
+            StoresListBox.SelectedIndex = -1;
             searchListBox.SelectedIndex = -1;
         }
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
@@ -60,6 +65,12 @@ namespace EtaSampleApp.Views
         private void LocationUserControl_Click(object sender, RoutedEventArgs e)
         {
             (sender as Control).Visibility = System.Windows.Visibility.Collapsed;
+            var location = App.ViewModel.UserViewModel.Location;
+            if (location.IsValid)
+            {
+                App.ViewModel.IsUserDataLoaded = true;
+            }
+
         }
 
         private void CatalogsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -119,15 +130,52 @@ namespace EtaSampleApp.Views
             NavigationService.Navigate(new Uri("/Views/OfferView.xaml?offerId=" + offer.Id,UriKind.Relative));
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        //private void Button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    searchListBox.SelectedIndex = -1;
+        //    App.ViewModel.LoadOfferSearchResult(App.ViewModel.OfferSearchQueryText);
+        //}
+
+        private void settingsMenuItem_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Views/UserView.xaml",UriKind.Relative));
+        }
+
+        private void PhoneTextBox_ActionIconTapped(object sender, EventArgs e)
         {
             searchListBox.SelectedIndex = -1;
             App.ViewModel.LoadOfferSearchResult(App.ViewModel.OfferSearchQueryText);
         }
 
-        private void settingsMenuItem_Click(object sender, EventArgs e)
+        private void StoresListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/Views/UserView.xaml",UriKind.Relative));
+            if (sender == null)
+            {
+                return;
+            }
+
+            var listbox = (sender as ListBox);
+            if (listbox == null)
+            {
+                return;
+            }
+
+            if (listbox.SelectedIndex == -1)
+            {
+                return;
+            }
+
+            if (listbox.SelectedItem == null)
+            {
+                return;
+            }
+
+            var store = listbox.SelectedItem as EtaSDK.ApiModels.Store;
+            if (store != null)
+            {
+                string uri = String.Format("/Views/StoreDetailsView.xaml?storeId={0}", store.Id);
+                NavigationService.Navigate(new Uri(uri, UriKind.Relative));
+            }
         }
     }
 }

@@ -9,9 +9,10 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Threading;
-using EtaSDK.Utils;
+
 using System.IO.IsolatedStorage;
 using System.Diagnostics;
+using Esmann.WP.Common.IsolatedStorage;
 
 namespace Esmann.WP.Common.Networking
 {

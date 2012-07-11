@@ -1,29 +1,13 @@
 ﻿using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using System.ComponentModel;
-using System.Windows.Threading;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.ComponentModel;
 using System.Linq.Expressions;
+using System.Windows.Threading;
 
 namespace esmann.WP.Common.ViewModels
 {
     public class ViewModelBase : INotifyPropertyChanged
     {
-        //internal static string GetPropertyName<T>(Expression<Func<T>> expression)
-        //{
-        //    MemberExpression body = (MemberExpression)expression.Body;
-        //    return body.Member.Name;
-        //}
-        
         public void NotifyPropertyChanged<T>(Expression<Func<T>> expression)
         {
             MemberExpression body = (MemberExpression)expression.Body;
@@ -74,22 +58,5 @@ namespace esmann.WP.Common.ViewModels
             }
             delegates.Clear();
         }
-
-        //~ViewModelBase()
-        //{
-        //    Dispose();
-        //}
-        //bool isDisposeing = false;
-        //public virtual void Dispose()
-        //{
-        //    if (!isDisposeing)
-        //    {
-        //        isDisposeing = true;
-        //        int count = getEventsCount();
-        //        RemoveAllEvents();
-        //        Debug.WriteLine(String.Format("[ViewModelBase] Disposing event count: {0}", count));
-        //    }
-        //}
-
     }
 }

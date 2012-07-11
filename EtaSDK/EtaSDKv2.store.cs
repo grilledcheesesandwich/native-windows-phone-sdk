@@ -56,7 +56,7 @@ namespace EtaSDK
             });
         }
 
-        public void GetStoreList(EtaApiQueryStringParameterOptions options, Action<List<Store>> callback, Action<Exception> error)
+        public void GetStoreList(EtaApiQueryStringParameterOptions options, Action<List<Store>> callback, Action<Exception,Uri> error)
         {
             if (options == null)
             {
@@ -85,7 +85,7 @@ namespace EtaSDK
 
             }, (onerror, uri) =>
             {
-                error(onerror);
+                error(onerror,uri);
             });
         }
     }

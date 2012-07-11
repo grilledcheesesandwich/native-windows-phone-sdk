@@ -82,15 +82,15 @@ namespace EtaSampleApp.ViewModels
         public static async Task<UserViewModel> LoadModelAsync()
         {
             var userModel = await GetUserViewModelFromISOAsync();
-            //if (userModel != null)
-            //{
-            //    userModel.AllowGPS = userModel.AllowGPS;
-            //    userModel.Distance = userModel.Distance;
-            //    userModel.FirstTimeApplicationRuns = userModel.FirstTimeApplicationRuns;
-            //    userModel.Location = userModel.Location;
-            //}
-
+            if (System.Diagnostics.Debugger.IsAttached)
+            {
+                userModel.FirstTimeApplicationRuns = true;
+            }
             var tcs = new TaskCompletionSource<UserViewModel>();
+            tcs.SetResult(userModel);
+
+            return await tcs.Task;
+
             //Location newLocation = null;
 
             if (userModel.AllowGPS)
@@ -261,6 +261,7 @@ namespace EtaSampleApp.ViewModels
                 if (value != location)
                 {
                     location = value;
+                    
                     NotifyPropertyChanged(() => Location);
                 }
             }

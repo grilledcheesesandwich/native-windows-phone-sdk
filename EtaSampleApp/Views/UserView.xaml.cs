@@ -22,7 +22,6 @@ namespace EtaSampleApp.Views
         {
             InitializeComponent();
             this.DataContext = App.ViewModel;
-
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)

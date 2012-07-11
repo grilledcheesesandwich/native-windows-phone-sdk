@@ -14,6 +14,7 @@ using EtaSDK.ApiModels;
 using Esmann.WP.Common.Virtualizing;
 using EtaSDK.Utils;
 using Esmann.WP.Common.Networking;
+using Esmann.WP.Common.IsolatedStorage;
 
 namespace EtaSampleApp.ViewModels
 {

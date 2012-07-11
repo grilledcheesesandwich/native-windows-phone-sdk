@@ -9,13 +9,14 @@
     xmlns:local="clr-namespace:EtaSampleApp.Views" 
     xmlns:EtaSampleApp_Helpers="clr-namespace:EtaSampleApp.Helpers" 
     x:Class="EtaSampleApp.Views.MainPage" 
+    xmlns:toolkitPrimitives="clr-namespace:Microsoft.Phone.Controls.Primitives;assembly=Microsoft.Phone.Controls.Toolkit" xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="728"
     SupportedOrientations="Portrait"  Orientation="Portrait"
     shell:SystemTray.IsVisible="False">
-	<phone:PhoneApplicationPage.Resources>
+	<!--<phone:PhoneApplicationPage.Resources>
 		<EtaSampleApp_Helpers:BoolToVisibilityN x:Key="BoolToVisibilityN"/>
-	</phone:PhoneApplicationPage.Resources>
+	</phone:PhoneApplicationPage.Resources>-->
 
     <!--Panorama-based applications should not show an ApplicationBar-->
 
@@ -45,20 +46,13 @@
         <controls:Panorama Title="eTilbudsavis" Visibility="{Binding IsUserDataLoaded, Converter={StaticResource BoolToVisibility}}">
 
             <!--Panorama item one-->
-            <controls:PanoramaItem Header="søg">
-                <Grid Height="400">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="300"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBox Grid.Column="0" Grid.Row="0" Text="{Binding OfferSearchQueryText, Mode=TwoWay}" />
-                    <Button Grid.Column="1" Grid.Row="0" Content="Search..." Click="Button_Click" />
-
-                    <ListBox Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="0" x:Name="searchListBox" Margin="12" Height="450"  ItemsSource="{Binding OffersSearch}" SelectionChanged="searchListBox_SelectionChanged">
+            <controls:PanoramaItem >
+                <controls:PanoramaItem.Header>
+                    <toolkit:PhoneTextBox Width="400" Height="74" Margin="0,25,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding OfferSearchQueryText, Mode=TwoWay}" TextWrapping="NoWrap" d:LayoutOverrides="Width" Hint="Søg" ActionIcon="/Images/search.icon.png" AcceptsReturn="False" HidesActionItemWhenEmpty="False" ActionIconTapped="PhoneTextBox_ActionIconTapped" />
+                </controls:PanoramaItem.Header>
+                <Grid Margin="24,0,12,35" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <toolkit:PerformanceProgressBar IsIndeterminate="True" Width="350" Visibility="{Binding IsSearching, Converter={StaticResource BoolToVisibility}}" Foreground="White" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,-20,0,0" />
+                    <ListBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="searchListBox" ItemsSource="{Binding OffersSearch}" SelectionChanged="searchListBox_SelectionChanged">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid Margin="0,0,0,17" Width="432">
@@ -104,8 +98,33 @@
                     </ListBox>
                 </Grid>
             </controls:PanoramaItem>
+            <!--Panorama item two-->
+            <controls:PanoramaItem Header="butikker">
+                <Grid>
+                    <ListBox x:Name="StoresListBox" Margin="12" Height="470"  ItemsSource="{Binding Stores}" SelectionChanged="StoresListBox_SelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,0,0,17" Width="432">
+                                    <Grid.RowDefinitions>   
+                                        <RowDefinition Height="60"/>
+                                        <RowDefinition Height="25"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Dealer.Name}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Street}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                    <Image Grid.Row="0" Grid.Column="0" Source="{Binding Branding.Logo}" Width="50" Height="50"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </controls:PanoramaItem>
         </controls:Panorama>
-        <!--<local:LocationUserControl x:Name="locationControl" VerticalAlignment="Center" d:LayoutOverrides="Width" Margin="0" HorizontalAlignment="Center" Click="LocationUserControl_Click"/>-->
+        <Slider VerticalAlignment="Bottom" Margin="12,0,12,-30"  HorizontalAlignment="Stretch" Value="{Binding UserViewModel.Distance, Mode=TwoWay}" Maximum="70000" Minimum="1000" />
+        <local:LocationUserControl x:Name="locationControl" Visibility="{Binding UserViewModel.FirstTimeApplicationRuns, Converter={StaticResource BoolToVisibility}}" VerticalAlignment="Center" d:LayoutOverrides="Width" Margin="0" HorizontalAlignment="Center" Click="LocationUserControl_Click"/>
     </Grid>
 
 </phone:PhoneApplicationPage>

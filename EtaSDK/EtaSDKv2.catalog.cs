@@ -45,15 +45,29 @@ namespace EtaSDK
             ApiRaw("/api/v1/catalog/list/", options, _onresult =>
             {
                 string onresult = _onresult;
-                var json = JsonValue.Parse(onresult);
-
-                List<Catalog> catalogs = new List<Catalog>();
-                foreach (var item in json["data"] as JsonArray)
+                if (!string.IsNullOrWhiteSpace(onresult))
                 {
-                    var catalog = Catalog.FromJson(item);
-                    catalogs.Add(catalog);
+                    try
+                    {
+                        var json = JsonValue.Parse(onresult);
+
+                        List<Catalog> catalogs = new List<Catalog>();
+                        foreach (var item in json["data"] as JsonArray)
+                        {
+                            var catalog = Catalog.FromJson(item);
+                            catalogs.Add(catalog);
+                        }
+                        callback(catalogs);
+                    }
+                    catch (Exception ex)
+                    {
+                        error(new ArgumentNullException("Ups ingen data fra serveren", ex), null);
+                    }
                 }
-                callback(catalogs);
+                else
+                {
+                    error(new ArgumentNullException("Ups ingen data fra serveren"), new Uri(""));
+                }
 
             }, (onerror, uri) =>
             {

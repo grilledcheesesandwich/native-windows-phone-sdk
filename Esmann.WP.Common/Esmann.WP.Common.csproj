@@ -79,7 +79,6 @@
     <Compile Include="Location\GPSHelper.cs" />
     <Compile Include="Networking\IsolatedStorageCacheHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ProptertyChangedBase.cs" />
     <Compile Include="SmartDispatcher.cs">
       <SubType>Code</SubType>
     </Compile>
