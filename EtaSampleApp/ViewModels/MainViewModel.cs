@@ -145,6 +145,8 @@ namespace EtaSampleApp
                 return;
             }
             IsSearching = true;
+            OffersSearch.Clear();            
+
             var userModel = UserViewModel;// App.ViewModel.UserViewModel;
             var options = new EtaApiQueryStringParameterOptions();
             options.AddParm(EtaApiConstants.EtaApi_Latitude, userModel.Location.Latitude.ToString("0.00000"));
@@ -154,7 +156,6 @@ namespace EtaSampleApp
             options.AddParm(EtaApiConstants.EtaApi_Accuracy, "0");//userModel.Location.Accuracy.ToString());
             options.AddParm(EtaApiConstants.EtaApi_Ditance, userModel.Distance.ToString());
             
-            OffersSearch.Clear();            
             var api = new EtaSDKv2();
             api.GetOfferSearch(options, 
                 q, 
@@ -222,7 +223,8 @@ namespace EtaSampleApp
             var api = new EtaSDKv2();
             api.GetCatalogList(options, catalogs =>
             {
-                Deployment.Current.Dispatcher.BeginInvoke(() => { 
+                Deployment.Current.Dispatcher.BeginInvoke(() => {
+                    Catalogs.Clear();
                     foreach (var catalog in catalogs)
                     {
                         this.Catalogs.Add(catalog);
@@ -257,6 +259,7 @@ namespace EtaSampleApp
             {
                 Deployment.Current.Dispatcher.BeginInvoke(() =>
                 {
+                    Stores.Clear();
                     foreach (var store in stores)
                     {
                         this.Stores.Add(store);
@@ -275,6 +278,17 @@ namespace EtaSampleApp
                     //IsDataLoaded = false;
                 });
             });
+        }
+
+
+        internal void UpdateEtaData()
+        {
+            this.LoadEtaStoreList();
+            this.LoadEtaCatalogList();
+            if (!string.IsNullOrWhiteSpace(OfferSearchQueryText))
+            {
+                this.LoadOfferSearchResult(OfferSearchQueryText);
+            }
         }
     }
 }

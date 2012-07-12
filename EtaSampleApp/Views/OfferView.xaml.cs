@@ -29,7 +29,7 @@ namespace EtaSampleApp.Views
         private void OpenCatalogButton_Click(object sender, RoutedEventArgs e)
         {
             var offer = App.ViewModel.SelectedOffer;
-            if (offer == null)
+            if (offer ==     null)
             {
                 
                 return;

@@ -10,12 +10,13 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Diagnostics;
+//using EtaSampleApp.Controls;
 
 namespace Eta.Controls
 {
     public partial class EtaSlider : UserControl
     {
-        public delegate void UpdateEventHandler(object sender, EventArgs e);
+        public delegate void UpdateEventHandler(object sender, SliderEventArgs e);
         public event UpdateEventHandler UpdateEvent;
 
         public double previous;
@@ -46,7 +47,7 @@ namespace Eta.Controls
             {
                 if (UpdateEvent != null)
                 {
-                    UpdateEvent(this, EventArgs.Empty);
+                    UpdateEvent(this, new SliderEventArgs { Value = Slider.Distance() });
                 }
             }
         }
@@ -58,4 +59,6 @@ namespace Eta.Controls
             EtaBubble.Opacity = 1;
         }
     }
+
+    
 }

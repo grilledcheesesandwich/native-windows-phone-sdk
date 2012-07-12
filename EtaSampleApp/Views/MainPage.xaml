@@ -1,74 +1,143 @@
-﻿<phone:PhoneApplicationPage xmlns:my="clr-namespace:EtaSampleApp" 
+﻿<phone:PhoneApplicationPage
+    xmlns:my="clr-namespace:EtaSampleApp"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:local="clr-namespace:EtaSampleApp.Views" 
-    xmlns:EtaSampleApp_Helpers="clr-namespace:EtaSampleApp.Helpers" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:EtaSampleApp.Views"
+    xmlns:EtaSampleApp_Helpers="clr-namespace:EtaSampleApp.Helpers"
     x:Class="EtaSampleApp.Views.MainPage"
     xmlns:eta="clr-namespace:Eta.Controls"
-    
-    xmlns:toolkitPrimitives="clr-namespace:Microsoft.Phone.Controls.Primitives;assembly=Microsoft.Phone.Controls.Toolkit" xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
-    
-    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="728"
-    SupportedOrientations="Portrait"  Orientation="Portrait"
+    xmlns:toolkitPrimitives="clr-namespace:Microsoft.Phone.Controls.Primitives;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    mc:Ignorable="d"
+    d:DesignWidth="480"
+    d:DesignHeight="728"
+    SupportedOrientations="Portrait"
+    Orientation="Portrait"
     shell:SystemTray.IsVisible="False">
-	<!--<phone:PhoneApplicationPage.Resources>
+    <!--<phone:PhoneApplicationPage.Resources>
 		<EtaSampleApp_Helpers:BoolToVisibilityN x:Key="BoolToVisibilityN"/>
 	</phone:PhoneApplicationPage.Resources>-->
 
     <!--Panorama-based applications should not show an ApplicationBar-->
 
-	<phone:PhoneApplicationPage.FontFamily>
-		<StaticResource ResourceKey="PhoneFontFamilyNormal"/>
-	</phone:PhoneApplicationPage.FontFamily>
-	<phone:PhoneApplicationPage.FontSize>
-		<StaticResource ResourceKey="PhoneFontSizeNormal"/>
-	</phone:PhoneApplicationPage.FontSize>
-	<phone:PhoneApplicationPage.Foreground>
-		<StaticResource ResourceKey="PhoneForegroundBrush"/>
-	</phone:PhoneApplicationPage.Foreground>
-	<phone:PhoneApplicationPage.ApplicationBar>
-		<shell:ApplicationBar Mode="Minimized">
-			<shell:ApplicationBar.MenuItems>
-				<shell:ApplicationBarMenuItem x:Name="settingsMenuItem" Text="indstillinger" Click="settingsMenuItem_Click"/>
-			</shell:ApplicationBar.MenuItems>
-		</shell:ApplicationBar>
-	</phone:PhoneApplicationPage.ApplicationBar>
+    <phone:PhoneApplicationPage.FontFamily>
+        <StaticResource
+            ResourceKey="PhoneFontFamilyNormal" />
+    </phone:PhoneApplicationPage.FontFamily>
+    <phone:PhoneApplicationPage.FontSize>
+        <StaticResource
+            ResourceKey="PhoneFontSizeNormal" />
+    </phone:PhoneApplicationPage.FontSize>
+    <phone:PhoneApplicationPage.Foreground>
+        <StaticResource
+            ResourceKey="PhoneForegroundBrush" />
+    </phone:PhoneApplicationPage.Foreground>
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar
+            Mode="Minimized">
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem
+                    x:Name="settingsMenuItem"
+                    Text="indstillinger"
+                    Click="settingsMenuItem_Click" />
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
 
     <!--LayoutRoot contains the root grid where all other page content is placed-->
-    <Grid x:Name="LayoutRoot" d:DataContext="{d:DesignData /SampleData/MainViewModelSampleData.xaml}">
-    	<Grid.Background>
-    		<ImageBrush ImageSource="/Images/win.png" Stretch="None"/>
-    	</Grid.Background>
-        <my:SplashScreenLoadingUserControl Visibility="{Binding IsUserDataLoaded, Converter={StaticResource BoolToVisibilityN}}" d:IsHidden="True" />
-        <controls:Panorama Title="eTilbudsavis" Visibility="{Binding IsUserDataLoaded, Converter={StaticResource BoolToVisibility}}">
+    <Grid
+        x:Name="LayoutRoot"
+        d:DataContext="{d:DesignData /SampleData/MainViewModelSampleData.xaml}">
+        <Grid.Background>
+            <ImageBrush
+                ImageSource="/Images/win.png"
+                Stretch="None" />
+        </Grid.Background>
+        <my:SplashScreenLoadingUserControl
+            Visibility="{Binding IsUserDataLoaded, Converter={StaticResource BoolToVisibilityN}}"
+            d:IsHidden="True" />
+        <controls:Panorama
+            Title="eTilbudsavis"
+            Margin="0,0,0,60"
+            Visibility="{Binding IsUserDataLoaded, Converter={StaticResource BoolToVisibility}}">
 
             <!--Panorama item one-->
-            <controls:PanoramaItem >
+            <controls:PanoramaItem>
                 <controls:PanoramaItem.Header>
-                    <toolkit:PhoneTextBox Width="400" Height="74" Margin="0,25,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding OfferSearchQueryText, Mode=TwoWay}" TextWrapping="NoWrap" d:LayoutOverrides="Width" Hint="Søg" ActionIcon="/Images/search.icon.png" AcceptsReturn="False" HidesActionItemWhenEmpty="False" ActionIconTapped="PhoneTextBox_ActionIconTapped" />
+                    <toolkit:PhoneTextBox
+                        x:Name="phoneTextBox1"
+                        Width="400"
+                        Height="74"
+                        Margin="0,25,0,0"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        Text="{Binding OfferSearchQueryText, Mode=TwoWay}"
+                        TextWrapping="NoWrap"
+                        d:LayoutOverrides="Width"
+                        Hint="Søg"
+                        ActionIcon="/Images/search.icon.png"
+                        AcceptsReturn="False"
+                        HidesActionItemWhenEmpty="False"
+                        ActionIconTapped="PhoneTextBox_ActionIconTapped" />
                 </controls:PanoramaItem.Header>
-                <Grid Margin="24,0,12,35" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                    <toolkit:PerformanceProgressBar IsIndeterminate="True" Width="350" Visibility="{Binding IsSearching, Converter={StaticResource BoolToVisibility}}" Foreground="White" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,-20,0,0" />
-                    <ListBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="searchListBox" ItemsSource="{Binding OffersSearch}" SelectionChanged="searchListBox_SelectionChanged">
+                <Grid
+                    Margin="24,0,12,30"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch">
+                    <toolkit:PerformanceProgressBar
+                        IsIndeterminate="True"
+                        Width="350"
+                        Visibility="{Binding IsSearching, Converter={StaticResource BoolToVisibility}}"
+                        Foreground="White"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Top"
+                        Margin="0,-20,0,0" />
+                    <ListBox
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        x:Name="searchListBox"
+                        ItemsSource="{Binding OffersSearch}"
+                        SelectionChanged="searchListBox_SelectionChanged">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="0,0,0,17" Width="432">
+                                <Grid
+                                    Margin="0,0,0,17"
+                                    Width="432">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="60"/>
-                                        <RowDefinition Height="25"/>
+                                        <RowDefinition
+                                            Height="60" />
+                                        <RowDefinition
+                                            Height="25" />
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="50"/>
-                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition
+                                            Width="50" />
+                                        <ColumnDefinition
+                                            Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Price}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Heading}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                    <Image Grid.Row="0" Grid.Column="0" Source="{Binding Dealer.Branding.Logo}" Width="50" Height="50"/>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        Text="{Binding Price}"
+                                        TextWrapping="Wrap"
+                                        Style="{StaticResource PhoneTextExtraLargeStyle}" />
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Text="{Binding Heading}"
+                                        TextWrapping="Wrap"
+                                        Style="{StaticResource PhoneTextSubtleStyle}" />
+                                    <Image
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Source="{Binding Dealer.Branding.Logo}"
+                                        Width="50"
+                                        Height="50" />
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -77,23 +146,53 @@
             </controls:PanoramaItem>
 
             <!--Panorama item two-->
-            <controls:PanoramaItem Header="aviser">
-                <Grid>
-                    <ListBox x:Name="CatalogsListBox" Margin="12" Height="470"  ItemsSource="{Binding Catalogs}" SelectionChanged="CatalogsListBox_SelectionChanged">
+            <controls:PanoramaItem
+                Header="aviser">
+                <Grid
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Margin="24,0,12,30">
+                    <ListBox
+                        x:Name="CatalogsListBox"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        ItemsSource="{Binding Catalogs}"
+                        SelectionChanged="CatalogsListBox_SelectionChanged">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="0,0,0,17" Width="432">
+                                <Grid
+                                    Margin="0,0,0,17"
+                                    Width="432">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="60"/>
-                                        <RowDefinition Height="25"/>
+                                        <RowDefinition
+                                            Height="60" />
+                                        <RowDefinition
+                                            Height="25" />
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="50"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>    
-                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Dealer.Name}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding PageCount}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                    <Image Grid.Row="0" Grid.Column="0" Source="{Binding Branding.Logo}" Width="50" Height="50"/>
+                                        <ColumnDefinition
+                                            Width="50" />
+                                        <ColumnDefinition
+                                            Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        Text="{Binding Dealer.Name}"
+                                        TextWrapping="Wrap"
+                                        Style="{StaticResource PhoneTextExtraLargeStyle}" />
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Text="{Binding PageCount}"
+                                        TextWrapping="Wrap"
+                                        Style="{StaticResource PhoneTextSubtleStyle}" />
+                                    <Image
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Source="{Binding Images.Thumb, Converter={StaticResource CatalogUriTemplateConverter}}"
+                                        Width="50"
+                                        Height="50" />
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -101,23 +200,53 @@
                 </Grid>
             </controls:PanoramaItem>
             <!--Panorama item two-->
-            <controls:PanoramaItem Header="butikker">
-                <Grid>
-                    <ListBox x:Name="StoresListBox" Margin="12" Height="470"  ItemsSource="{Binding Stores}" SelectionChanged="StoresListBox_SelectionChanged">
+            <controls:PanoramaItem
+                Header="butikker">
+                <Grid
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Margin="24,0,12,30">
+                    <ListBox
+                        x:Name="StoresListBox"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        ItemsSource="{Binding Stores}"
+                        SelectionChanged="StoresListBox_SelectionChanged">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="0,0,0,17" Width="432">
-                                    <Grid.RowDefinitions>   
-                                        <RowDefinition Height="60"/>
-                                        <RowDefinition Height="25"/>
+                                <Grid
+                                    Margin="0,0,0,17"
+                                    Width="432">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition
+                                            Height="60" />
+                                        <RowDefinition
+                                            Height="25" />
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="50"/>
-                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition
+                                            Width="50" />
+                                        <ColumnDefinition
+                                            Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Dealer.Name}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Street}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                    <Image Grid.Row="0" Grid.Column="0" Source="{Binding Branding.Logo}" Width="50" Height="50"/>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        Text="{Binding Dealer.Name}"
+                                        TextWrapping="Wrap"
+                                        Style="{StaticResource PhoneTextExtraLargeStyle}" />
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Text="{Binding Street}"
+                                        TextWrapping="Wrap"
+                                        Style="{StaticResource PhoneTextSubtleStyle}" />
+                                    <Image
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Source="{Binding Dealer.Branding.Logo}"
+                                        Width="50"
+                                        Height="50" />
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -129,9 +258,18 @@
             x:Name="Slider"
             VerticalAlignment="Bottom"
             Margin="0,0"
-            Visibility="Visible" />
+            Visibility="Visible"
+            
+           />
         <!--<Slider VerticalAlignment="Bottom" Margin="12,0,12,-30"  HorizontalAlignment="Stretch" Value="{Binding UserViewModel.Distance, Mode=TwoWay}" Maximum="70000" Minimum="1000" />-->
-        <local:LocationUserControl x:Name="locationControl" Visibility="{Binding UserViewModel.FirstTimeApplicationRuns, Converter={StaticResource BoolToVisibility}}" VerticalAlignment="Center" d:LayoutOverrides="Width" Margin="0" HorizontalAlignment="Center" Click="LocationUserControl_Click"/>
+        <local:LocationUserControl
+            x:Name="locationControl"
+            Visibility="{Binding UserViewModel.FirstTimeApplicationRuns, Converter={StaticResource BoolToVisibility}}"
+            VerticalAlignment="Center"
+            d:LayoutOverrides="Width"
+            Margin="0"
+            HorizontalAlignment="Center"
+            Click="LocationUserControl_Click" />
     </Grid>
 
 </phone:PhoneApplicationPage>

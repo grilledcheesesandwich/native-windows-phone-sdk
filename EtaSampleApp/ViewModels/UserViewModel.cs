@@ -82,10 +82,10 @@ namespace EtaSampleApp.ViewModels
         public static async Task<UserViewModel> LoadModelAsync()
         {
             var userModel = await GetUserViewModelFromISOAsync();
-            if (System.Diagnostics.Debugger.IsAttached)
-            {
-                userModel.FirstTimeApplicationRuns = true;
-            }
+            //if (System.Diagnostics.Debugger.IsAttached)
+            //{
+            //    userModel.FirstTimeApplicationRuns = true;
+            //}
             var tcs = new TaskCompletionSource<UserViewModel>();
             tcs.SetResult(userModel);
 
@@ -238,8 +238,8 @@ namespace EtaSampleApp.ViewModels
             }
         }
 
-        int distance = 10000;
-        public int Distance
+        double distance = 10000;
+        public double Distance
         {
             get { return distance; }
             set

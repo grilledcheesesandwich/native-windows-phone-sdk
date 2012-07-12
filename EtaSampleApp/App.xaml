@@ -1,4 +1,4 @@
-﻿    <Application 
+﻿<Application
     x:Class="EtaSampleApp.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -7,28 +7,38 @@
     xmlns:helpers="clr-namespace:EtaSampleApp.Helpers">
 
     <!--Application Resources-->
-    <Application.Resources >
-		<ResourceDictionary>
+    <Application.Resources>
+        <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Styles/Styles.xaml"/>
-                <ResourceDictionary Source="Controls/EtaStyles.xaml"/>
+                <ResourceDictionary
+                    Source="Styles/Styles.xaml" />
+                <ResourceDictionary
+                    Source="Controls/EtaStyles.xaml" />
                 <!--<ResourceDictionary Source="Styles/EtaStyles.xaml"/>-->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-        
-        <helpers:IsoFileToBitmapImageConverter x:Key="IsoFileToBitmapImageConverter"/>
-        <helpers:BoolToVisibilityN x:Key="BoolToVisibilityN"/>
-        <helpers:BoolToVisibility x:Key="BoolToVisibility"/>
-        <helpers:BoolNegationConverter x:Key="BoolNegationConverter" />
+
+        <helpers:IsoFileToBitmapImageConverter
+            x:Key="IsoFileToBitmapImageConverter" />
+        <helpers:BoolToVisibilityN
+            x:Key="BoolToVisibilityN" />
+        <helpers:BoolToVisibility
+            x:Key="BoolToVisibility" />
+        <helpers:BoolNegationConverter
+            x:Key="BoolNegationConverter" />
+        <helpers:CatalogUriTemplateConverter
+            x:Key="CatalogUriTemplateConverter" />
 
 
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>
         <!--Required object that handles lifetime events for the application-->
-        <shell:PhoneApplicationService 
-            Launching="Application_Launching" Closing="Application_Closing" 
-            Activated="Application_Activated" Deactivated="Application_Deactivated"/>
+        <shell:PhoneApplicationService
+            Launching="Application_Launching"
+            Closing="Application_Closing"
+            Activated="Application_Activated"
+            Deactivated="Application_Deactivated" />
     </Application.ApplicationLifetimeObjects>
 
 </Application>

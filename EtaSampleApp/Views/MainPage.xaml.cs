@@ -15,6 +15,7 @@ using EtaSDK;
 using EtaSDK.Utils;
 using System.Globalization;
 using Microsoft.Phone.Shell;
+using Eta.Controls;
 
 namespace EtaSampleApp.Views
 {
@@ -24,6 +25,17 @@ namespace EtaSampleApp.Views
         {
             InitializeComponent();
             this.ApplicationBar.IsVisible = false;
+            Slider.UpdateEvent += Slider_UpdateEvent;
+        }
+
+        void Slider_UpdateEvent(object sender, SliderEventArgs e)
+        {
+            if (App.ViewModel.IsUserDataLoaded)
+            {
+                App.ViewModel.UserViewModel.Distance = e.Value;
+                App.ViewModel.UpdateEtaData();
+
+            }
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
@@ -144,6 +156,11 @@ namespace EtaSampleApp.Views
         private void PhoneTextBox_ActionIconTapped(object sender, EventArgs e)
         {
             searchListBox.SelectedIndex = -1;
+            var textbox = phoneTextBox1;
+            if (App.ViewModel.OfferSearchQueryText != textbox.Text)
+            {
+                App.ViewModel.OfferSearchQueryText = textbox.Text;
+            }
             App.ViewModel.LoadOfferSearchResult(App.ViewModel.OfferSearchQueryText);
         }
 

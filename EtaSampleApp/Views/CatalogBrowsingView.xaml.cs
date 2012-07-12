@@ -17,6 +17,23 @@ namespace EtaSampleApp.Views
 {
     public partial class CatalogBrowsingView : PhoneApplicationPage
     {
+        public static SolidColorBrush GetColorFromHexa(string hexaColor)
+        {
+            return new SolidColorBrush(
+                Color.FromArgb(
+                    255,
+                    Convert.ToByte(hexaColor.Substring(0, 2), 16),
+                    Convert.ToByte(hexaColor.Substring(2, 2), 16),
+                    Convert.ToByte(hexaColor.Substring(4, 2), 16)
+                    //Convert.ToByte(hexaColor.Substring(6, 2), 16)
+                    //Convert.ToByte(hexaColor.Substring(1, 2), 16),
+                    //Convert.ToByte(hexaColor.Substring(3, 2), 16),
+                    //Convert.ToByte(hexaColor.Substring(5, 2), 16),
+                    //Convert.ToByte(hexaColor.Substring(7, 2), 16)
+                )
+            );
+        }
+
         private CatalogBrowsingViewModel model;
         public CatalogBrowsingView()
         {
@@ -34,6 +51,15 @@ namespace EtaSampleApp.Views
             model = new CatalogBrowsingViewModel(id);
             this.DataContext = model;
             model.LoadData();
+            
+            
+            if (!string.IsNullOrWhiteSpace(model.Catalog.Branding.Color))
+            {
+                //model.Catalog.Week.From
+                //this.ContentPanel.Background = new SolidColorBrush(Colors.Red);
+                this.ContentPanel.Background = GetColorFromHexa(model.Catalog.Branding.Color);
+            }
+
             int startPage = 0;
             if (NavigationContext.QueryString.ContainsKey("GoToPage"))
             {

@@ -68,8 +68,8 @@ namespace EtaSDK
                 options.AddParm(EtaApiConstants.EtaApi_Geocoded, "0");
                 options.AddParm(EtaApiConstants.EtaApi_Accuracy, "0");
                 options.AddParm(EtaApiConstants.EtaApi_Ditance, "10000");
-                options.AddParm(EtaApiConstants.EtaApi_OfferId, "");
-                options.AddParm(EtaApiConstants.EtaApi_CatalogId, "");
+                //options.AddParm(EtaApiConstants.EtaApi_OfferId, "");
+                //options.AddParm(EtaApiConstants.EtaApi_CatalogId, "");
                 options.AddParm("type", "suggested");
             }
 

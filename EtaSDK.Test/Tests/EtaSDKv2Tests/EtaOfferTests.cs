@@ -36,12 +36,12 @@ namespace EtaSDK.Test.Tests.EtaSDKv2Tests
             var api = new EtaSDKv2();
             api.GetOfferList(null, offers =>
             {
-                if(string.IsNullOrWhiteSpace(offers)){
+                if(offers == null || offers.Count == 0){
                     TestCompleteWithErrorsUISafe("Offers is null or Empty");
                 }
                 TestCompleteUISafe();
 
-            }, error =>
+            }, (error,uri) =>
             {
                 TestCompleteWithErrorsUISafe(error.Message);
 

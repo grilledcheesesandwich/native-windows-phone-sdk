@@ -108,4 +108,19 @@ namespace EtaSampleApp.Helpers
             throw new NotImplementedException();
         }
     }
+
+    public class CatalogUriTemplateConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            string template = value.ToString();
+            template = template.Replace("%d", "{0}");
+            return string.Format(template,1);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
