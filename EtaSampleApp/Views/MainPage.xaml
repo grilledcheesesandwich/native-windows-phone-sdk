@@ -8,7 +8,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:local="clr-namespace:EtaSampleApp.Views" 
     xmlns:EtaSampleApp_Helpers="clr-namespace:EtaSampleApp.Helpers" 
-    x:Class="EtaSampleApp.Views.MainPage" 
+    x:Class="EtaSampleApp.Views.MainPage"
+    xmlns:eta="clr-namespace:Eta.Controls"
+    
     xmlns:toolkitPrimitives="clr-namespace:Microsoft.Phone.Controls.Primitives;assembly=Microsoft.Phone.Controls.Toolkit" xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="728"
@@ -123,7 +125,12 @@
                 </Grid>
             </controls:PanoramaItem>
         </controls:Panorama>
-        <Slider VerticalAlignment="Bottom" Margin="12,0,12,-30"  HorizontalAlignment="Stretch" Value="{Binding UserViewModel.Distance, Mode=TwoWay}" Maximum="70000" Minimum="1000" />
+        <eta:EtaSlider
+            x:Name="Slider"
+            VerticalAlignment="Bottom"
+            Margin="0,0"
+            Visibility="Visible" />
+        <!--<Slider VerticalAlignment="Bottom" Margin="12,0,12,-30"  HorizontalAlignment="Stretch" Value="{Binding UserViewModel.Distance, Mode=TwoWay}" Maximum="70000" Minimum="1000" />-->
         <local:LocationUserControl x:Name="locationControl" Visibility="{Binding UserViewModel.FirstTimeApplicationRuns, Converter={StaticResource BoolToVisibility}}" VerticalAlignment="Center" d:LayoutOverrides="Width" Margin="0" HorizontalAlignment="Center" Click="LocationUserControl_Click"/>
     </Grid>
 

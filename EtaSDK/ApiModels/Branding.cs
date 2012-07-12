@@ -17,7 +17,6 @@ namespace EtaSDK.ApiModels
                 branding.Color = json.GetJsonValue(() => branding.Color);
                 branding.Logo = json.GetJsonValue(() => branding.Logo);
                 return branding;
-
             }
             return null;
         }

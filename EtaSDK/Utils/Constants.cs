@@ -13,6 +13,9 @@ namespace EtaSDK.Utils
 {
     public static class EtaApiConstants
     {
+        public const string EtaApi_OfferId = "offer";
+        public const string EtaApi_CatalogId = "catalog";
+
         public const string EtaApi_ApiKey = "api_key";
         public const string EtaApi_ApiSecret = "api_secret";
         public const string EtaApi_Uuid = "api_uuid";

@@ -8,13 +8,14 @@
 
     <!--Application Resources-->
     <Application.Resources >
-       
-		<ResourceDictionary x:Key="myStyles">
+		<ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary x:Name="styles" Source="Styles/Styles.xaml"/>
+                <ResourceDictionary Source="Styles/Styles.xaml"/>
+                <ResourceDictionary Source="Controls/EtaStyles.xaml"/>
                 <!--<ResourceDictionary Source="Styles/EtaStyles.xaml"/>-->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
+        
         <helpers:IsoFileToBitmapImageConverter x:Key="IsoFileToBitmapImageConverter"/>
         <helpers:BoolToVisibilityN x:Key="BoolToVisibilityN"/>
         <helpers:BoolToVisibility x:Key="BoolToVisibility"/>

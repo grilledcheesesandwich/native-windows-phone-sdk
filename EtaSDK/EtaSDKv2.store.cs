@@ -58,6 +58,7 @@ namespace EtaSDK
 
         public void GetStoreList(EtaApiQueryStringParameterOptions options, Action<List<Store>> callback, Action<Exception,Uri> error)
         {
+            // Offer Id el. Catalog id med som key
             if (options == null)
             {
                 options = new EtaApiQueryStringParameterOptions();
@@ -67,7 +68,9 @@ namespace EtaSDK
                 options.AddParm(EtaApiConstants.EtaApi_Geocoded, "0");
                 options.AddParm(EtaApiConstants.EtaApi_Accuracy, "0");
                 options.AddParm(EtaApiConstants.EtaApi_Ditance, "10000");
-                options.AddParm("type", "all");
+                options.AddParm(EtaApiConstants.EtaApi_OfferId, "");
+                options.AddParm(EtaApiConstants.EtaApi_CatalogId, "");
+                options.AddParm("type", "suggested");
             }
 
             ApiRaw("/api/v1/store/list/", options, _onresult =>

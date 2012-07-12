@@ -57,7 +57,8 @@ namespace BingServices
                     tcs.TrySetResult(null);
                 }
                 if(geoCodeResult.Locations == null || geoCodeResult.Locations.Count == 0){
-                     tcs.SetResult(null);
+                     tcs.TrySetResult(null);
+                     return;
                 }
                 var location = geoCodeResult.Locations.FirstOrDefault();
                 if (location == null)
