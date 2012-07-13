@@ -155,6 +155,11 @@ namespace EtaSampleApp.Views
 
         private void PhoneTextBox_ActionIconTapped(object sender, EventArgs e)
         {
+            UpdateSearchList();
+        }
+
+        private void UpdateSearchList()
+        {
             searchListBox.SelectedIndex = -1;
             var textbox = phoneTextBox1;
             if (App.ViewModel.OfferSearchQueryText != textbox.Text)
@@ -162,6 +167,7 @@ namespace EtaSampleApp.Views
                 App.ViewModel.OfferSearchQueryText = textbox.Text;
             }
             App.ViewModel.LoadOfferSearchResult(App.ViewModel.OfferSearchQueryText);
+
         }
 
         private void StoresListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -193,6 +199,17 @@ namespace EtaSampleApp.Views
                 string uri = String.Format("/Views/StoreDetailsView.xaml?storeId={0}", store.Id);
                 NavigationService.Navigate(new Uri(uri, UriKind.Relative));
             }
+        }
+
+        private void phoneTextBox1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                this.Focus();
+                e.Handled = true;
+                UpdateSearchList();
+            }
+
         }
     }
 }

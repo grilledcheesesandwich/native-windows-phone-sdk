@@ -1,27 +1,12 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Collections.ObjectModel;
-using eta.sdk;
-using EtaSDK;
-using EtaSDK.Utils;
-using EtaSDK.ApiModels;
-using System.Linq.Expressions;
-using System.Windows.Threading;
-using esmann.WP.Common.ViewModels;
 using System.Linq;
+using System.Windows;
+using esmann.WP.Common.ViewModels;
 using EtaSampleApp.ViewModels;
-using System.Threading.Tasks;
+using EtaSDK;
+using EtaSDK.ApiModels;
+using EtaSDK.Utils;
 
 namespace EtaSampleApp
 {
@@ -84,6 +69,42 @@ namespace EtaSampleApp
                     isSearching = value;
 
                     this.NotifyPropertyChanged(() => IsSearching);
+                }
+            }
+        }
+
+        private bool isStoresUpdateing = true;
+        public bool IsStoresUpdateing
+        {
+            get
+            {
+                return isStoresUpdateing;
+            }
+            set
+            {
+                if (value != isStoresUpdateing)
+                {
+                    isStoresUpdateing = value;
+
+                    this.NotifyPropertyChanged(() => IsStoresUpdateing);
+                }
+            }
+        }
+
+        private bool isCatalogsUpdateing = true;
+        public bool IsCatalogsUpdateing
+        {
+            get
+            {
+                return isCatalogsUpdateing;
+            }
+            set
+            {
+                if (value != isCatalogsUpdateing)
+                {
+                    isCatalogsUpdateing = value;
+
+                    this.NotifyPropertyChanged(() => IsCatalogsUpdateing);
                 }
             }
         }
@@ -211,6 +232,7 @@ namespace EtaSampleApp
 
         public void LoadEtaCatalogList()
         {
+            IsCatalogsUpdateing = true;
             var userModel = UserViewModel;
             var options = new EtaApiQueryStringParameterOptions();
             options.AddParm(EtaApiConstants.EtaApi_Latitude, userModel.Location.Latitude.ToString("0.00000"));
@@ -230,6 +252,8 @@ namespace EtaSampleApp
                         this.Catalogs.Add(catalog);
                     }
                     IsDataLoaded = true;
+                    IsCatalogsUpdateing = false;
+
                 });
 
             }, (error,uri) => {
@@ -239,12 +263,15 @@ namespace EtaSampleApp
                     MessageBox.Show(msg + "\n"+uri, "Exception", MessageBoxButton.OK);           
 #endif
                     IsDataLoaded = false;
+                    IsCatalogsUpdateing = false;
+
                 });
             });
         }
 
         public void LoadEtaStoreList()
         {
+            IsStoresUpdateing = true;
             var userModel = UserViewModel;
             var options = new EtaApiQueryStringParameterOptions();
             options.AddParm(EtaApiConstants.EtaApi_Latitude, userModel.Location.Latitude.ToString("0.00000"));
@@ -265,6 +292,8 @@ namespace EtaSampleApp
                         this.Stores.Add(store);
                     }
                     //IsDataLoaded = true;
+                    IsStoresUpdateing = false;
+
                 });
 
             }, (error, uri) =>
@@ -276,6 +305,8 @@ namespace EtaSampleApp
                     MessageBox.Show(msg + "\n" + uri, "Exception", MessageBoxButton.OK);
 #endif
                     //IsDataLoaded = false;
+                    IsStoresUpdateing = false;
+
                 });
             });
         }

@@ -28,6 +28,8 @@
             x:Key="BoolNegationConverter" />
         <helpers:CatalogUriTemplateConverter
             x:Key="CatalogUriTemplateConverter" />
+        <helpers:OfferToPriceConverter
+            x:Key="OfferToPriceConverter" />
 
 
     </Application.Resources>

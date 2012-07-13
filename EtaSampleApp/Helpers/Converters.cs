@@ -12,6 +12,7 @@ using System.Windows.Data;
 using System.Windows.Media.Imaging;
 using System.IO.IsolatedStorage;
 using System.Diagnostics;
+using EtaSDK.ApiModels;
 
 namespace EtaSampleApp.Helpers
 {
@@ -116,6 +117,41 @@ namespace EtaSampleApp.Helpers
             string template = value.ToString();
             template = template.Replace("%d", "{0}");
             return string.Format(template,1);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class OfferToPriceConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            var offer = value as Offer;
+            if (offer == null)
+            {
+                return "0";
+            }
+            if (!string.IsNullOrWhiteSpace(offer.Preprice))
+            {
+                double preprice, price, discount;
+                if (double.TryParse(offer.Preprice, out preprice) && double.TryParse(offer.Price, out price))
+                {
+                    discount = preprice - price;
+                    return string.Format("{0},-, før {1},- (spar {2})", offer.Price, offer.Preprice,discount);
+
+                }
+                else
+                {
+                    return string.Format("{0},-, før {1},-", offer.Price, offer.Preprice);
+                }
+            }
+            else
+            {
+                return string.Format("{0},-.", offer.Price);
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

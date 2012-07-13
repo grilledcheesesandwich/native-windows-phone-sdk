@@ -66,7 +66,7 @@
             Margin="0,0,0,60"
             Visibility="{Binding IsUserDataLoaded, Converter={StaticResource BoolToVisibility}}">
 
-            <!--Panorama item one-->
+            <!--Panorama item Søg-->
             <controls:PanoramaItem>
                 <controls:PanoramaItem.Header>
                     <toolkit:PhoneTextBox
@@ -83,6 +83,7 @@
                         ActionIcon="/Images/search.icon.png"
                         AcceptsReturn="False"
                         HidesActionItemWhenEmpty="False"
+                        KeyUp="phoneTextBox1_KeyUp"
                         ActionIconTapped="PhoneTextBox_ActionIconTapped" />
                 </controls:PanoramaItem.Header>
                 <Grid
@@ -112,7 +113,7 @@
                                         <RowDefinition
                                             Height="60" />
                                         <RowDefinition
-                                            Height="25" />
+                                            Height="30" />
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition
@@ -123,20 +124,19 @@
                                     <TextBlock
                                         Grid.Row="0"
                                         Grid.Column="1"
-                                        Text="{Binding Price}"
-                                        TextWrapping="Wrap"
-                                        Style="{StaticResource PhoneTextExtraLargeStyle}" />
+                                        Text="{Binding Heading}"
+                                        TextWrapping="NoWrap"
+                                        Style="{StaticResource PhoneTextLargeStyle}" />
                                     <TextBlock
                                         Grid.Row="1"
                                         Grid.Column="1"
-                                        Text="{Binding Heading}"
-                                        TextWrapping="Wrap"
+                                        Text="{Binding BindsDirectlyToSource=True, Converter={StaticResource OfferToPriceConverter}}"
+                                        TextWrapping="NoWrap"
                                         Style="{StaticResource PhoneTextSubtleStyle}" />
                                     <Image
                                         Grid.Row="0"
                                         Grid.Column="0"
                                         Source="{Binding Dealer.Branding.Logo}"
-                                        Width="50"
                                         Height="50" />
                                 </Grid>
                             </DataTemplate>
@@ -145,13 +145,21 @@
                 </Grid>
             </controls:PanoramaItem>
 
-            <!--Panorama item two-->
+            <!--Panorama item Aviser-->
             <controls:PanoramaItem
                 Header="aviser">
                 <Grid
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     Margin="24,0,12,30">
+                    <toolkit:PerformanceProgressBar
+                        IsIndeterminate="True"
+                        Width="350"
+                        Visibility="{Binding IsCatalogsUpdateing, Converter={StaticResource BoolToVisibility}}"
+                        Foreground="White"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Top"
+                        Margin="0,-20,0,0" />
                     <ListBox
                         x:Name="CatalogsListBox"
                         HorizontalAlignment="Stretch"
@@ -167,25 +175,37 @@
                                         <RowDefinition
                                             Height="60" />
                                         <RowDefinition
-                                            Height="25" />
+                                            Height="30" />
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition
                                             Width="50" />
+                                        <ColumnDefinition
+                                            Width="Auto" />
                                         <ColumnDefinition
                                             Width="*" />
                                     </Grid.ColumnDefinitions>
                                     <TextBlock
                                         Grid.Row="0"
                                         Grid.Column="1"
+                                        Grid.ColumnSpan="2"
                                         Text="{Binding Dealer.Name}"
                                         TextWrapping="Wrap"
                                         Style="{StaticResource PhoneTextExtraLargeStyle}" />
                                     <TextBlock
                                         Grid.Row="1"
                                         Grid.Column="1"
-                                        Text="{Binding PageCount}"
-                                        TextWrapping="Wrap"
+                                        Text="uge "
+                                        HorizontalAlignment="Right"
+                                        TextWrapping="NoWrap"
+                                        Style="{StaticResource PhoneTextSubtleStyle}" />
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        Grid.Column="2"
+                                        Text="{Binding Week.From}"
+                                        HorizontalAlignment="Left"
+                                        Margin="0"
+                                        TextWrapping="NoWrap"
                                         Style="{StaticResource PhoneTextSubtleStyle}" />
                                     <Image
                                         Grid.Row="0"
@@ -199,13 +219,22 @@
                     </ListBox>
                 </Grid>
             </controls:PanoramaItem>
-            <!--Panorama item two-->
+            
+            <!--Panorama item Butikker-->
             <controls:PanoramaItem
                 Header="butikker">
                 <Grid
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     Margin="24,0,12,30">
+                    <toolkit:PerformanceProgressBar
+                        IsIndeterminate="True"
+                        Width="350"
+                        Visibility="{Binding IsStoresUpdateing, Converter={StaticResource BoolToVisibility}}"
+                        Foreground="White"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Top"
+                        Margin="0,-20,0,0" />
                     <ListBox
                         x:Name="StoresListBox"
                         HorizontalAlignment="Stretch"
@@ -221,7 +250,7 @@
                                         <RowDefinition
                                             Height="60" />
                                         <RowDefinition
-                                            Height="25" />
+                                            Height="30" />
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition

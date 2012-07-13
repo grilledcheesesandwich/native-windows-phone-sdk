@@ -14,11 +14,13 @@
 
     <Grid
         x:Name="LayoutRoot"
-        Height="145"
+        Height="70"
         Margin="0,-50,0,0"
+        IsHitTestVisible="True"
         Background="Transparent">
         <Grid
-            Margin="0,0,0,70"
+            IsHitTestVisible="False"
+            Margin="0,-70,0,70"
             HorizontalAlignment="Center"
             VerticalAlignment="Bottom"
             Width="312"
@@ -59,9 +61,11 @@
         </Grid>
 
         <Grid
+            IsHitTestVisible="True"
             Height="70"
             VerticalAlignment="Bottom">
             <Rectangle
+                IsHitTestVisible="True"
                 Grid.RowSpan="2">
                 <Rectangle.Fill>
                     <LinearGradientBrush
@@ -76,12 +80,14 @@
                 </Rectangle.Fill>
             </Rectangle>
             <Rectangle
+                IsHitTestVisible="True"
                 Fill="Black"
                 Height="1"
                 VerticalAlignment="Top" />
 
-            <StackPanel>
+            <StackPanel IsHitTestVisible="True">
                 <Slider
+                    IsHitTestVisible="True"
                     MouseLeftButtonUp="EtaSlider_Release"
                     Margin="45,5,110,5"
                     Name="EtaSliderControl"

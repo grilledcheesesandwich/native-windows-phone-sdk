@@ -51,6 +51,8 @@ namespace EtaSampleApp.ViewModels
 
         private void LoadData()
         {
+            IsLoading = true;
+
             EtaSdk = new EtaSDK.EtaSDKv2();
             var userModel = App.ViewModel.UserViewModel;
 
@@ -79,6 +81,11 @@ namespace EtaSampleApp.ViewModels
                         {
                             StoreOffers.Add(offer);
                         }
+                        HasOffers = StoreOffers.Any();
+                        IsLoading = false;
+
+                        ShowText = !HasOffers;
+
                     }
                 });
                 
@@ -86,8 +93,65 @@ namespace EtaSampleApp.ViewModels
             }, (error,uri) => {
 
                 var msg = error.Message;
+                IsLoading = false;
+                HasOffers = false;
+                ShowText = true;
             
             });
+        }
+
+        private bool isLoading = true;
+        public bool IsLoading
+        {
+            get
+            {
+                return isLoading;
+            }
+            set
+            {
+                if (value != isLoading)
+                {
+                    isLoading = value;
+
+                    this.NotifyPropertyChanged(() => IsLoading);
+                }
+            }
+        }
+
+        private bool hasOffers = false;
+        public bool HasOffers
+        {
+            get
+            {
+                return hasOffers;
+            }
+            set
+            {
+                if (value != hasOffers)
+                {
+                    hasOffers = value;
+
+                    this.NotifyPropertyChanged(() => HasOffers);
+                }
+            }
+        }
+
+        private bool showText = false;
+        public bool ShowText
+        {
+            get
+            {
+                return showText;
+            }
+            set
+            {
+                if (value != showText)
+                {
+                    showText = value;
+
+                    this.NotifyPropertyChanged(() => ShowText);
+                }
+            }
         }
     }
 }
