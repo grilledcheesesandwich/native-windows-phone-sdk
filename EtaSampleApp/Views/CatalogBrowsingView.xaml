@@ -58,21 +58,53 @@
         <Grid
             x:Name="ContentPanel"
             Grid.Row="1"
-            
             Margin="0,0,0,0">
             <ListBox
                 x:Name="catalogSlideView"
                 Style="{StaticResource CatalogPagesListBox}"
                 ItemsSource="{Binding Pages}"
                 DataContext="{Binding}"
-                SelectionChanged="catalogSlideView_SelectionChanged"
-                 />
+                MouseLeftButtonDown="catalogSlideView_MouseLeftButtonDown"
+                SelectionChanged="catalogSlideView_SelectionChanged" />
             <telerikPrimitivesSlideView:PanAndZoomImage
                 Margin="0"
                 x:Name="zoomImage"
                 Visibility="Collapsed"
                 Source="{Binding SelectedPageItem.ZoomUri, Converter={StaticResource IsoFileToBitmapImageConverter}}"
                 ZoomMode="Free" />
+            <Grid
+                Visibility="Visible"
+                Height="70"
+                VerticalAlignment="Bottom"
+                Margin="12,0,12,12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition
+                        Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    TextWrapping="Wrap"
+                    Text="1"
+                    VerticalAlignment="Center" />
+                <TextBlock
+                    TextWrapping="Wrap"
+                    Text="{Binding CurrentPage}"
+                    VerticalAlignment="Center"
+                    Grid.Column="2" />
+                <Slider
+                    x:Name="slider"
+                    Grid.Column="1"
+                    Width="300"
+                    VerticalAlignment="Center"
+                    Height="10"
+                    LargeChange="1"
+                    SmallChange="1"
+                    Value="1"
+                    Maximum="{Binding Catalog.PageCount}"
+                    Minimum="0"
+                    ValueChanged="Slider_ValueChanged"/>
+            </Grid>
 
         </Grid>
     </Grid>

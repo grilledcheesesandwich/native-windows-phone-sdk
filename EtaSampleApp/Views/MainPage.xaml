@@ -45,6 +45,10 @@
                     x:Name="settingsMenuItem"
                     Text="indstillinger"
                     Click="settingsMenuItem_Click" />
+                <shell:ApplicationBarMenuItem
+                    x:Name="aboutMenuItem"
+                    Text="Om"
+                    Click="aboutMenuItem_Click" />
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
@@ -79,7 +83,7 @@
                         Text="{Binding OfferSearchQueryText, Mode=TwoWay}"
                         TextWrapping="NoWrap"
                         d:LayoutOverrides="Width"
-                        Hint="Søg"
+                        Hint="Søg efter tilbud"
                         ActionIcon="/Images/search.icon.png"
                         AcceptsReturn="False"
                         HidesActionItemWhenEmpty="False"

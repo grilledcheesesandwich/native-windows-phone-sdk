@@ -13,6 +13,10 @@ using Microsoft.Phone.Controls;
 using EtaSDK.ApiModels;
 using EtaSampleApp.ViewModels;
 
+
+// list box help:
+// http://blogs.msdn.com/b/ptorr/archive/2010/10/12/procrastination-ftw-lazylistbox-should-improve-your-scrolling-performance-and-responsiveness.aspx
+
 namespace EtaSampleApp.Views
 {
     public partial class CatalogBrowsingView : PhoneApplicationPage
@@ -88,10 +92,9 @@ namespace EtaSampleApp.Views
                 catalogSlideView.UpdateLayout();
                 catalogSlideView.ScrollIntoView(model.Pages[startPage]);
                 catalogSlideView.UpdateLayout();
+                slider.Value = startPage;
             }
         }
-
-
 
         private void catalogSlideView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -115,6 +118,7 @@ namespace EtaSampleApp.Views
             {
                 return;
             }
+            slider.Value = listbox.SelectedIndex;
 
             model.SelectedPageItem = pageItem;
             zoomImage.Visibility = System.Windows.Visibility.Visible;
@@ -152,8 +156,84 @@ namespace EtaSampleApp.Views
 
         void catalogSlideView_ManipulationCompleted(object sender, ManipulationCompletedEventArgs e)
         {
+            var list = VisualTreeHelper.FindElementsInHostCoordinates(new Rect(new Point(0, 0), new Point(800, 480)), catalogSlideView).OfType<ListBoxItem>();
+            if (list.Any())
+            {
+                CatalogPageItem ListBoxItemInFocus = null;
+                
+                var count = list.Count();
+                if (count == 1)
+                {
+                    ListBoxItemInFocus = list.First().Content as CatalogPageItem;
+                }
+                else
+                {
+                    int value = (int)Math.Ceiling(count / 2d);
+                     ListBoxItemInFocus = list.ToList()[value].Content as CatalogPageItem;
+
+                }
+                model.CurrentPage = ListBoxItemInFocus.Id;
+            }
+           
+            //foreach (var item in catalogSlideView.Items)
+            //{
+            //    var isVisible = TestVisibility(item, catalogSlideView, System.Windows.Controls.Orientation.Vertical, true);
+            //    if (isVisible)
+            //    {
+            //        int bbbb = 0;
+            //    }
+            //}
             GC.Collect();
             GC.WaitForPendingFinalizers();
         }
+
+        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            //var slider = sender as Slider;
+            if (catalogSlideView != null && catalogSlideView.SelectedIndex != -1 && catalogSlideView.SelectedIndex != e.NewValue)
+            {
+                ScrollToPage((int)e.NewValue);
+            };
+
+        }
+
+        int currentPageIndex = 0;
+        private void catalogSlideView_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            
+        }
+
+        public bool TestVisibility(FrameworkElement item, FrameworkElement viewport, Orientation orientation, bool wantVisible)
+        {
+            // Determine the bounding box of the item relative to the viewport 
+            GeneralTransform transform = item.TransformToVisual(viewport);
+            Point topLeft = transform.Transform(new Point(0, 0));
+            Point bottomRight = transform.Transform(new Point(item.ActualWidth, item.ActualHeight));
+
+            // Check for overlapping bounding box of the item vs. the viewport, depending on orientation 
+            double min, max, testMin, testMax;
+            if (orientation == System.Windows.Controls.Orientation.Vertical)
+            {
+                min = topLeft.Y;
+                max = bottomRight.Y;
+                testMin = 0;
+                testMax = Math.Min(viewport.ActualHeight, double.IsNaN(viewport.Height) ? double.PositiveInfinity : viewport.Height);
+            }
+            else
+            {
+                min = topLeft.X;
+                max = bottomRight.X;
+                testMin = 0;
+                testMax = Math.Min(viewport.ActualWidth, double.IsNaN(viewport.Width) ? double.PositiveInfinity : viewport.Width);
+            }
+
+            bool result = wantVisible;
+
+            if (min >= testMax || max <= testMin)
+                result = !wantVisible;
+
+            return result;
+        }
+
     }
 }

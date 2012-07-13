@@ -126,7 +126,7 @@ namespace EtaSampleApp
             }
         }
 
-        private string offerSearchQueryText = "kaffe";
+        private string offerSearchQueryText = "";
         public string OfferSearchQueryText
         {
             get
@@ -174,7 +174,7 @@ namespace EtaSampleApp
             options.AddParm(EtaApiConstants.EtaApi_Longitude, userModel.Location.Longitude.ToString("0.00000"));
             options.AddParm(EtaApiConstants.EtaApi_LocationDetermined, UNIXTime.GetTimestamp(DateTime.Now));
             options.AddParm(EtaApiConstants.EtaApi_Geocoded, userModel.Location.IsGeoCoded ? "0" : "0");
-            options.AddParm(EtaApiConstants.EtaApi_Accuracy, "0");//userModel.Location.Accuracy.ToString());
+            options.AddParm(EtaApiConstants.EtaApi_Accuracy, "1");//userModel.Location.Accuracy.ToString());
             options.AddParm(EtaApiConstants.EtaApi_Ditance, userModel.Distance.ToString());
             
             var api = new EtaSDKv2();
@@ -277,8 +277,8 @@ namespace EtaSampleApp
             options.AddParm(EtaApiConstants.EtaApi_Latitude, userModel.Location.Latitude.ToString("0.00000"));
             options.AddParm(EtaApiConstants.EtaApi_Longitude, userModel.Location.Longitude.ToString("0.00000"));
             options.AddParm(EtaApiConstants.EtaApi_LocationDetermined, UNIXTime.GetTimestamp(DateTime.Now));
-            options.AddParm(EtaApiConstants.EtaApi_Geocoded, userModel.Location.IsGeoCoded ? "0" : "0");
-            options.AddParm(EtaApiConstants.EtaApi_Accuracy, "0");//userModel.Location.Accuracy.ToString());
+            options.AddParm(EtaApiConstants.EtaApi_Geocoded, userModel.Location.IsGeoCoded ? "1" : "1");
+            //options.AddParm(EtaApiConstants.EtaApi_Accuracy, "10");//userModel.Location.Accuracy.ToString());
             options.AddParm(EtaApiConstants.EtaApi_Ditance, userModel.Distance.ToString());
 
             var api = new EtaSDKv2();

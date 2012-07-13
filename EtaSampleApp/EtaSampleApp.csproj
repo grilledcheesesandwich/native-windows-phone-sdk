@@ -104,6 +104,9 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\StoreDetailsViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
+    <Compile Include="Views\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CatalogBrowsingView.xaml.cs">
       <DependentUpon>CatalogBrowsingView.xaml</DependentUpon>
     </Compile>
@@ -159,6 +162,10 @@
     <Page Include="UserControls\SplashScreenLoadingUserControl.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\AboutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CatalogBrowsingView.xaml">
       <SubType>Designer</SubType>

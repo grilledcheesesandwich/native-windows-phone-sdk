@@ -211,5 +211,11 @@ namespace EtaSampleApp.Views
             }
 
         }
+
+        private void aboutMenuItem_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Views/AboutView.xaml", UriKind.Relative));
+
+        }
     }
 }

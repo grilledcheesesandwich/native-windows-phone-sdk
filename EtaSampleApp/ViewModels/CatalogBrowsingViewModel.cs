@@ -79,6 +79,20 @@ namespace EtaSampleApp.ViewModels
                 }
             }
         }
+
+        private int currentPage;
+        public int CurrentPage
+        {
+            get { return currentPage; }
+            set
+            {
+                if (currentPage != value)
+                {
+                    currentPage = value;
+                    NotifyPropertyChanged(() => CurrentPage);
+                }
+            }
+        }
         
         public CatalogBrowsingViewModel(string catalogId)
         {

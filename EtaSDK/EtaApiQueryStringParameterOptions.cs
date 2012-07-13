@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using EtaSDK.Properties;
 using EtaSDK.Utils;
+using System.Diagnostics;
 
 namespace EtaSDK
 {
@@ -64,8 +65,21 @@ namespace EtaSDK
         {
             StringBuilder sb = new StringBuilder("?");
             StringBuilder checkSumValues = new StringBuilder();
+            
+            bool skip_EtaApi_Accuracy = queryStringParams.ContainsKey(EtaApiConstants.EtaApi_Geocoded) && queryStringParams[EtaApiConstants.EtaApi_Geocoded] != "0";
+            bool require_EtaApi_Accuracy = queryStringParams.ContainsKey(EtaApiConstants.EtaApi_Geocoded) && queryStringParams[EtaApiConstants.EtaApi_Geocoded] == "0";
+
+            if (require_EtaApi_Accuracy & !queryStringParams.ContainsKey(EtaApiConstants.EtaApi_Accuracy))
+            {
+                Debugger.Break();
+            }
             foreach (var param in queryStringParams)
             {
+                if (skip_EtaApi_Accuracy && param.Key == EtaApiConstants.EtaApi_Accuracy)
+                {
+                    Debugger.Break();
+                    continue;
+                }
                 sb.Append(param.Key);
                 sb.Append("=");
                 sb.Append(param.Value);
