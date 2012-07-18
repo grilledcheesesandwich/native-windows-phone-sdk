@@ -65,14 +65,14 @@
     <Compile Include="ApiModels\Name.cs" />
     <Compile Include="ApiModels\Offer.cs" />
     <Compile Include="ApiModels\Timespan.cs" />
-    <Compile Include="EtaSDKv2.offer.cs" />
-    <Compile Include="EtaSDKv2.store.cs" />
-    <Compile Include="EtaSDKv2.catalog.cs" />
+    <Compile Include="v2\EtaSDKv2.offer.cs" />
+    <Compile Include="v2\EtaSDKv2.store.cs" />
+    <Compile Include="v2\EtaSDKv2.catalog.cs" />
     <Compile Include="EtaApiQueryStringParameterOptions.cs" />
     <Compile Include="EtaException.cs" />
     <Compile Include="EtaSDK.cs" />
     <Compile Include="EtaApiOptions.cs" />
-    <Compile Include="EtaSDKv2.raw.cs" />
+    <Compile Include="v2\EtaSDKv2.raw.cs" />
     <Compile Include="ApiModels\Branding.cs" />
     <Compile Include="ApiModels\Catalog.cs" />
     <Compile Include="ApiModels\Country.cs" />
@@ -80,7 +80,7 @@
     <Compile Include="ApiModels\Images.cs" />
     <Compile Include="ApiModels\Store.cs" />
     <Compile Include="ApiModels\Weeks.cs" />
-    <Compile Include="EtaSDKv3.cs" />
+    <Compile Include="v3\EtaAPI.raw.cs" />
     <Compile Include="Utils\CatalogPageHelper.cs" />
     <Compile Include="Utils\EtaCatalogStorageHelper.cs" />
     <Compile Include="Utils\MD5.cs" />
@@ -93,6 +93,10 @@
     <Compile Include="Utils\Constants.cs" />
     <Compile Include="Utils\UNIXTime.cs" />
     <Compile Include="Utils\UuidHelper.cs" />
+    <Compile Include="v3\EtaAPI.catalog.cs" />
+    <Compile Include="v3\EtaAPI.offer.cs" />
+    <Compile Include="v3\EtaAPI.store.cs" />
+    <Compile Include="v3\EtaResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

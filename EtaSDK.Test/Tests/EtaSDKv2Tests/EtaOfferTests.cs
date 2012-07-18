@@ -17,7 +17,7 @@ using EtaSDK.ApiModels;
 
 namespace EtaSDK.Test.Tests.EtaSDKv2Tests
 {
-    //[Ignore]
+    [Ignore]
     [Tag("Offer API")]
     [TestClass]
     public class EtaOfferTests : SilverlightTestEx

@@ -10,6 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Silverlight.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics;
 
 namespace EtaSDK.Test.Tests.Common
 {
@@ -20,6 +21,7 @@ namespace EtaSDK.Test.Tests.Common
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
                 Assert.IsTrue(false, "Assert description: " + msg);
+                Debugger.Break();
                 EnqueueTestComplete();
             });
         }
