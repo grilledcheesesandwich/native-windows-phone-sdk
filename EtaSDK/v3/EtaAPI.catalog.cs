@@ -30,7 +30,7 @@ namespace EtaSDK.v3
             var eta = await ApiRawAsync("/api/v1/catalog/list/",options);
             if (eta.HasErrors)
             {
-                return new EtaResponse<List<Catalog>>(eta.Error);
+                return new EtaResponse<List<Catalog>>(eta.Uri,eta.Error);
             }
             var jsonstr = eta.Result;
 
@@ -45,9 +45,9 @@ namespace EtaSDK.v3
                         var catalog = Catalog.FromJson(item);
                         catalogs.Add(catalog);
                     }
-                    return new EtaResponse<List<Catalog>>(catalogs);
+                    return new EtaResponse<List<Catalog>>(eta.Uri, catalogs);
                 }
-                return new EtaResponse<List<Catalog>>(new Exception("json response is null or empty"));
+                return new EtaResponse<List<Catalog>>(eta.Uri,new Exception("json response is null or empty"));
             });
             return result;
         }
@@ -60,7 +60,7 @@ namespace EtaSDK.v3
             var eta = await ApiRawAsync("/api/v1/catalog/info/", options);
             if (eta.HasErrors)
             {
-                return new EtaResponse<Catalog>(eta.Error);
+                return new EtaResponse<Catalog>(eta.Uri,eta.Error);
             }
 
             var jsonstr = eta.Result;
@@ -75,7 +75,7 @@ namespace EtaSDK.v3
                 }
                 return catalog;
             });
-            return new EtaResponse<Catalog>(result);
+            return new EtaResponse<Catalog>(eta.Uri, result);
         }
 
     }

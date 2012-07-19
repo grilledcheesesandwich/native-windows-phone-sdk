@@ -155,6 +155,7 @@ namespace EtaSampleApp.Views
 
         private void PhoneTextBox_ActionIconTapped(object sender, EventArgs e)
         {
+            this.Focus();
             UpdateSearchList();
         }
 
@@ -166,7 +167,7 @@ namespace EtaSampleApp.Views
             {
                 App.ViewModel.OfferSearchQueryText = textbox.Text;
             }
-            App.ViewModel.LoadOfferSearchResult(App.ViewModel.OfferSearchQueryText);
+            App.ViewModel.LoadOfferSearchResult2(App.ViewModel.OfferSearchQueryText);
 
         }
 

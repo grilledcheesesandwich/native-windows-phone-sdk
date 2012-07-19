@@ -25,7 +25,7 @@ namespace EtaSDK.v3
             var eta = await ApiRawAsync("/api/v1/store/info/", options);
             if (eta.HasErrors)
             {
-                return new EtaResponse<Store>(eta.Error);
+                return new EtaResponse<Store>(eta.Uri, eta.Error);
             }
             var jsonstr = eta.Result;
             var result = await TaskEx.Run<EtaResponse<Store>>(() =>
@@ -34,9 +34,9 @@ namespace EtaSDK.v3
                 {
                     var json = JsonValue.Parse(jsonstr);
                     var store = Store.FromJson(json["data"], isRoot: true);
-                    return new EtaResponse<Store>(store);
+                    return new EtaResponse<Store>(eta.Uri, store);
                 }
-                return new EtaResponse<Store>(new Exception("response is null or empty"));
+                return new EtaResponse<Store>(eta.Uri, new Exception("response is null or empty"));
             });
             return result;
         }
@@ -61,14 +61,12 @@ namespace EtaSDK.v3
             var eta = await ApiRawAsync("/api/v1/store/list/", options);
             if (eta.HasErrors)
             {
-                return new EtaResponse<List<Store>>(eta.Error);
+                return new EtaResponse<List<Store>>(eta.Uri, eta.Error);
             }
             var jsonstr = eta.Result;
 
             var result = await TaskEx.Run<EtaResponse<List<Store>>>(() =>
             {
-                
-
                 if (!string.IsNullOrWhiteSpace(jsonstr))
                 {
                     List<Store> stores = new List<Store>();
@@ -78,9 +76,9 @@ namespace EtaSDK.v3
                         var store = Store.FromJson(item, isRoot: true);
                         stores.Add(store);
                     }
-                    return new EtaResponse<List<Store>>(stores);
+                    return new EtaResponse<List<Store>>(eta.Uri, stores);
                 }
-                return new EtaResponse<List<Store>>(new Exception("JsonValue is null or empty"));
+                return new EtaResponse<List<Store>>(eta.Uri, new Exception("JsonValue is null or empty"));
             });
             return result;
         }

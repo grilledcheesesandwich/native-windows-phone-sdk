@@ -27,7 +27,7 @@ namespace EtaSDK.v3
             var eta = await ApiRawAsync("/api/v1/store/list/", options);
             if (eta.HasErrors)
             {
-                return new EtaResponse<JsonValue>(eta.Error);
+                return new EtaResponse<JsonValue>(eta.Uri, eta.Error);
             }
 
             var jsonstr = eta.Result;
@@ -37,9 +37,9 @@ namespace EtaSDK.v3
                 if (!string.IsNullOrWhiteSpace(jsonstr))
                 {
                     var json = JsonValue.Parse(jsonstr);
-                    return new EtaResponse<JsonValue>(json);
+                    return new EtaResponse<JsonValue>(eta.Uri,json);
                 }
-                return new EtaResponse<JsonValue>(new Exception("Jsonstr value is null or empty"));
+                return new EtaResponse<JsonValue>(eta.Uri, new Exception("Jsonstr value is null or empty"));
             });
             return result;
         }
@@ -67,14 +67,14 @@ namespace EtaSDK.v3
             var eta = await ApiRawAsync("/api/v1/offer/list/", options);
             if (eta.HasErrors)
             {
-                return new EtaResponse<List<Offer>>(eta.Error);
+                return new EtaResponse<List<Offer>>(eta.Uri, eta.Error);
             }
 
             var jsonstr = eta.Result;
 
             var result = await TaskEx.Run<EtaResponse<List<Offer>>>(() =>
             {
-                return ParseOffers(jsonstr);
+                return ParseOffers(eta.Uri, jsonstr);
             });
             return result;
         }
@@ -98,13 +98,13 @@ namespace EtaSDK.v3
             var eta = await ApiRawAsync("/api/v1/offer/search/", options);
             if (eta.HasErrors)
             {
-                return new EtaResponse<List<Offer>>(eta.Error);
+                return new EtaResponse<List<Offer>>(eta.Uri, eta.Error);
             }
             var jsonstr = eta.Result;
 
             var result = await TaskEx.Run <EtaResponse<List<Offer>>>(() =>
             {
-                return ParseOffers(jsonstr);
+                return ParseOffers(eta.Uri, jsonstr);
             });
             return result;
         }
@@ -125,7 +125,7 @@ namespace EtaSDK.v3
         //    });
         //}
 
-        private EtaResponse<List<Offer>> ParseOffers(string jsonstr)
+        private EtaResponse<List<Offer>> ParseOffers(Uri uri,string jsonstr)
         {
             try
             {
@@ -136,11 +136,11 @@ namespace EtaSDK.v3
                     var offer = Offer.FromJson(item);
                     offers.Add(offer);
                 }
-                return new EtaResponse<List<Offer>>(offers);
+                return new EtaResponse<List<Offer>>(uri, offers);
             }
             catch (Exception ex)
             {
-                return new EtaResponse<List<Offer>>(ex);
+                return new EtaResponse<List<Offer>>(uri, ex);
             }
         }
 

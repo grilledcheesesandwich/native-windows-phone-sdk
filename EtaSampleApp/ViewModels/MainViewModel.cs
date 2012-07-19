@@ -7,16 +7,20 @@ using EtaSampleApp.ViewModels;
 using EtaSDK;
 using EtaSDK.ApiModels;
 using EtaSDK.Utils;
+using EtaSDK.v3;
 
 namespace EtaSampleApp
 {
     public class MainViewModel : ViewModelBase
     {
+        EtaApi Api = null;
         public MainViewModel()
         {
+            Api = new EtaApi();
             this.Catalogs = new ObservableCollection<Catalog>();
             this.Stores = new ObservableCollection<Store>();
             this.OffersSearch = new ObservableCollection<Offer>();
+
         }
 
         /// <summary>
@@ -160,13 +164,14 @@ namespace EtaSampleApp
             }
         }
 
-        public void LoadOfferSearchResult(string q){
+        async public void LoadOfferSearchResult2(string q)
+        {
             if (string.IsNullOrWhiteSpace(q) || IsSearching)
             {
                 return;
             }
             IsSearching = true;
-            OffersSearch.Clear();            
+            OffersSearch.Clear();
 
             var userModel = UserViewModel;// App.ViewModel.UserViewModel;
             var options = new EtaApiQueryStringParameterOptions();
@@ -176,40 +181,76 @@ namespace EtaSampleApp
             options.AddParm(EtaApiConstants.EtaApi_Geocoded, userModel.Location.IsGeoCoded ? "0" : "0");
             options.AddParm(EtaApiConstants.EtaApi_Accuracy, "1");//userModel.Location.Accuracy.ToString());
             options.AddParm(EtaApiConstants.EtaApi_Ditance, userModel.Distance.ToString());
-            
-            var api = new EtaSDKv2();
-            api.GetOfferSearch(options, 
-                q, 
-                result => {
-                    if (result != null)
-                    {
-                        Deployment.Current.Dispatcher.BeginInvoke(() => { 
-                            var byDistance = result.OrderBy(item => int.Parse(item.Store.Distance));                        Deployment.Current.Dispatcher.BeginInvoke(() => { 
-                                foreach (var item in byDistance)
-                                {
-                                    var dis = item.Store.Distance;
-                                    OffersSearch.Add(item);
-                                }
-                            });
-                        });
-                    }
-                    IsSearching = false;
-                },
-                (error,uri) =>
+
+            var result = await Api.GetOfferSearchAsync(options, q);
+            if (!result.HasErrors)
+            {
+                var byDistance = result.Result.OrderBy(item => int.Parse(item.Store.Distance));
+                foreach (var item in byDistance)
                 {
-                    Deployment.Current.Dispatcher.BeginInvoke(() =>
-                    {
-                        var msg = "Ups! Kunne ikke gennemfører søgning";
-#if DEBUG
-                        msg += " " + error.Message + " " + uri.ToString(); 
+                    OffersSearch.Add(item);
+                }
+            }
+            else
+            {
+                var msg = "Ups! Kunne ikke gennemfører søgning";
+                msg += " " + result.Error.Message;
 
-#endif
-                        MessageBox.Show(msg);
-                        IsSearching = false;
-
-                    });
-                });
+                MessageBox.Show(msg);
+                IsSearching = false;
+            }
+            IsSearching = false;
         }
+//        public void LoadOfferSearchResult(string q){
+//            if (string.IsNullOrWhiteSpace(q) || IsSearching)
+//            {
+//                return;
+//            }
+//            IsSearching = true;
+//            OffersSearch.Clear();            
+
+//            var userModel = UserViewModel;// App.ViewModel.UserViewModel;
+//            var options = new EtaApiQueryStringParameterOptions();
+//            options.AddParm(EtaApiConstants.EtaApi_Latitude, userModel.Location.Latitude.ToString("0.00000"));
+//            options.AddParm(EtaApiConstants.EtaApi_Longitude, userModel.Location.Longitude.ToString("0.00000"));
+//            options.AddParm(EtaApiConstants.EtaApi_LocationDetermined, UNIXTime.GetTimestamp(DateTime.Now));
+//            options.AddParm(EtaApiConstants.EtaApi_Geocoded, userModel.Location.IsGeoCoded ? "0" : "0");
+//            options.AddParm(EtaApiConstants.EtaApi_Accuracy, "1");//userModel.Location.Accuracy.ToString());
+//            options.AddParm(EtaApiConstants.EtaApi_Ditance, userModel.Distance.ToString());
+            
+//            var api = new EtaSDKv2();
+//            api.GetOfferSearch(options, 
+//                q, 
+//                result => {
+//                    if (result != null)
+//                    {
+//                        Deployment.Current.Dispatcher.BeginInvoke(() => { 
+//                            var byDistance = result.OrderBy(item => int.Parse(item.Store.Distance));                        Deployment.Current.Dispatcher.BeginInvoke(() => { 
+//                                foreach (var item in byDistance)
+//                                {
+//                                    var dis = item.Store.Distance;
+//                                    OffersSearch.Add(item);
+//                                }
+//                            });
+//                        });
+//                    }
+//                    IsSearching = false;
+//                },
+//                (error,uri) =>
+//                {
+//                    Deployment.Current.Dispatcher.BeginInvoke(() =>
+//                    {
+//                        var msg = "Ups! Kunne ikke gennemfører søgning";
+//#if DEBUG
+//                        msg += " " + error.Message + " " + uri.ToString(); 
+
+//#endif
+//                        MessageBox.Show(msg);
+//                        IsSearching = false;
+
+//                    });
+//                });
+//        }
 
         /// <summary>
         /// Creates and adds a few ItemViewModel objects into the Items collection.
@@ -318,7 +359,7 @@ namespace EtaSampleApp
             this.LoadEtaCatalogList();
             if (!string.IsNullOrWhiteSpace(OfferSearchQueryText))
             {
-                this.LoadOfferSearchResult(OfferSearchQueryText);
+                this.LoadOfferSearchResult2(OfferSearchQueryText);
             }
         }
     }

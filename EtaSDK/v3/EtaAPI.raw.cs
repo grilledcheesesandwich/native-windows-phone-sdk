@@ -23,14 +23,14 @@ namespace EtaSDK.v3
 
         async public Task<EtaResponse<string>> ApiRawAsync(string resourceUri, EtaApiQueryStringParameterOptions options)
         {
+            var requestUri = new Uri(
+                    new Uri(Resources.Eta_BaseUri),
+                    resourceUri + options.AsQueryString());
             try
             {
                 PreConditionValidation(resourceUri, options);
 
-                var requestUri = new Uri(
-                    new Uri(Resources.Eta_BaseUri),
-                    resourceUri + options.AsQueryString());
-
+                
                 var httpClient = HttpWebRequest.CreateHttp(requestUri);
                 // http://msdn.microsoft.com/en-us/library/system.net.httpwebrequest.allowreadstreambuffering(v=vs.95).aspx
                 httpClient.AllowReadStreamBuffering = false; 
@@ -55,21 +55,21 @@ namespace EtaSDK.v3
                                 json = json.Remove(0, 10);
                                 json = json.Remove(json.Length - 11, 11);
                             }
-                            return new EtaResponse<string>(json);
+                            return new EtaResponse<string>(requestUri,json);
                         }
                         else
                         {
-                            return new EtaResponse<string>(new Exception("ApiRawAsync: GetResponseStream is null"));
+                            return new EtaResponse<string>(requestUri, new Exception("ApiRawAsync: GetResponseStream is null"));
                         }
                     }
-                    return new EtaResponse<string>(new Exception("ApiRawAsync: response is null"));
+                    return new EtaResponse<string>(requestUri, new Exception("ApiRawAsync: response is null"));
 
                 });
                 return result;
             }
             catch (Exception ex)
             {
-                return new EtaResponse<string>(ex);
+                return new EtaResponse<string>(requestUri,ex);
             }
         }
 
