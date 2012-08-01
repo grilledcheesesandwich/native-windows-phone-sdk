@@ -42,21 +42,27 @@ namespace BingServices
                 if (e.Cancelled)
                 {
                     tcs.SetCanceled();
+                    return;
                 }
+
                 if (e.Error != null)
                 {
                     tcs.SetException(e.Error);
+                    return;
                 }
-                if (e.Result == null || e.Result.Results.Count == 0)
+                if (e.Result == null || !e.Result.Results.Any())
                 {
                     tcs.SetResult(null);
+                    return;
                 }
                 var geoCodeResult = e.Result.Results.FirstOrDefault();
                 if (geoCodeResult == null)
                 {
                     tcs.TrySetResult(null);
+                    return;
                 }
-                if(geoCodeResult.Locations == null || geoCodeResult.Locations.Count == 0){
+
+                if(geoCodeResult.Locations == null || !geoCodeResult.Locations.Any()){
                      tcs.TrySetResult(null);
                      return;
                 }
@@ -64,6 +70,7 @@ namespace BingServices
                 if (location == null)
                 {
                     tcs.SetResult(null);
+                    return;
                 }
                 tcs.SetResult(location);
             };

@@ -14,7 +14,7 @@ using Microsoft.Phone.Tasks;
 
 namespace EtaSampleApp.Views
 {
-    public partial class AboutView : PhoneApplicationPage
+    public partial class AboutView : EtaBasePage
     {
         public AboutView()
         {

@@ -16,7 +16,7 @@ using Microsoft.Phone.Controls.Maps;
 
 namespace EtaSampleApp.Views
 {
-    public partial class NavigationView : PhoneApplicationPage
+    public partial class NavigationView : EtaBasePage
     {
         public NavigationView()
         {

@@ -3,6 +3,7 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using EtaSDK.Properties;
+using EtaSDK.ApiModels;
 
 namespace EtaSDK.v3
 {
@@ -55,7 +56,8 @@ namespace EtaSDK.v3
                                 json = json.Remove(0, 10);
                                 json = json.Remove(json.Length - 11, 11);
                             }
-                            return new EtaResponse<string>(requestUri,json);
+                            var header = Header.FromJson(json);
+                            return new EtaResponse<string>(requestUri, json) { Header = header };
                         }
                         else
                         {

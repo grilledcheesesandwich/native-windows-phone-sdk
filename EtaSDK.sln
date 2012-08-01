@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Esmann.WP.Common", "Esmann.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BingServices", "BingServices\BingServices.csproj", "{8FD08DBE-A5C5-45F1-A5F5-371B31813204}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OIORestServices", "OIORestServices\OIORestServices.csproj", "{D3B00C39-5C97-4FA3-A6BD-3F9408CE4CD3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{8FD08DBE-A5C5-45F1-A5F5-371B31813204}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FD08DBE-A5C5-45F1-A5F5-371B31813204}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FD08DBE-A5C5-45F1-A5F5-371B31813204}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3B00C39-5C97-4FA3-A6BD-3F9408CE4CD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3B00C39-5C97-4FA3-A6BD-3F9408CE4CD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3B00C39-5C97-4FA3-A6BD-3F9408CE4CD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3B00C39-5C97-4FA3-A6BD-3F9408CE4CD3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

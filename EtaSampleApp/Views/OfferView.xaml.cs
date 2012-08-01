@@ -13,7 +13,7 @@ using Microsoft.Phone.Controls;
 
 namespace EtaSampleApp.Views
 {
-    public partial class OfferView : PhoneApplicationPage
+    public partial class OfferView : EtaBasePage
     {
         public OfferView()
         {

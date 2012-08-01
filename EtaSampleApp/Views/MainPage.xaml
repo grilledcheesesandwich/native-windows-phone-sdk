@@ -1,4 +1,4 @@
-﻿<phone:PhoneApplicationPage
+﻿<local:EtaBasePage
     xmlns:my="clr-namespace:EtaSampleApp"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -18,7 +18,8 @@
     d:DesignHeight="728"
     SupportedOrientations="Portrait"
     Orientation="Portrait"
-    shell:SystemTray.IsVisible="False">
+    
+    >
     <!--<phone:PhoneApplicationPage.Resources>
 		<EtaSampleApp_Helpers:BoolToVisibilityN x:Key="BoolToVisibilityN"/>
 	</phone:PhoneApplicationPage.Resources>-->
@@ -62,9 +63,9 @@
                 ImageSource="/Images/win.png"
                 Stretch="None" />
         </Grid.Background>
-        <my:SplashScreenLoadingUserControl
+        <!--<my:SplashScreenLoadingUserControl
             Visibility="{Binding IsUserDataLoaded, Converter={StaticResource BoolToVisibilityN}}"
-            d:IsHidden="True" />
+            d:IsHidden="True" />-->
         <controls:Panorama
             Title="eTilbudsavis"
             Margin="0,0,0,60"
@@ -305,4 +306,4 @@
             Click="LocationUserControl_Click" />
     </Grid>
 
-</phone:PhoneApplicationPage>
+</local:EtaBasePage>

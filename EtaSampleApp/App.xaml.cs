@@ -6,6 +6,8 @@ using System.Windows.Threading;
 using Esmann.WP.Common.MemoryDiagnostics;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using System.Windows.Media;
+using System.Collections;
 
 namespace EtaSampleApp
 {
@@ -41,6 +43,11 @@ namespace EtaSampleApp
         /// </summary>
         public App()
         {
+            LoadCustomStyles();
+
+            var c = (Current.Resources["PhoneAccentBrush"] as SolidColorBrush).Color;
+
+
             Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
             // Global handler for uncaught exceptions. 
@@ -80,6 +87,26 @@ namespace EtaSampleApp
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
         }
+
+        private void LoadCustomStyles()
+        {
+            var dictionaries = new ResourceDictionary();
+            string source = String.Format("/EtaSampleApp;component/Assets/DarkStyles.xaml");
+            var themeStyles = new ResourceDictionary { Source = new Uri(source, UriKind.Relative) };
+            dictionaries.MergedDictionaries.Add(themeStyles);
+
+            ResourceDictionary appResources = Current.Resources;
+            foreach (DictionaryEntry entry in dictionaries.MergedDictionaries[0])
+            {
+                var colorBrush = entry.Value as SolidColorBrush;
+                var existingBrush = appResources[entry.Key] as SolidColorBrush;
+                if (existingBrush != null && colorBrush != null)
+                {
+                    existingBrush.Color = colorBrush.Color;
+                }
+            }
+        }
+
        
         // Code to execute when the application is launching (eg, from Start)
         // This code will not execute when the application is reactivated

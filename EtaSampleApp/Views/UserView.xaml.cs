@@ -16,7 +16,7 @@ using BingServices;
 
 namespace EtaSampleApp.Views
 {
-    public partial class UserView : PhoneApplicationPage
+    public partial class UserView : EtaBasePage
     {
         public UserView()
         {

@@ -5,6 +5,10 @@
     xmlns:telerikPrimitivesSlideView="clr-namespace:Telerik.Windows.Controls.SlideView;assembly=Telerik.Windows.Controls.Primitives"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit">
 
+    <!-- Blue -->
+    <Color x:Key="PhoneAccentColor">#FF1BA1E2</Color>
+
+
     <Style
         TargetType="ListBox"
         x:Key="CatalogPagesListBox">

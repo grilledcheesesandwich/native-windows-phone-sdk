@@ -5,12 +5,12 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{5C21228C-3BB7-45A4-B5C4-F074CA622B0B}</ProjectGuid>
+    <ProjectGuid>{D3B00C39-5C97-4FA3-A6BD-3F9408CE4CD3}</ProjectGuid>
     <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EtaSDK</RootNamespace>
-    <AssemblyName>EtaSDK</AssemblyName>
+    <RootNamespace>OIORestServices</RootNamespace>
+    <AssemblyName>OIORestServices</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
     <TargetFrameworkProfile>WindowsPhone71</TargetFrameworkProfile>
@@ -42,74 +42,21 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AsyncCtpLibrary_Phone">
-      <HintPath>..\..\..\Microsoft Visual Studio Async CTP\Samples\AsyncCtpLibrary_Phone.dll</HintPath>
+      <HintPath>..\packages\AsyncCtpLibrary_Phone.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Phone" />
-    <Reference Include="Microsoft.Phone.Reactive" />
     <Reference Include="System.Json">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Silverlight\v4.0\Libraries\Client\System.Json.dll</HintPath>
     </Reference>
-    <Reference Include="System.Observable" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Net" />
     <Reference Include="mscorlib.extensions" />
-    <Reference Include="System.Xml.XPath">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Silverlight\v4.0\Libraries\Client\System.Xml.XPath.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApiModels\CatalogIndex.cs" />
-    <Compile Include="ApiModels\Header.cs" />
-    <Compile Include="ApiModels\Name.cs" />
-    <Compile Include="ApiModels\Offer.cs" />
-    <Compile Include="ApiModels\Timespan.cs" />
-    <Compile Include="v2\EtaSDKv2.offer.cs" />
-    <Compile Include="v2\EtaSDKv2.store.cs" />
-    <Compile Include="v2\EtaSDKv2.catalog.cs" />
-    <Compile Include="EtaApiQueryStringParameterOptions.cs" />
-    <Compile Include="EtaException.cs" />
-    <Compile Include="EtaSDK.cs" />
-    <Compile Include="EtaApiOptions.cs" />
-    <Compile Include="v2\EtaSDKv2.raw.cs" />
-    <Compile Include="ApiModels\Branding.cs" />
-    <Compile Include="ApiModels\Catalog.cs" />
-    <Compile Include="ApiModels\Country.cs" />
-    <Compile Include="ApiModels\Dealer.cs" />
-    <Compile Include="ApiModels\Images.cs" />
-    <Compile Include="ApiModels\Store.cs" />
-    <Compile Include="ApiModels\Weeks.cs" />
-    <Compile Include="v3\EtaAPI.raw.cs" />
-    <Compile Include="Utils\CatalogPageHelper.cs" />
-    <Compile Include="Utils\EtaCatalogStorageHelper.cs" />
-    <Compile Include="Utils\MD5.cs" />
+    <Compile Include="Geoservicen\PostnummerServiceHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Utils\Constants.cs" />
-    <Compile Include="Utils\UNIXTime.cs" />
-    <Compile Include="Utils\UuidHelper.cs" />
-    <Compile Include="v3\EtaAPI.catalog.cs" />
-    <Compile Include="v3\EtaAPI.offer.cs" />
-    <Compile Include="v3\EtaAPI.store.cs" />
-    <Compile Include="v3\EtaResponse.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Esmann.WP.Common\Esmann.WP.Common.csproj">
-      <Project>{CD71F393-2797-4B23-8B25-B56F0F8F1E46}</Project>
-      <Name>Esmann.WP.Common</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />

@@ -2,6 +2,7 @@
 using System.Json;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Diagnostics;
 
 namespace Esmann.WP.Common.Json
 {
@@ -14,6 +15,7 @@ namespace Esmann.WP.Common.Json
                 return null;
             }
             MemberExpression body = (MemberExpression)expression.Body;
+            
             string name = null;
             if (!GetNameFromAttribute(body.Member, ref name))
             {
@@ -22,7 +24,7 @@ namespace Esmann.WP.Common.Json
 
             var result = json.ContainsKey(name) ? json[name] : null;
             if(result ==  null){
-                if (System.Diagnostics.Debugger.IsAttached && !json.ContainsKey(name))
+                if (Debugger.IsAttached && !json.ContainsKey(name))
                 {
                     throw new ArgumentOutOfRangeException("could not find jsonValue: " + name);
                 }

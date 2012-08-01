@@ -19,7 +19,7 @@ using EtaSampleApp.ViewModels;
 
 namespace EtaSampleApp.Views
 {
-    public partial class CatalogBrowsingView : PhoneApplicationPage
+    public partial class CatalogBrowsingView : EtaBasePage
     {
         public static SolidColorBrush GetColorFromHexa(string hexaColor)
         {

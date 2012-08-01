@@ -11,6 +11,10 @@ namespace esmann.WP.Common.ViewModels
         public void NotifyPropertyChanged<T>(Expression<Func<T>> expression)
         {
             MemberExpression body = (MemberExpression)expression.Body;
+            if (!body.Member.ReflectedType.IsPublic)
+            {
+                throw new ArgumentException("Member should be Public", body.Member.Name);
+            }
             var name = body.Member.Name;
             NotifyPropertyChanged(name);
         }

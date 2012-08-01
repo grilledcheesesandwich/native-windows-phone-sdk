@@ -12,6 +12,9 @@ using System.Windows.Shapes;
 using System.Device.Location;
 using Esmann.WP.Common.Location;
 using EtaSampleApp.ViewModels;
+using esmann.WP.Common.ZipCodes;
+using System.Diagnostics;
+using OIORestServices.Geoservicen;
 
 namespace EtaSampleApp.Views
 {
@@ -78,8 +81,11 @@ namespace EtaSampleApp.Views
                         Accuracy = 0,
                         ZipCode = int.TryParse(zip,out zipHelper) ? zipHelper : 0
                     };
-
                 inputFiled.SelectionStart = inputFiled.Text.Length;
+
+                PostnummerServiceHelper post = new PostnummerServiceHelper();
+                var r = await post.GeoToPostalCode(result.Latitude, result.Longitude);
+                string p = r;
 
             }
             progressBar.Visibility = System.Windows.Visibility.Collapsed;

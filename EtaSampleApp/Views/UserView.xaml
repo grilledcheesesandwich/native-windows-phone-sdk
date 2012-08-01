@@ -1,4 +1,4 @@
-﻿<phone:PhoneApplicationPage
+﻿<local:EtaBasePage
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -10,10 +10,11 @@
     x:Class="EtaSampleApp.Views.UserView"
     SupportedOrientations="Portrait"
     Orientation="Portrait"
+    xmlns:local="clr-namespace:EtaSampleApp.Views"
     mc:Ignorable="d"
-    d:DesignHeight="768"
+    d:DesignHeight="800"
     d:DesignWidth="480"
-    shell:SystemTray.IsVisible="True">
+    >
 
     <phone:PhoneApplicationPage.Resources>
         <EtaSampleApp_Helpers:BoolNegationConverter
@@ -58,7 +59,7 @@
         <StackPanel
             x:Name="TitlePanel"
             Grid.Row="0"
-            Margin="12,17,0,28">
+            Margin="12,20,0,28">
             <TextBlock
                 x:Name="ApplicationTitle"
                 Text="eTilbudsavis"
@@ -139,4 +140,4 @@
         </Grid>
     </Grid>
 
-</phone:PhoneApplicationPage>
+</local:EtaBasePage>

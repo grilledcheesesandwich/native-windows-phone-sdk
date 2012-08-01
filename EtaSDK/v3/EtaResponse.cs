@@ -1,9 +1,11 @@
 ﻿using System;
+using EtaSDK.ApiModels;
 
 namespace EtaSDK.v3
 {
     public class EtaResponse<T> 
     {
+        public Header Header { get; set; }
         public T Result { get; private set; }
         public Uri Uri { get; private set; }
         public Exception Error { get; private set; }

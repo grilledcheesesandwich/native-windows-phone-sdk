@@ -15,7 +15,7 @@ using EtaSampleApp.ViewModels;
 
 namespace EtaSampleApp.Views
 {
-    public partial class StoreDetailsView : PhoneApplicationPage
+    public partial class StoreDetailsView : EtaBasePage
     {
         StoreDetailsViewModel Model = null;
         public StoreDetailsView()

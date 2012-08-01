@@ -16,17 +16,52 @@ using EtaSDK.Utils;
 using System.Globalization;
 using Microsoft.Phone.Shell;
 using Eta.Controls;
+using System.Threading.Tasks;
+using System.Windows.Controls.Primitives;
+using System.ComponentModel;
+using System.Threading;
+
 
 namespace EtaSampleApp.Views
 {
-    public partial class MainPage : PhoneApplicationPage
+    public partial class MainPage : EtaBasePage
     {
+        Popup splacscreenpopup = null;
+        BackgroundWorker splachscreenWorker = null;
         public MainPage()
         {
             InitializeComponent();
             this.ApplicationBar.IsVisible = false;
             Slider.UpdateEvent += Slider_UpdateEvent;
+
+            splacscreenpopup = new Popup()
+            {
+                IsOpen = true,
+                Child = new SplashScreenLoadingUserControl()
+            };
+            splachscreenWorker = new BackgroundWorker();
+            RunSplachscreenWorker();
         }
+
+        private void RunSplachscreenWorker()
+        {
+            splachscreenWorker.DoWork += ((s, args) =>
+            {
+                Thread.Sleep(5000);
+            });
+
+            splachscreenWorker.RunWorkerCompleted += ((s, args) =>
+            {
+                this.Dispatcher.BeginInvoke(() =>
+                {
+                    this.splacscreenpopup.IsOpen = false;
+                    this.ApplicationBar.IsVisible = true;
+                }
+            );
+            });
+            splachscreenWorker.RunWorkerAsync();
+        }
+
 
         void Slider_UpdateEvent(object sender, SliderEventArgs e)
         {
@@ -38,12 +73,23 @@ namespace EtaSampleApp.Views
             }
         }
 
-        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        async protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
+            // Show SplashScreen
+            //App.ViewModel.IsUserDataLoaded = false;
+
+            //var delay = TimeSpan.FromSeconds(5);
+            //await TaskEx.Run(() => {
+            //    Task.WaitAll(new Task[]{ TaskEx.Delay(delay)});
+            //});
+            //App.ViewModel.IsUserDataLoaded = true;
+            
+
+
             this.DataContext = App.ViewModel;
             if (App.ViewModel.IsUserDataLoaded && !App.ViewModel.UserViewModel.FirstTimeApplicationRuns)
             {
-                this.ApplicationBar.IsVisible = true;
+               // this.ApplicationBar.IsVisible = true;
             }
             App.ViewModel.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(ViewModel_PropertyChanged);
             
