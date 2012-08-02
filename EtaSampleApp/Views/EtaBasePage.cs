@@ -60,13 +60,13 @@ namespace EtaSampleApp.Views
             SystemTray.ForegroundColor = GetColorFromHexa("FFFFFE").Color;
             SystemTray.BackgroundColor = GetColorFromHexa("FFFFFE").Color;
             
-            ProgressIndicator progressIndicator = new ProgressIndicator(); 
-            progressIndicator.IsVisible = true; 
-            progressIndicator.IsIndeterminate = true;
+            //ProgressIndicator progressIndicator = new ProgressIndicator(); 
+            //progressIndicator.IsVisible = true; 
+            //progressIndicator.IsIndeterminate = false;
             
-            progressIndicator.Text = "Loading...";
+            //progressIndicator.Text = "Loading...";
 
-            SystemTray.SetProgressIndicator(this, progressIndicator);
+            //SystemTray.SetProgressIndicator(this, progressIndicator);
         }
     }
 }

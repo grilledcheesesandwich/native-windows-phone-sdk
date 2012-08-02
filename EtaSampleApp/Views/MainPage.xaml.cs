@@ -20,7 +20,8 @@ using System.Threading.Tasks;
 using System.Windows.Controls.Primitives;
 using System.ComponentModel;
 using System.Threading;
-
+using EtaSampleApp.ViewModels;
+using EtaSampleApp.UserControls;
 
 namespace EtaSampleApp.Views
 {
@@ -31,20 +32,66 @@ namespace EtaSampleApp.Views
         public MainPage()
         {
             InitializeComponent();
+            Initialize();
+        }
+
+        private void Initialize()
+        {
             this.ApplicationBar.IsVisible = false;
             Slider.UpdateEvent += Slider_UpdateEvent;
+            InitializeSplachScreen();
+            InitializeUserDataAndServices();
+        }
 
+        async private void InitializeUserDataAndServices()
+        {
+            var userData = await UserViewModel.LoadModelAsync();
+            App.ViewModel.UserViewModel = userData;
+            bool isFirstTimeApplicationRuns = true;//userData.FirstTimeApplicationRuns;
+            bool showApplicationIntroductionGuide = true;
+
+            if (isFirstTimeApplicationRuns)
+            {
+                // optional Show App introduction
+                // Get User persmission and location information
+                var locationSetup = new LocationSetupUserControl();
+                var locationSetupPopup = new Popup()
+                {
+                    IsOpen = true,
+                    Child = locationSetup
+                };
+                await TaskEx.Run(() => {
+                    var run = true;
+                    while (run) 
+                    {
+                        Deployment.Current.Dispatcher.BeginInvoke(() => {
+                            run =  locationSetupPopup.IsOpen;
+                        });
+                        Thread.Sleep(100);
+                    } 
+                });
+            }
+            else
+            {
+                // use excisting persmissions and location with respect to user choise!
+            }
+            App.ViewModel.IsUserDataLoaded = true;
+
+            if (showApplicationIntroductionGuide)
+            {
+                // optional show app intro guide (slide show)
+            }
+        }
+
+        private void InitializeSplachScreen()
+        {
             splacscreenpopup = new Popup()
             {
                 IsOpen = true,
                 Child = new SplashScreenLoadingUserControl()
             };
             splachscreenWorker = new BackgroundWorker();
-            RunSplachscreenWorker();
-        }
 
-        private void RunSplachscreenWorker()
-        {
             splachscreenWorker.DoWork += ((s, args) =>
             {
                 Thread.Sleep(5000);
@@ -62,14 +109,12 @@ namespace EtaSampleApp.Views
             splachscreenWorker.RunWorkerAsync();
         }
 
-
         void Slider_UpdateEvent(object sender, SliderEventArgs e)
         {
             if (App.ViewModel.IsUserDataLoaded)
             {
                 App.ViewModel.UserViewModel.Distance = e.Value;
                 App.ViewModel.UpdateEtaData();
-
             }
         }
 

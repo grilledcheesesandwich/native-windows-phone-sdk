@@ -96,6 +96,9 @@
     <Compile Include="Controls\SliderEventArgs.cs" />
     <Compile Include="Helpers\Converters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserControls\LocationSetupUserControl.xaml.cs">
+      <DependentUpon>LocationSetupUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\SplashScreenLoadingUserControl.xaml.cs">
       <DependentUpon>SplashScreenLoadingUserControl.xaml</DependentUpon>
     </Compile>
@@ -161,6 +164,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\LocationSetupUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
