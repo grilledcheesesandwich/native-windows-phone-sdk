@@ -113,10 +113,10 @@ namespace EtaSampleApp
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
             // Ensure that application state is restored appropriately
-            if (!App.ViewModel.IsDataLoaded)
-            {
-                App.ViewModel.LoadData();
-            }
+            //if (!App.ViewModel.IsDataLoaded)
+            //{
+            //    App.ViewModel.LoadData();
+            //}
         }
 
         // Code to execute when the application is activated (brought to foreground)

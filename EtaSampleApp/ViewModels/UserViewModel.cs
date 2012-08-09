@@ -1,19 +1,10 @@
 ﻿using System;
-using System.Net;
+using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
+using BingServices;
 using esmann.WP.Common.ViewModels;
 using Esmann.WP.Common.AppSettings;
-using System.ComponentModel;
-using BingServices;
 using Esmann.WP.Common.Location;
-using System.Threading.Tasks;
 
 namespace EtaSampleApp.ViewModels
 {

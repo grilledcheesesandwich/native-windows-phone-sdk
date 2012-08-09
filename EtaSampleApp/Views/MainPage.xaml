@@ -18,7 +18,6 @@
     d:DesignHeight="728"
     SupportedOrientations="Portrait"
     Orientation="Portrait"
-    
     >
     <!--<phone:PhoneApplicationPage.Resources>
 		<EtaSampleApp_Helpers:BoolToVisibilityN x:Key="BoolToVisibilityN"/>
@@ -42,6 +41,10 @@
         <shell:ApplicationBar
             Mode="Minimized">
             <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem
+                    x:Name="updateMenuItem"
+                    Text="Opdater"
+                    Click="updateMenuItem_Click" />
                 <shell:ApplicationBarMenuItem
                     x:Name="settingsMenuItem"
                     Text="indstillinger"
@@ -69,7 +72,7 @@
         <controls:Panorama
             Title="eTilbudsavis"
             Margin="0,0,0,60"
-            Visibility="{Binding IsUserDataLoaded, Converter={StaticResource BoolToVisibility}}">
+            Visibility="{Binding IsUserViewModelLoaded, Converter={StaticResource BoolToVisibility}}">
 
             <!--Panorama item Søg-->
             <controls:PanoramaItem>
@@ -98,7 +101,7 @@
                     <toolkit:PerformanceProgressBar
                         IsIndeterminate="True"
                         Width="350"
-                        Visibility="{Binding IsSearching, Converter={StaticResource BoolToVisibility}}"
+                        Visibility="{Binding IsSearchOffersLoading, Converter={StaticResource BoolToVisibility}}"
                         Foreground="White"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Top"
@@ -160,7 +163,7 @@
                     <toolkit:PerformanceProgressBar
                         IsIndeterminate="True"
                         Width="350"
-                        Visibility="{Binding IsCatalogsUpdateing, Converter={StaticResource BoolToVisibility}}"
+                        Visibility="{Binding IsCatalogsLoading, Converter={StaticResource BoolToVisibility}}"
                         Foreground="White"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Top"
@@ -235,7 +238,7 @@
                     <toolkit:PerformanceProgressBar
                         IsIndeterminate="True"
                         Width="350"
-                        Visibility="{Binding IsStoresUpdateing, Converter={StaticResource BoolToVisibility}}"
+                        Visibility="{Binding IsStoresLoading, Converter={StaticResource BoolToVisibility}}"
                         Foreground="White"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Top"
@@ -245,6 +248,7 @@
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
                         ItemsSource="{Binding Stores}"
+                        
                         SelectionChanged="StoresListBox_SelectionChanged">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
@@ -287,6 +291,68 @@
                     </ListBox>
                 </Grid>
             </controls:PanoramaItem>
+
+            <!--Panorama suggested Offers-->
+            <controls:PanoramaItem Header="tilbud">
+                <Grid
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Margin="24,0,12,30">
+                    <toolkit:PerformanceProgressBar
+                        IsIndeterminate="True"
+                        Width="350"
+                        Visibility="{Binding IsSuggestedOffersLoading, Converter={StaticResource BoolToVisibility}}"
+                        Foreground="White"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Top"
+                        Margin="0,-20,0,0" />
+                    <ListBox
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        x:Name="suggestedOffersListBox"
+                        ItemsSource="{Binding SuggestedOffers}"
+                        SelectionChanged="searchListBox_SelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid
+                                    Margin="0,0,0,17"
+                                    Width="432">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition
+                                            Height="60" />
+                                        <RowDefinition
+                                            Height="30" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition
+                                            Width="50" />
+                                        <ColumnDefinition
+                                            Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        Text="{Binding Heading}"
+                                        TextWrapping="NoWrap"
+                                        Style="{StaticResource PhoneTextLargeStyle}" />
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Text="{Binding BindsDirectlyToSource=True, Converter={StaticResource OfferToPriceConverter}}"
+                                        TextWrapping="NoWrap"
+                                        Style="{StaticResource PhoneTextSubtleStyle}" />
+                                    <Image
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Source="{Binding Dealer.Branding.Logo}"
+                                        Height="50" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </controls:PanoramaItem>
+            
         </controls:Panorama>
         <eta:EtaSlider
             x:Name="Slider"
@@ -296,14 +362,14 @@
             
            />
         <!--<Slider VerticalAlignment="Bottom" Margin="12,0,12,-30"  HorizontalAlignment="Stretch" Value="{Binding UserViewModel.Distance, Mode=TwoWay}" Maximum="70000" Minimum="1000" />-->
-        <local:LocationUserControl
+        <!--<local:LocationUserControl
             x:Name="locationControl"
             Visibility="{Binding UserViewModel.FirstTimeApplicationRuns, Converter={StaticResource BoolToVisibility}}"
             VerticalAlignment="Center"
             d:LayoutOverrides="Width"
             Margin="0"
             HorizontalAlignment="Center"
-            Click="LocationUserControl_Click" />
+            Click="LocationUserControl_Click" />-->
     </Grid>
 
 </local:EtaBasePage>

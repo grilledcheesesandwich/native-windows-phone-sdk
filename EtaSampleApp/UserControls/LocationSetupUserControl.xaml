@@ -7,6 +7,7 @@
     mc:Ignorable="d"
     xmlns:EtaSampleApp_Helpers="clr-namespace:EtaSampleApp.Helpers"
     xmlns:toolkitPrimitives="clr-namespace:Microsoft.Phone.Controls.Primitives;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -97,17 +98,27 @@
                         Grid.Row="2"
                         VerticalAlignment="Center" />
                     <TextBox
+                        x:Name="postalCodeTextBox"
                         TextWrapping="Wrap"
                         Grid.Row="2"
                         Grid.Column="2"
-                        Text="{Binding UserViewModel.Location.ZipCode, Mode=TwoWay}"
+                        Text="{Binding UserViewModel.Location.ZipCode, Mode=TwoWay, Converter={StaticResource NegativeNumberToStringConverter}}"
                         InputScope="Number"
                         Visibility="{Binding UserViewModel.AllowGPS, Converter={StaticResource BoolToVisibilityN}}"
                         IsEnabled="{Binding UserViewModel.AllowGPS, Converter={StaticResource BoolNegationConverter}}"
                         TextChanged="TextBox_TextChanged" />
+                    <toolkit:PerformanceProgressBar
+                        x:Name="progressBar"
+                        Height="10"
+                        Foreground="White"
+                        Background="Transparent"
+                        Visibility="Collapsed"
+                        Grid.Row="3"
+                        Grid.ColumnSpan="2"
+                        IsIndeterminate="True" />
                     <Button
                         x:Name="btnNext"
-                        Grid.Row="3"
+                        Grid.Row="4"
                         Grid.Column="2"
                         
                         Click="btnNext_Click"
@@ -115,7 +126,7 @@
                         />
                     <Button
                         x:Name="btnCancel"
-                        Grid.Row="3"
+                        Grid.Row="4"
                         Grid.Column="0"
                         IsEnabled="False"
                         Click="btnCancel_Click"

@@ -1,27 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using Microsoft.Phone.Controls;
-using EtaSDK.ApiModels;
-using EtaSDK;
-using EtaSDK.Utils;
-using System.Globalization;
-using Microsoft.Phone.Shell;
-using Eta.Controls;
-using System.Threading.Tasks;
-using System.Windows.Controls.Primitives;
 using System.ComponentModel;
 using System.Threading;
-using EtaSampleApp.ViewModels;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Input;
+using Eta.Controls;
 using EtaSampleApp.UserControls;
+using EtaSampleApp.ViewModels;
+using EtaSDK.ApiModels;
 
 namespace EtaSampleApp.Views
 {
@@ -35,18 +23,18 @@ namespace EtaSampleApp.Views
             Initialize();
         }
 
-        private void Initialize()
+        async private void Initialize()
         {
             this.ApplicationBar.IsVisible = false;
             Slider.UpdateEvent += Slider_UpdateEvent;
-            InitializeSplachScreen();
-            InitializeUserDataAndServices();
+            await InitializeSplachScreenAsync();
+            await InitializeUserDataAndServices();
         }
 
-        async private void InitializeUserDataAndServices()
+        async private Task InitializeUserDataAndServices()
         {
-            var userData = await UserViewModel.LoadModelAsync();
-            App.ViewModel.UserViewModel = userData;
+            //var userData = await UserViewModel.LoadModelAsync();
+            var userData = App.ViewModel.UserViewModel;
             bool isFirstTimeApplicationRuns = true;//userData.FirstTimeApplicationRuns;
             bool showApplicationIntroductionGuide = true;
 
@@ -67,7 +55,7 @@ namespace EtaSampleApp.Views
                         Deployment.Current.Dispatcher.BeginInvoke(() => {
                             run =  locationSetupPopup.IsOpen;
                         });
-                        Thread.Sleep(100);
+                        Thread.Sleep(250);
                     } 
                 });
             }
@@ -75,7 +63,7 @@ namespace EtaSampleApp.Views
             {
                 // use excisting persmissions and location with respect to user choise!
             }
-            App.ViewModel.IsUserDataLoaded = true;
+            App.ViewModel.LoadData();
 
             if (showApplicationIntroductionGuide)
             {
@@ -83,8 +71,9 @@ namespace EtaSampleApp.Views
             }
         }
 
-        private void InitializeSplachScreen()
+        private Task<bool> InitializeSplachScreenAsync()
         {
+            var tcs = new TaskCompletionSource<bool>();
             splacscreenpopup = new Popup()
             {
                 IsOpen = true,
@@ -94,7 +83,7 @@ namespace EtaSampleApp.Views
 
             splachscreenWorker.DoWork += ((s, args) =>
             {
-                Thread.Sleep(5000);
+                Thread.Sleep(3000);
             });
 
             splachscreenWorker.RunWorkerCompleted += ((s, args) =>
@@ -103,78 +92,47 @@ namespace EtaSampleApp.Views
                 {
                     this.splacscreenpopup.IsOpen = false;
                     this.ApplicationBar.IsVisible = true;
+                    tcs.TrySetResult(true);
                 }
             );
             });
             splachscreenWorker.RunWorkerAsync();
+            return tcs.Task;
         }
 
         void Slider_UpdateEvent(object sender, SliderEventArgs e)
         {
-            if (App.ViewModel.IsUserDataLoaded)
+            if (App.ViewModel.IsUserViewModelLoaded)
             {
                 App.ViewModel.UserViewModel.Distance = e.Value;
-                App.ViewModel.UpdateEtaData();
+                App.ViewModel.UpdateViewModel();
             }
         }
 
-        async protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
-            // Show SplashScreen
-            //App.ViewModel.IsUserDataLoaded = false;
-
-            //var delay = TimeSpan.FromSeconds(5);
-            //await TaskEx.Run(() => {
-            //    Task.WaitAll(new Task[]{ TaskEx.Delay(delay)});
-            //});
-            //App.ViewModel.IsUserDataLoaded = true;
-            
-
-
             this.DataContext = App.ViewModel;
-            if (App.ViewModel.IsUserDataLoaded && !App.ViewModel.UserViewModel.FirstTimeApplicationRuns)
-            {
-               // this.ApplicationBar.IsVisible = true;
-            }
-            App.ViewModel.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(ViewModel_PropertyChanged);
-            
-            //var test = App.ViewModel.UserViewModel;
             base.OnNavigatedTo(e);
             CatalogsListBox.SelectedIndex = -1;
             StoresListBox.SelectedIndex = -1;
             searchListBox.SelectedIndex = -1;
+            suggestedOffersListBox.SelectedIndex = -1;
         }
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
         {
-            App.ViewModel.PropertyChanged += ViewModel_PropertyChanged;
             base.OnNavigatedFrom(e);
         }
+       
+        //private void LocationUserControl_Click(object sender, RoutedEventArgs e)
+        //{
+        //    (sender as Control).Visibility = System.Windows.Visibility.Collapsed;
+        //    var location = App.ViewModel.UserViewModel.Location;
+        //    if (location.IsValid)
+        //    {
+        //        App.ViewModel.IsUserViewModelLoaded = true;
+        //    }
 
-        void ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "IsUserDataLoaded")
-            {
-                if (App.ViewModel.IsUserDataLoaded)
-                {
-                    this.ApplicationBar.IsVisible = true;
-                }
-                else
-                {
-                    this.ApplicationBar.IsVisible = false;
-                }
-            }
-        }
-
-        private void LocationUserControl_Click(object sender, RoutedEventArgs e)
-        {
-            (sender as Control).Visibility = System.Windows.Visibility.Collapsed;
-            var location = App.ViewModel.UserViewModel.Location;
-            if (location.IsValid)
-            {
-                App.ViewModel.IsUserDataLoaded = true;
-            }
-
-        }
+        //}
 
         private void CatalogsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -254,12 +212,7 @@ namespace EtaSampleApp.Views
         {
             searchListBox.SelectedIndex = -1;
             var textbox = phoneTextBox1;
-            if (App.ViewModel.OfferSearchQueryText != textbox.Text)
-            {
-                App.ViewModel.OfferSearchQueryText = textbox.Text;
-            }
-            App.ViewModel.LoadOfferSearchResult2(App.ViewModel.OfferSearchQueryText);
-
+            App.ViewModel.OfferSearchQueryText = phoneTextBox1.Text;
         }
 
         private void StoresListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -301,13 +254,16 @@ namespace EtaSampleApp.Views
                 e.Handled = true;
                 UpdateSearchList();
             }
-
         }
 
         private void aboutMenuItem_Click(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("/Views/AboutView.xaml", UriKind.Relative));
+        }
 
+        private void updateMenuItem_Click(object sender, EventArgs e)
+        {
+            App.ViewModel.UpdateViewModel();
         }
     }
 }

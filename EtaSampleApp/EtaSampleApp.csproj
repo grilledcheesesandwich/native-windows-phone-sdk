@@ -103,7 +103,6 @@
       <DependentUpon>SplashScreenLoadingUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\CatalogBrowsingViewModel.cs" />
-    <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\StoreDetailsViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
@@ -114,9 +113,6 @@
       <DependentUpon>CatalogBrowsingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EtaBasePage.cs" />
-    <Compile Include="Views\LocationUserControl.xaml.cs">
-      <DependentUpon>LocationUserControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -180,10 +176,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CatalogBrowsingView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\LocationUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

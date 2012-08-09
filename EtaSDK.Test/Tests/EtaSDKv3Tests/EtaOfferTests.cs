@@ -54,7 +54,7 @@ namespace EtaSDK.Test.Tests.EtaSDKv3Tests
         async public Task GetOfferSearch_test()
         {
             var api = new EtaSDK.v3.EtaApi();
-            var response = await api.GetOfferSearchAsync(null,"kaffe");
+            var response = await api.GetOfferSearchAsync(null, "kaffe");
             if (response.HasErrors)
             {
                 TestCompleteWithErrorsUISafe("offer search error: " + response.Error.Message);
@@ -73,5 +73,47 @@ namespace EtaSDK.Test.Tests.EtaSDKv3Tests
                 }
             }
         }
+
+
+        [TestMethod, Asynchronous]
+        async public Task GetOfferListSuggested_test()
+        {
+            var options = new EtaApiQueryStringParameterOptions();
+            
+            options.AddParm(EtaApiConstants.EtaApi_Latitude, "55.77012");
+            options.AddParm(EtaApiConstants.EtaApi_Longitude, "12.46320");
+            options.AddParm(EtaApiConstants.EtaApi_LocationDetermined, UNIXTime.GetTimestamp(DateTime.Now));
+            options.AddParm(EtaApiConstants.EtaApi_Geocoded, "0");
+            options.AddParm(EtaApiConstants.EtaApi_Accuracy, "50");
+            options.AddParm(EtaApiConstants.EtaApi_Ditance, "10000");
+
+            //options.AddParm(EtaApiConstants.EtaApi_OfferId, "");
+            options.AddParm("type", "suggested");
+            //options.AddParm("api_limit", "100");
+            options.AddParm("from", UNIXTime.GetTimestamp(DateTime.Now));
+            options.AddParm("to", UNIXTime.GetTimestamp(DateTime.Now.AddDays(14)));
+
+            var api = new EtaSDK.v3.EtaApi();
+
+            var response = await api.GetOfferListAsync(options);
+            if (response.HasErrors)
+            {
+                TestCompleteWithErrorsUISafe("suggeted offers search error: " + response.Error.Message);
+            }
+            else
+            {
+                var offers = response.Result;
+
+                if (offers.Any())
+                {
+                    TestCompleteUISafe();
+                }
+                else
+                {
+                    TestCompleteWithErrorsUISafe("Suggested Offers Search result is null or Empty");
+                }
+            }
+        }
     }
+    
 }

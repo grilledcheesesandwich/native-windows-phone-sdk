@@ -16,6 +16,33 @@ using EtaSDK.ApiModels;
 
 namespace EtaSampleApp.Helpers
 {
+    public class NegativeNumberToStringConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            var helper = (int)value;
+            if (helper < 0)
+            {
+                return "";
+            }
+            else
+            {
+                return helper.ToString();
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            double result = -1;
+
+            if (double.TryParse(value.ToString(),out result))
+            {
+                return (int)result;
+            }
+            return -1;
+        }
+    }
+
     public class IsoFileToBitmapImageConverter : IValueConverter
     {
         private object syncContext = new object();
