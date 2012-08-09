@@ -26,14 +26,15 @@ namespace EtaSampleApp.Views
         async private void Initialize()
         {
             this.ApplicationBar.IsVisible = false;
-            Slider.UpdateEvent += Slider_UpdateEvent;
+            etaSlider.UpdateEvent += Slider_UpdateEvent;
             await InitializeSplachScreenAsync();
             await InitializeUserDataAndServices();
+            var sliderMoveTo = Eta.Controls.Slider.DistanceToStepValue((int)App.ViewModel.UserViewModel.Distance);
+            etaSlider.EtaSliderControl.Value = sliderMoveTo;
         }
 
         async private Task InitializeUserDataAndServices()
         {
-            //var userData = await UserViewModel.LoadModelAsync();
             var userData = App.ViewModel.UserViewModel;
             bool isFirstTimeApplicationRuns = true;//userData.FirstTimeApplicationRuns;
             bool showApplicationIntroductionGuide = true;
@@ -63,6 +64,7 @@ namespace EtaSampleApp.Views
             {
                 // use excisting persmissions and location with respect to user choise!
             }
+            splacscreenpopup = null;
             App.ViewModel.LoadData();
 
             if (showApplicationIntroductionGuide)
@@ -113,6 +115,7 @@ namespace EtaSampleApp.Views
         {
             this.DataContext = App.ViewModel;
             base.OnNavigatedTo(e);
+
             CatalogsListBox.SelectedIndex = -1;
             StoresListBox.SelectedIndex = -1;
             searchListBox.SelectedIndex = -1;

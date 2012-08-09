@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Eta.Controls
 {
@@ -26,6 +27,15 @@ namespace Eta.Controls
         public static int Distance()
         {
             return Slider.stepValues[Slider.currentStep];
+        }
+
+        public static int DistanceToStepValue(int value)
+        {
+            int index = Slider.stepValues.ToList().IndexOf(value);
+            if(index >= 0 && index <= stepValues.Length){
+                return index;
+            }
+            return 55;
         }
 
         public static string DistanceString()

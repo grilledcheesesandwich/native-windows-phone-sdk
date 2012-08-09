@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Device.Location;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using esmann.WP.Common.ViewModels;
+using Esmann.WP.Common.Location;
 using EtaSampleApp.ViewModels;
 using EtaSDK;
 using EtaSDK.ApiModels;
 using EtaSDK.Utils;
 using EtaSDK.v3;
-using System.Threading.Tasks;
-using System.Device.Location;
-using System.Threading;
-using Esmann.WP.Common.Location;
 
 namespace EtaSampleApp
 {
@@ -31,9 +31,10 @@ namespace EtaSampleApp
 
         public void LoadData()
         {
-            //TaskEx.Run(()=>
-            UpdateViewModel();
-            //);
+            TaskEx.Run(() =>
+            {
+                UpdateViewModel();
+            });
         }
 
         public bool IsDataLoaded
@@ -129,23 +130,26 @@ namespace EtaSampleApp
             options.AddParm("to", UNIXTime.GetTimestamp(DateTime.Now.AddDays(14)));
 
             var response = await Api.GetOfferListAsync(options);
-            if (SuggestedOffers.Any())
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                SuggestedOffers.Clear();
-            }
-            if (response.HasErrors)
-            {
-                IsSuggestedOffersLoaded = false;
-            }
-            else
-            {
-                foreach (var offer in response.Result)
+                if (SuggestedOffers.Any())
                 {
-                    SuggestedOffers.Add(offer);
+                    SuggestedOffers.Clear();
                 }
-                IsSuggestedOffersLoaded = true;
-            }
-            IsSuggestedOffersLoading = false;
+                if (response.HasErrors)
+                {
+                    IsSuggestedOffersLoaded = false;
+                }
+                else
+                {
+                    foreach (var offer in response.Result)
+                    {
+                        SuggestedOffers.Add(offer);
+                    }
+                    IsSuggestedOffersLoaded = true;
+                }
+                IsSuggestedOffersLoading = false;
+            });
         }
 
         #endregion
@@ -206,24 +210,27 @@ namespace EtaSampleApp
             options.AddParm(EtaApiConstants.EtaApi_Ditance, UserViewModel.Distance.ToString());
 
             var response = await Api.GetCatalogListAsync(options);
-            if (Catalogs.Any())
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                Catalogs.Clear();
-            } 
-            
-            if (response.HasErrors)
-            {
-                IsCatalogsLoaded = false;
-            }
-            else
-            {
-                foreach (var catalog in response.Result)
+                if (Catalogs.Any())
                 {
-                    Catalogs.Add(catalog);
+                    Catalogs.Clear();
                 }
-                IsCatalogsLoaded = true;
-            }
-            IsCatalogsLoading = false;
+
+                if (response.HasErrors)
+                {
+                    IsCatalogsLoaded = false;
+                }
+                else
+                {
+                    foreach (var catalog in response.Result)
+                    {
+                        Catalogs.Add(catalog);
+                    }
+                    IsCatalogsLoaded = true;
+                }
+                IsCatalogsLoading = false;
+            });
         }
 
         #endregion
@@ -283,23 +290,26 @@ namespace EtaSampleApp
             options.AddParm(EtaApiConstants.EtaApi_Ditance, UserViewModel.Distance.ToString());
 
             var response = await Api.GetStoreListAsync(options);
-            if (Stores.Any())
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                Stores.Clear();
-            }
-            if (response.HasErrors)
-            {
-                IsStoresLoaded = false;
-            }
-            else
-            {
-                foreach (var store in response.Result)
+                if (Stores.Any())
                 {
-                    Stores.Add(store);
+                    Stores.Clear();
                 }
-                IsStoresLoaded = true;
-            }
-            IsStoresLoading = false;
+                if (response.HasErrors)
+                {
+                    IsStoresLoaded = false;
+                }
+                else
+                {
+                    foreach (var store in response.Result)
+                    {
+                        Stores.Add(store);
+                    }
+                    IsStoresLoaded = true;
+                }
+                IsStoresLoading = false;
+            });
         }
 
         #endregion
@@ -381,23 +391,26 @@ namespace EtaSampleApp
             options.AddParm(EtaApiConstants.EtaApi_Ditance, UserViewModel.Distance.ToString());
 
             var response = await Api.GetOfferSearchAsync(options, q);
-            if (OffersSearch.Any())
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                OffersSearch.Clear();
-            }
-            if (response.HasErrors)
-            {
-                IsSearchLoaded = false;
-            }
-            else
-            {
-                foreach (var offer in response.Result)
+                if (OffersSearch.Any())
                 {
-                    OffersSearch.Add(offer);
+                    OffersSearch.Clear();
                 }
-                IsSearchLoaded = true;
-            }
-            IsSearchOffersLoading = false;
+                if (response.HasErrors)
+                {
+                    IsSearchLoaded = false;
+                }
+                else
+                {
+                    foreach (var offer in response.Result)
+                    {
+                        OffersSearch.Add(offer);
+                    }
+                    IsSearchLoaded = true;
+                }
+                IsSearchOffersLoading = false;
+            });
         }
 
         #endregion
@@ -467,10 +480,13 @@ namespace EtaSampleApp
             }
             IsUserViewModelLoading = true;
 
-            UserViewModel = await UserViewModel.LoadModelAsync();
-
-            IsUserViewModelLoaded = UserViewModel != null && UserViewModel.Location != null && UserViewModel.Location.IsValid;
-            IsUserViewModelLoading = false;
+            var result = await UserViewModel.LoadModelAsync();
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                UserViewModel = result;
+                IsUserViewModelLoaded = UserViewModel != null && UserViewModel.Location != null && UserViewModel.Location.IsValid;
+                IsUserViewModelLoading = false;
+            });
         }
         
         private bool IsMaintainGpsLocationRunning = false;
@@ -509,283 +525,6 @@ namespace EtaSampleApp
                 IsMaintainGpsLocationRunning = false;
             });
         }
-        #endregion
-
-
-        #region old code
-       
-        //private bool isUserDataLoaded = false;
-        //public bool IsUserDataLoaded
-        //{
-        //    get
-        //    {
-        //        return isUserDataLoaded;
-        //    }
-        //    set
-        //    {
-        //        if (value != isUserDataLoaded)
-        //        {
-        //            isUserDataLoaded = value;
-        //            this.NotifyPropertyChanged(() => IsUserDataLoaded);
-        //        }
-        //    }
-        //}
-
-        //private bool isSearching = false;
-        //public bool IsSearching
-        //{
-        //    get
-        //    {
-        //        return isSearching;
-        //    }
-        //    set
-        //    {
-        //        if (value != isSearching)
-        //        {
-        //            isSearching = value;
-
-        //            this.NotifyPropertyChanged(() => IsSearching);
-        //        }
-        //    }
-        //}
-
-        //private bool isStoresUpdateing = true;
-        //public bool IsStoresUpdateing
-        //{
-        //    get
-        //    {
-        //        return isStoresUpdateing;
-        //    }
-        //    set
-        //    {
-        //        if (value != isStoresUpdateing)
-        //        {
-        //            isStoresUpdateing = value;
-
-        //            this.NotifyPropertyChanged(() => IsStoresUpdateing);
-        //        }
-        //    }
-        //}
-
-        //private bool isCatalogsUpdateing = true;
-        //public bool IsCatalogsUpdateing
-        //{
-        //    get
-        //    {
-        //        return isCatalogsUpdateing;
-        //    }
-        //    set
-        //    {
-        //        if (value != isCatalogsUpdateing)
-        //        {
-        //            isCatalogsUpdateing = value;
-
-        //            this.NotifyPropertyChanged(() => IsCatalogsUpdateing);
-        //        }
-        //    }
-        //}
-
-        
-       
-
-       
-
-        //async public void LoadOfferSearchResult2(string q)
-        //{
-        //    if (string.IsNullOrWhiteSpace(q) || IsSearching)
-        //    {
-        //        return;
-        //    }
-        //    IsSearching = true;
-        //    OffersSearch.Clear();
-
-        //    var userModel = UserViewModel;// App.ViewModel.UserViewModel;
-        //    var options = new EtaApiQueryStringParameterOptions();
-        //    options.AddParm(EtaApiConstants.EtaApi_Latitude, userModel.Location.Latitude.ToString("0.00000"));
-        //    options.AddParm(EtaApiConstants.EtaApi_Longitude, userModel.Location.Longitude.ToString("0.00000"));
-        //    options.AddParm(EtaApiConstants.EtaApi_LocationDetermined, UNIXTime.GetTimestamp(DateTime.Now));
-        //    options.AddParm(EtaApiConstants.EtaApi_Geocoded, userModel.Location.IsGeoCoded ? "0" : "0");
-        //    options.AddParm(EtaApiConstants.EtaApi_Accuracy, "1");//userModel.Location.Accuracy.ToString());
-        //    options.AddParm(EtaApiConstants.EtaApi_Ditance, userModel.Distance.ToString());
-
-        //    var result = await Api.GetOfferSearchAsync(options, q);
-        //    if (!result.HasErrors)
-        //    {
-        //        var byDistance = result.Result.OrderBy(item => int.Parse(item.Store.Distance));
-        //        foreach (var item in byDistance)
-        //        {
-        //            OffersSearch.Add(item);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        var msg = "Ups! Kunne ikke gennemfører søgning";
-        //        msg += " " + result.Error.Message;
-
-        //        MessageBox.Show(msg);
-        //        IsSearching = false;
-        //    }
-        //    IsSearching = false;
-        //}
-//        public void LoadOfferSearchResult(string q){
-//            if (string.IsNullOrWhiteSpace(q) || IsSearching)
-//            {
-//                return;
-//            }
-//            IsSearching = true;
-//            OffersSearch.Clear();            
-
-//            var userModel = UserViewModel;// App.ViewModel.UserViewModel;
-//            var options = new EtaApiQueryStringParameterOptions();
-//            options.AddParm(EtaApiConstants.EtaApi_Latitude, userModel.Location.Latitude.ToString("0.00000"));
-//            options.AddParm(EtaApiConstants.EtaApi_Longitude, userModel.Location.Longitude.ToString("0.00000"));
-//            options.AddParm(EtaApiConstants.EtaApi_LocationDetermined, UNIXTime.GetTimestamp(DateTime.Now));
-//            options.AddParm(EtaApiConstants.EtaApi_Geocoded, userModel.Location.IsGeoCoded ? "0" : "0");
-//            options.AddParm(EtaApiConstants.EtaApi_Accuracy, "1");//userModel.Location.Accuracy.ToString());
-//            options.AddParm(EtaApiConstants.EtaApi_Ditance, userModel.Distance.ToString());
-            
-//            var api = new EtaSDKv2();
-//            api.GetOfferSearch(options, 
-//                q, 
-//                result => {
-//                    if (result != null)
-//                    {
-//                        Deployment.Current.Dispatcher.BeginInvoke(() => { 
-//                            var byDistance = result.OrderBy(item => int.Parse(item.Store.Distance));                        Deployment.Current.Dispatcher.BeginInvoke(() => { 
-//                                foreach (var item in byDistance)
-//                                {
-//                                    var dis = item.Store.Distance;
-//                                    OffersSearch.Add(item);
-//                                }
-//                            });
-//                        });
-//                    }
-//                    IsSearching = false;
-//                },
-//                (error,uri) =>
-//                {
-//                    Deployment.Current.Dispatcher.BeginInvoke(() =>
-//                    {
-//                        var msg = "Ups! Kunne ikke gennemfører søgning";
-//#if DEBUG
-//                        msg += " " + error.Message + " " + uri.ToString(); 
-
-//#endif
-//                        MessageBox.Show(msg);
-//                        IsSearching = false;
-
-//                    });
-//                });
-//        }
-
-        
-
-        //private async void InitializeModel()
-        //{
-        //    UserViewModel = await UserViewModel.LoadModelAsync();
-
-        //    //UserViewModel
-        //    if (UserViewModel != null && UserViewModel.Location != null && UserViewModel.Location.IsValid)
-        //    {
-        //        IsUserDataLoaded = true;
-        //        UpdateViewModel();                
-        //    }
-
-        //}
-
-//        public void LoadEtaCatalogList()
-//        {
-//            IsCatalogsUpdateing = true;
-//            var userModel = UserViewModel;
-//            var options = new EtaApiQueryStringParameterOptions();
-//            options.AddParm(EtaApiConstants.EtaApi_Latitude, userModel.Location.Latitude.ToString("0.00000"));
-//            options.AddParm(EtaApiConstants.EtaApi_Longitude, userModel.Location.Longitude.ToString("0.00000"));
-//            options.AddParm(EtaApiConstants.EtaApi_LocationDetermined, UNIXTime.GetTimestamp(DateTime.Now));
-//            options.AddParm(EtaApiConstants.EtaApi_Geocoded, userModel.Location.IsGeoCoded ? "0" : "0");
-//            options.AddParm(EtaApiConstants.EtaApi_Accuracy, "0");//userModel.Location.Accuracy.ToString());
-//            options.AddParm(EtaApiConstants.EtaApi_Ditance, userModel.Distance.ToString());
-
-//            var api = new EtaSDKv2();
-//            api.GetCatalogList(options, catalogs =>
-//            {
-//                Deployment.Current.Dispatcher.BeginInvoke(() => {
-//                    Catalogs.Clear();
-//                    foreach (var catalog in catalogs)
-//                    {
-//                        this.Catalogs.Add(catalog);
-//                    }
-//                    //IsDataLoaded = true;
-//                    IsCatalogsUpdateing = false;
-
-//                });
-
-//            }, (error,uri) => {
-//                var msg = error.Message;
-//                Deployment.Current.Dispatcher.BeginInvoke(() => {
-//#if DEBUG
-//                    MessageBox.Show(msg + "\n"+uri, "Exception", MessageBoxButton.OK);           
-//#endif
-//                    IsDataLoaded = false;
-//                    IsCatalogsUpdateing = false;
-
-//                });
-//            });
-//        }
-
-//        public void LoadEtaStoreList()
-//        {
-//            IsStoresUpdateing = true;
-//            var userModel = UserViewModel;
-//            var options = new EtaApiQueryStringParameterOptions();
-//            options.AddParm(EtaApiConstants.EtaApi_Latitude, userModel.Location.Latitude.ToString("0.00000"));
-//            options.AddParm(EtaApiConstants.EtaApi_Longitude, userModel.Location.Longitude.ToString("0.00000"));
-//            options.AddParm(EtaApiConstants.EtaApi_LocationDetermined, UNIXTime.GetTimestamp(DateTime.Now));
-//            options.AddParm(EtaApiConstants.EtaApi_Geocoded, userModel.Location.IsGeoCoded ? "1" : "1");
-//            //options.AddParm(EtaApiConstants.EtaApi_Accuracy, "10");//userModel.Location.Accuracy.ToString());
-//            options.AddParm(EtaApiConstants.EtaApi_Ditance, userModel.Distance.ToString());
-
-//            var api = new EtaSDKv2();
-//            api.GetStoreList(options, stores =>
-//            {
-//                Deployment.Current.Dispatcher.BeginInvoke(() =>
-//                {
-//                    Stores.Clear();
-//                    foreach (var store in stores)
-//                    {
-//                        this.Stores.Add(store);
-//                    }
-//                    //IsDataLoaded = true;
-//                    IsStoresUpdateing = false;
-
-//                });
-
-//            }, (error, uri) =>
-//            {
-//                var msg = error.Message;
-//                Deployment.Current.Dispatcher.BeginInvoke(() =>
-//                {
-//#if DEBUG
-//                    MessageBox.Show(msg + "\n" + uri, "Exception", MessageBoxButton.OK);
-//#endif
-//                    //IsDataLoaded = false;
-//                    IsStoresUpdateing = false;
-
-//                });
-//            });
-//        }
-
-        
-
-        //internal void UpdateEtaData()
-        //{
-        //    this.LoadSuggestedOffers();
-        //    this.LoadEtaStoreList();
-        //    this.LoadEtaCatalogList();
-        //    if (!string.IsNullOrWhiteSpace(OfferSearchQueryText))
-        //    {
-        //        this.LoadOfferSearchResult2(OfferSearchQueryText);
-        //    }
-        //}
         #endregion
     }
 }

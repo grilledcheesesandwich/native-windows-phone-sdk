@@ -14,29 +14,10 @@
     xmlns:toolkitPrimitives="clr-namespace:Microsoft.Phone.Controls.Primitives;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     mc:Ignorable="d"
-    d:DesignWidth="480"
-    d:DesignHeight="728"
     SupportedOrientations="Portrait"
     Orientation="Portrait"
     >
-    <!--<phone:PhoneApplicationPage.Resources>
-		<EtaSampleApp_Helpers:BoolToVisibilityN x:Key="BoolToVisibilityN"/>
-	</phone:PhoneApplicationPage.Resources>-->
 
-    <!--Panorama-based applications should not show an ApplicationBar-->
-
-    <phone:PhoneApplicationPage.FontFamily>
-        <StaticResource
-            ResourceKey="PhoneFontFamilyNormal" />
-    </phone:PhoneApplicationPage.FontFamily>
-    <phone:PhoneApplicationPage.FontSize>
-        <StaticResource
-            ResourceKey="PhoneFontSizeNormal" />
-    </phone:PhoneApplicationPage.FontSize>
-    <phone:PhoneApplicationPage.Foreground>
-        <StaticResource
-            ResourceKey="PhoneForegroundBrush" />
-    </phone:PhoneApplicationPage.Foreground>
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar
             Mode="Minimized">
@@ -59,16 +40,12 @@
 
     <!--LayoutRoot contains the root grid where all other page content is placed-->
     <Grid
-        x:Name="LayoutRoot"
-        d:DataContext="{d:DesignData /SampleData/MainViewModelSampleData.xaml}">
+        x:Name="LayoutRoot">
         <Grid.Background>
             <ImageBrush
                 ImageSource="/Images/win.png"
                 Stretch="None" />
         </Grid.Background>
-        <!--<my:SplashScreenLoadingUserControl
-            Visibility="{Binding IsUserDataLoaded, Converter={StaticResource BoolToVisibilityN}}"
-            d:IsHidden="True" />-->
         <controls:Panorama
             Title="eTilbudsavis"
             Margin="0,0,0,60"
@@ -95,60 +72,16 @@
                         ActionIconTapped="PhoneTextBox_ActionIconTapped" />
                 </controls:PanoramaItem.Header>
                 <Grid
-                    Margin="24,0,12,30"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch">
+                    Style="{StaticResource PanoramaItemGridContainer}">
                     <toolkit:PerformanceProgressBar
-                        IsIndeterminate="True"
-                        Width="350"
+                        Style="{StaticResource progressBarBase}"
                         Visibility="{Binding IsSearchOffersLoading, Converter={StaticResource BoolToVisibility}}"
-                        Foreground="White"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Top"
-                        Margin="0,-20,0,0" />
+                        />
                     <ListBox
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
+                        Style="{StaticResource MainPageListBoxSearch}"
                         x:Name="searchListBox"
                         ItemsSource="{Binding OffersSearch}"
                         SelectionChanged="searchListBox_SelectionChanged">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid
-                                    Margin="0,0,0,17"
-                                    Width="432">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition
-                                            Height="60" />
-                                        <RowDefinition
-                                            Height="30" />
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition
-                                            Width="50" />
-                                        <ColumnDefinition
-                                            Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock
-                                        Grid.Row="0"
-                                        Grid.Column="1"
-                                        Text="{Binding Heading}"
-                                        TextWrapping="NoWrap"
-                                        Style="{StaticResource PhoneTextLargeStyle}" />
-                                    <TextBlock
-                                        Grid.Row="1"
-                                        Grid.Column="1"
-                                        Text="{Binding BindsDirectlyToSource=True, Converter={StaticResource OfferToPriceConverter}}"
-                                        TextWrapping="NoWrap"
-                                        Style="{StaticResource PhoneTextSubtleStyle}" />
-                                    <Image
-                                        Grid.Row="0"
-                                        Grid.Column="0"
-                                        Source="{Binding Dealer.Branding.Logo}"
-                                        Height="50" />
-                                </Grid>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
                     </ListBox>
                 </Grid>
             </controls:PanoramaItem>
@@ -157,73 +90,15 @@
             <controls:PanoramaItem
                 Header="aviser">
                 <Grid
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    Margin="24,0,12,30">
+                    Style="{StaticResource PanoramaItemGridContainer}">
                     <toolkit:PerformanceProgressBar
-                        IsIndeterminate="True"
-                        Width="350"
-                        Visibility="{Binding IsCatalogsLoading, Converter={StaticResource BoolToVisibility}}"
-                        Foreground="White"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Top"
-                        Margin="0,-20,0,0" />
+                        Style="{StaticResource progressBarBase}"
+                        Visibility="{Binding IsCatalogsLoading, Converter={StaticResource BoolToVisibility}}" />
                     <ListBox
                         x:Name="CatalogsListBox"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
+                        Style="{StaticResource MainPageListBoxCatalogs}"
                         ItemsSource="{Binding Catalogs}"
                         SelectionChanged="CatalogsListBox_SelectionChanged">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid
-                                    Margin="0,0,0,17"
-                                    Width="432">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition
-                                            Height="60" />
-                                        <RowDefinition
-                                            Height="30" />
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition
-                                            Width="50" />
-                                        <ColumnDefinition
-                                            Width="Auto" />
-                                        <ColumnDefinition
-                                            Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock
-                                        Grid.Row="0"
-                                        Grid.Column="1"
-                                        Grid.ColumnSpan="2"
-                                        Text="{Binding Dealer.Name}"
-                                        TextWrapping="Wrap"
-                                        Style="{StaticResource PhoneTextExtraLargeStyle}" />
-                                    <TextBlock
-                                        Grid.Row="1"
-                                        Grid.Column="1"
-                                        Text="uge "
-                                        HorizontalAlignment="Right"
-                                        TextWrapping="NoWrap"
-                                        Style="{StaticResource PhoneTextSubtleStyle}" />
-                                    <TextBlock
-                                        Grid.Row="1"
-                                        Grid.Column="2"
-                                        Text="{Binding Week.From}"
-                                        HorizontalAlignment="Left"
-                                        Margin="0"
-                                        TextWrapping="NoWrap"
-                                        Style="{StaticResource PhoneTextSubtleStyle}" />
-                                    <Image
-                                        Grid.Row="0"
-                                        Grid.Column="0"
-                                        Source="{Binding Images.Thumb, Converter={StaticResource CatalogUriTemplateConverter}}"
-                                        Width="50"
-                                        Height="50" />
-                                </Grid>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
                     </ListBox>
                 </Grid>
             </controls:PanoramaItem>
@@ -232,144 +107,40 @@
             <controls:PanoramaItem
                 Header="butikker">
                 <Grid
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    Margin="24,0,12,30">
+                    Style="{StaticResource PanoramaItemGridContainer}">
                     <toolkit:PerformanceProgressBar
-                        IsIndeterminate="True"
-                        Width="350"
-                        Visibility="{Binding IsStoresLoading, Converter={StaticResource BoolToVisibility}}"
-                        Foreground="White"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Top"
-                        Margin="0,-20,0,0" />
+                        Style="{StaticResource progressBarBase}"
+                        Visibility="{Binding IsStoresLoading, Converter={StaticResource BoolToVisibility}}"/>
                     <ListBox
                         x:Name="StoresListBox"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
+                        Style="{StaticResource MainPageListBoxStores}"
                         ItemsSource="{Binding Stores}"
-                        
                         SelectionChanged="StoresListBox_SelectionChanged">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid
-                                    Margin="0,0,0,17"
-                                    Width="432">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition
-                                            Height="60" />
-                                        <RowDefinition
-                                            Height="30" />
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition
-                                            Width="50" />
-                                        <ColumnDefinition
-                                            Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock
-                                        Grid.Row="0"
-                                        Grid.Column="1"
-                                        Text="{Binding Dealer.Name}"
-                                        TextWrapping="Wrap"
-                                        Style="{StaticResource PhoneTextExtraLargeStyle}" />
-                                    <TextBlock
-                                        Grid.Row="1"
-                                        Grid.Column="1"
-                                        Text="{Binding Street}"
-                                        TextWrapping="Wrap"
-                                        Style="{StaticResource PhoneTextSubtleStyle}" />
-                                    <Image
-                                        Grid.Row="0"
-                                        Grid.Column="0"
-                                        Source="{Binding Dealer.Branding.Logo}"
-                                        Width="50"
-                                        Height="50" />
-                                </Grid>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
                     </ListBox>
                 </Grid>
             </controls:PanoramaItem>
 
             <!--Panorama suggested Offers-->
             <controls:PanoramaItem Header="tilbud">
-                <Grid
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    Margin="24,0,12,30">
+                <Grid Style="{StaticResource PanoramaItemGridContainer}">
                     <toolkit:PerformanceProgressBar
-                        IsIndeterminate="True"
-                        Width="350"
-                        Visibility="{Binding IsSuggestedOffersLoading, Converter={StaticResource BoolToVisibility}}"
-                        Foreground="White"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Top"
-                        Margin="0,-20,0,0" />
+                        Style="{StaticResource progressBarBase}"
+                        Visibility="{Binding IsSuggestedOffersLoading, Converter={StaticResource BoolToVisibility}}"/>
                     <ListBox
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
+                        Style="{StaticResource MainPageListBoxSuggestedOffers}"
                         x:Name="suggestedOffersListBox"
                         ItemsSource="{Binding SuggestedOffers}"
                         SelectionChanged="searchListBox_SelectionChanged">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid
-                                    Margin="0,0,0,17"
-                                    Width="432">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition
-                                            Height="60" />
-                                        <RowDefinition
-                                            Height="30" />
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition
-                                            Width="50" />
-                                        <ColumnDefinition
-                                            Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock
-                                        Grid.Row="0"
-                                        Grid.Column="1"
-                                        Text="{Binding Heading}"
-                                        TextWrapping="NoWrap"
-                                        Style="{StaticResource PhoneTextLargeStyle}" />
-                                    <TextBlock
-                                        Grid.Row="1"
-                                        Grid.Column="1"
-                                        Text="{Binding BindsDirectlyToSource=True, Converter={StaticResource OfferToPriceConverter}}"
-                                        TextWrapping="NoWrap"
-                                        Style="{StaticResource PhoneTextSubtleStyle}" />
-                                    <Image
-                                        Grid.Row="0"
-                                        Grid.Column="0"
-                                        Source="{Binding Dealer.Branding.Logo}"
-                                        Height="50" />
-                                </Grid>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
                     </ListBox>
                 </Grid>
             </controls:PanoramaItem>
             
         </controls:Panorama>
         <eta:EtaSlider
-            x:Name="Slider"
+            x:Name="etaSlider"
             VerticalAlignment="Bottom"
             Margin="0,0"
             Visibility="Visible"
-            
            />
-        <!--<Slider VerticalAlignment="Bottom" Margin="12,0,12,-30"  HorizontalAlignment="Stretch" Value="{Binding UserViewModel.Distance, Mode=TwoWay}" Maximum="70000" Minimum="1000" />-->
-        <!--<local:LocationUserControl
-            x:Name="locationControl"
-            Visibility="{Binding UserViewModel.FirstTimeApplicationRuns, Converter={StaticResource BoolToVisibility}}"
-            VerticalAlignment="Center"
-            d:LayoutOverrides="Width"
-            Margin="0"
-            HorizontalAlignment="Center"
-            Click="LocationUserControl_Click" />-->
     </Grid>
-
 </local:EtaBasePage>
