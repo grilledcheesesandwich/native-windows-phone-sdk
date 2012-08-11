@@ -110,7 +110,7 @@
     <Style
         x:Key="PanoramaItemGridContainer"
         TargetType="Grid">
-       
+
         <Setter
             Property="Margin"
             Value="24,0,12,30" />
@@ -159,37 +159,80 @@
             <Setter.Value>
                 <DataTemplate>
                     <Grid
-                        Margin="0,0,0,17"
+                        Margin="0,0,0,12"
                         Width="432">
                         <Grid.RowDefinitions>
                             <RowDefinition
                                 Height="60" />
                             <RowDefinition
                                 Height="30" />
+                            <RowDefinition
+                                Height="10" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition
-                                Width="50" />
+                                Width="100" />
                             <ColumnDefinition
                                 Width="*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock
+                        <Border Height="100"
+                                Width="100"
+                                Grid.Row="0"
+                                Grid.RowSpan="3"
+                                Grid.Column="0"
+                                Background="Pink"
+                                BorderBrush="Black" BorderThickness="1">
+                            <Grid
+                                
+                                Background="Yellow"
+                                VerticalAlignment="Stretch" 
+                                HorizontalAlignment="Stretch"
+                                >
+                                <Image 
+                                    Height="200"
+                                Width="200"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                        Source="{Binding Images.Thumb}"
+                                        MinHeight="100" MinWidth="100" Stretch="UniformToFill"
+                                       
+                                       />
+                                <Border VerticalAlignment="Bottom" Width="100" Height="30" BorderBrush="Black" BorderThickness="1" >
+                                    <Grid>
+                                    <Rectangle Fill="White" VerticalAlignment="Bottom" Width="100" Height="30"/>
+                                    <Image VerticalAlignment="Bottom"
+                                            Source="{Binding Dealer.Branding.Logo}"
+                                            Height="30" Stretch="Uniform" MaxWidth="100" />
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <StackPanel
+                            Margin="0"
                             Grid.Row="0"
                             Grid.Column="1"
+                            Grid.RowSpan="3">
+                            <TextBlock
                             Text="{Binding Heading}"
                             TextWrapping="NoWrap"
-                            Style="{StaticResource PhoneTextLargeStyle}" />
-                        <TextBlock
-                            Grid.Row="1"
-                            Grid.Column="1"
+                            Style="{StaticResource PhoneTextNormalStyle}" />
+                            <TextBlock
+                            Text="{Binding Description}"
+                            TextWrapping="NoWrap"
+                            Style="{StaticResource PhoneTextSubtleStyle}" />
+                            <TextBlock
                             Text="{Binding BindsDirectlyToSource=True, Converter={StaticResource OfferToPriceConverter}}"
                             TextWrapping="NoWrap"
                             Style="{StaticResource PhoneTextSubtleStyle}" />
-                        <Image
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            Source="{Binding Dealer.Branding.Logo}"
-                            Height="50" />
+                            <TextBlock
+                            Text="{Binding Store.Distance}"
+                            TextWrapping="NoWrap"
+                            Style="{StaticResource PhoneTextSubtleStyle}" />
+
+                        </StackPanel>
+
+                        
                     </Grid>
                 </DataTemplate>
             </Setter.Value>
@@ -328,6 +371,6 @@
 
     <!-- MainPage END -->
 
-    
-    
+
+
 </ResourceDictionary>
