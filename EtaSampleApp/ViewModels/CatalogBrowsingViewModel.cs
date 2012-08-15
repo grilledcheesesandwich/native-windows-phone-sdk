@@ -201,6 +201,14 @@ namespace EtaSampleApp.ViewModels
                 }
             }
         }
+
+        ~CatalogPageItem()
+        {
+            ZoomUri = null;
+            ViewUri = null;
+            ThumbUri = null;
+            IsSelected = false;
+        }
        
     }
 

@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.IO.IsolatedStorage;
 using System.Diagnostics;
 using EtaSDK.ApiModels;
+using EtaSampleApp.Strings;
 
 namespace EtaSampleApp.Helpers
 {
@@ -201,7 +202,7 @@ namespace EtaSampleApp.Helpers
             if (double.TryParse(value.ToString(), out distance))
             {
                 bool isKm = distance >= 1000;
-                return string.Format("{0}{1}", isKm ? (distance / 1000).ToString("0.0") : distance.ToString("0.00"), isKm ? "km" : "m");
+                return string.Format("{0} {1}", isKm ? (distance / 1000).ToString("0.0") : distance.ToString("0"), isKm ? AppResources.DistancePrefixKilometers : AppResources.DistancePrefixMeters);
             }
             else
             {

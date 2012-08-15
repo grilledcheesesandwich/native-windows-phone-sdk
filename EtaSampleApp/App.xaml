@@ -35,6 +35,11 @@
         <helpers:DistanceToStringConverter x:Key="DistanceToStringConverter"/>
         <helpers:PriceToStringConverter x:Key="PriceToStringConverter"/>
 
+        <!-- Localization strings -->
+        <local:LocalizedStrings
+            xmlns:local="clr-namespace:EtaSampleApp.Strings"
+            x:Key="LocalizedStrings" />
+
 
     </Application.Resources>
 

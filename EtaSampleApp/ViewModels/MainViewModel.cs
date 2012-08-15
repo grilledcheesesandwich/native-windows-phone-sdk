@@ -42,12 +42,12 @@ namespace EtaSampleApp
             get { return IsSuggestedOffersLoaded && IsStoresLoaded && IsCatalogsLoaded; }
         }
 
-        async internal void UpdateViewModel()
+        /*async*/ internal void UpdateViewModel()
         {
-            await LoadStores();
-            await LoadCatalogs();
-            await LoadSuggestedOffers();
-            await LoadSearchOffers(OfferSearchQueryText);
+            /*await*/ LoadStores();
+            /*await*/ LoadCatalogs();
+            /*await*/ LoadSuggestedOffers();
+            /*await*/ LoadSearchOffers(OfferSearchQueryText);
             MaintainGpsLocation();
         }
 

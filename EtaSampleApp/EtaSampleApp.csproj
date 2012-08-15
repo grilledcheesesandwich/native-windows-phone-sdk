@@ -96,6 +96,12 @@
     <Compile Include="Controls\SliderEventArgs.cs" />
     <Compile Include="Helpers\Converters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Strings\AppResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AppResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Strings\LocalizedStrings.cs" />
     <Compile Include="UserControls\LocationSetupUserControl.xaml.cs">
       <DependentUpon>LocationSetupUserControl.xaml</DependentUpon>
     </Compile>
@@ -145,11 +151,6 @@
     <Page Include="Controls\EtaStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Properties\DesignTimeResources.xaml" Condition="'$(DesignTime)'=='true' OR ('$(SolutionPath)'!='' AND Exists('$(SolutionPath)') AND '$(BuildingInsideVisualStudio)'!='true' AND '$(BuildingInsideExpressionBlend)'!='true')">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-      <ContainsDesignTimeResources>true</ContainsDesignTimeResources>
     </Page>
     <Page Include="Styles\EtaStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -219,6 +220,9 @@
     <Content Include="Images\GPSIcon.png" />
     <Content Include="Images\green.png" />
     <Content Include="Images\listbg.png" />
+    <Content Include="Images\CatalogLoading450x720.da-DK.jpg" />
+    <Content Include="Images\listbg450.png" />
+    <Content Include="Images\listbg480.png" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\logoBig.png" />
     <Content Include="Images\logoPart.png" />
@@ -265,6 +269,12 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </DesignData>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Strings\AppResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />

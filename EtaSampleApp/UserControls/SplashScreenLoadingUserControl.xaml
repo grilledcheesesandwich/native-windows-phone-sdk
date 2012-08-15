@@ -12,8 +12,26 @@
         x:Name="LayoutRoot"
         Background="#9CB227">
 		<Image Source="/SplashScreenImage.jpg"/>
-		<TextBlock Foreground="White" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="26.667" FontFamily="Segoe WP Light" Margin="0,320,0,0" Height="40"><Run Text="for Windows Phone"/><LineBreak/><Run/></TextBlock>
-		<TextBlock Foreground="White" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20" FontFamily="Segoe WP Light" Margin="0,400,0,0" Height="40" Text="Loading..."/>
+        <TextBlock
+            Foreground="White"
+            HorizontalAlignment="Center"
+            TextWrapping="Wrap"
+            VerticalAlignment="Top"
+            FontSize="26.667"
+            FontFamily="Segoe WP Light"
+            Margin="0,320,0,0"
+            Height="40"><Run
+                Text="{Binding Path=LocalizedResources.SplashScreenSubHeaderText, Source={StaticResource LocalizedStrings}}"/><LineBreak/><Run/></TextBlock>
+        <TextBlock
+            Foreground="White"
+            HorizontalAlignment="Center"
+            TextWrapping="Wrap"
+            VerticalAlignment="Top"
+            FontSize="20"
+            FontFamily="Segoe WP Light"
+            Margin="0,400,0,0"
+            Height="40"
+            Text="{Binding Path=LocalizedResources.SplashScreenLoadingText, Source={StaticResource LocalizedStrings}}"/>
 		<toolkit:PerformanceProgressBar HorizontalAlignment="Center" Height="10" VerticalAlignment="Top" Width="450" Margin="0,370,0,0" IsIndeterminate="True" Foreground="White" Background="{x:Null}"/>
 	</Grid>
 </UserControl>

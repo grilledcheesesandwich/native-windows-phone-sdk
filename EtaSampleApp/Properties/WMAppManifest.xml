@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.1">
-  <App xmlns="" ProductID="{ac8e3260-1109-4a8f-8562-70c8fd39593a}" Title="eTilbudsavis" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal"  Author="EtaSampleApp author" Description="Sample description" Publisher="EtaSampleApp">
+  <App xmlns="" ProductID="{ac8e3260-1109-4a8f-8562-70c8fd39593a}" Title="eTilbudsavis" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal"  Author="author" Description="description" Publisher="eTilbudsavis">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_GAMERSERVICES"/>
@@ -27,7 +27,7 @@
         <TemplateType5>
           <BackgroundImageURI IsRelative="true" IsResource="false">Background.png</BackgroundImageURI>
           <Count>0</Count>
-          <Title>  preview</Title>
+          <Title></Title>
         </TemplateType5>
       </PrimaryToken>
     </Tokens>

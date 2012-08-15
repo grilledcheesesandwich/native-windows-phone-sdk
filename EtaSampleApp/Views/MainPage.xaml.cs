@@ -10,17 +10,39 @@ using Eta.Controls;
 using EtaSampleApp.UserControls;
 using EtaSampleApp.ViewModels;
 using EtaSDK.ApiModels;
+using Microsoft.Phone.Shell;
+using EtaSampleApp.Strings;
 
 namespace EtaSampleApp.Views
 {
     public partial class MainPage : EtaBasePage
     {
-        Popup splacscreenpopup = null;
+        Popup splashScreenPopup = null;
         BackgroundWorker splachscreenWorker = null;
         public MainPage()
         {
             InitializeComponent();
             Initialize();
+            LocalizeAppBar();
+        }
+
+        private void LocalizeAppBar()
+        {
+            foreach (ApplicationBarMenuItem menuItem in this.ApplicationBar.MenuItems)
+            {
+                if (menuItem.Text == "(update)")
+                {
+                    menuItem.Text = AppResources.AppBarUpdate;
+                }
+                else if (menuItem.Text == "(about)")
+                {
+                    menuItem.Text = AppResources.AppBarAbout;
+                }
+                else if (menuItem.Text == "(settings)")
+                {
+                    menuItem.Text = AppResources.AppBarSettings;
+                }
+            }
         }
 
         async private void Initialize()
@@ -64,7 +86,7 @@ namespace EtaSampleApp.Views
             {
                 // use excisting persmissions and location with respect to user choise!
             }
-            splacscreenpopup = null;
+            splashScreenPopup = null;
             App.ViewModel.LoadData();
 
             if (showApplicationIntroductionGuide)
@@ -76,23 +98,23 @@ namespace EtaSampleApp.Views
         private Task<bool> InitializeSplachScreenAsync()
         {
             var tcs = new TaskCompletionSource<bool>();
-            splacscreenpopup = new Popup()
-            {
-                IsOpen = true,
-                Child = new SplashScreenLoadingUserControl()
-            };
+            splashScreenPopup = new Popup();
+            this.LayoutRoot.Children.Add(splashScreenPopup);  
+            splashScreenPopup.IsOpen = true;
+            splashScreenPopup.Child = new SplashScreenLoadingUserControl();
+
             splachscreenWorker = new BackgroundWorker();
 
             splachscreenWorker.DoWork += ((s, args) =>
             {
-                Thread.Sleep(3000);
+                Thread.Sleep(int.Parse(AppResources.SplashScreenPopupLoadtime));
             });
 
             splachscreenWorker.RunWorkerCompleted += ((s, args) =>
             {
                 this.Dispatcher.BeginInvoke(() =>
                 {
-                    this.splacscreenpopup.IsOpen = false;
+                    this.splashScreenPopup.IsOpen = false;
                     this.ApplicationBar.IsVisible = true;
                     tcs.TrySetResult(true);
                 }

@@ -11,6 +11,8 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Windows.Controls.Primitives;
 using BingServices;
+using Microsoft.Phone.Tasks;
+using EtaSampleApp.Strings;
 
 namespace EtaSampleApp.UserControls
 {
@@ -30,7 +32,7 @@ namespace EtaSampleApp.UserControls
             if (popup == null)
             {
                 btnNext.Visibility = System.Windows.Visibility.Collapsed;
-                btnCancel.Visibility = System.Windows.Visibility.Collapsed;
+                //btnCancel.Visibility = System.Windows.Visibility.Collapsed;
             }
         }
 
@@ -100,6 +102,21 @@ namespace EtaSampleApp.UserControls
             {
                 popup.IsOpen = false;
             }
+        }
+
+        private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
+        {
+            WebBrowserTask browser = new WebBrowserTask();
+            browser.Uri = new Uri(AppResources.PrivacyPolicyLocationDataUri);
+            browser.Show();
+        }
+
+        private void postalCodeTextBox_Tap(object sender, GestureEventArgs e)
+        {
+            //scrollView.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
+            //(sender as TextBox).Focus();
+            //scrollView.ScrollToVerticalOffset(-500);
+
         }
     }
 }

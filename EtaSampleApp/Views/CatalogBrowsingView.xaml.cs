@@ -46,6 +46,10 @@ namespace EtaSampleApp.Views
         }
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
+
             string id = "3c41wO"; // føtex
             if (NavigationContext.QueryString.ContainsKey("catalogId"))
             {
@@ -92,7 +96,7 @@ namespace EtaSampleApp.Views
                 catalogSlideView.UpdateLayout();
                 catalogSlideView.ScrollIntoView(model.Pages[startPage]);
                 catalogSlideView.UpdateLayout();
-                slider.Value = startPage;
+                //slider.Value = startPage;
             }
         }
 
@@ -118,7 +122,7 @@ namespace EtaSampleApp.Views
             {
                 return;
             }
-            slider.Value = listbox.SelectedIndex;
+            //slider.Value = listbox.SelectedIndex;
 
             model.SelectedPageItem = pageItem;
             zoomImage.Visibility = System.Windows.Visibility.Visible;

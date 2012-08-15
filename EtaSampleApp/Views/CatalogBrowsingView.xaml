@@ -15,7 +15,8 @@
     SupportedOrientations="Portrait"
     Orientation="Portrait"
     mc:Ignorable="d"
-    >
+    d:DesignHeight="800"
+    d:DesignWidth="480">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid
@@ -39,18 +40,7 @@
             <TextBlock
                 Text="{Binding Catalog.Dealer.Name}"
                 Style="{StaticResource PhoneTextNormalStyle}" />
-            <!--<TextBlock
-                Text=" - uge: "
-                Style="{StaticResource PhoneTextNormalStyle}" />
-            <TextBlock
-                Text="{Binding Catalog.Week.From}"
-                Style="{StaticResource PhoneTextNormalStyle}" />
-            <TextBlock
-                Text=" til "
-                Style="{StaticResource PhoneTextNormalStyle}" />
-            <TextBlock
-                Text="{Binding Catalog.Week.To}"
-                Style="{StaticResource PhoneTextNormalStyle}" />-->
+           
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
@@ -71,53 +61,6 @@
                 Visibility="Collapsed"
                 Source="{Binding SelectedPageItem.ZoomUri, Converter={StaticResource IsoFileToBitmapImageConverter}}"
                 ZoomMode="Free" />
-            <Grid
-                Visibility="Visible"
-                Height="70"
-                VerticalAlignment="Bottom"
-                Margin="12,0,12,12">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition
-                        Width="Auto" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <TextBlock
-                    TextWrapping="Wrap"
-                    Text="1"
-                    VerticalAlignment="Center" />
-                <TextBlock
-                    TextWrapping="Wrap"
-                    Text="{Binding CurrentPage}"
-                    VerticalAlignment="Center"
-                    Grid.Column="2" />
-                <Slider
-                    x:Name="slider"
-                    Grid.Column="1"
-                    Width="300"
-                    VerticalAlignment="Center"
-                    Height="10"
-                    LargeChange="1"
-                    SmallChange="1"
-                    Value="1"
-                    Maximum="{Binding Catalog.PageCount}"
-                    Minimum="0"
-                    ValueChanged="Slider_ValueChanged"/>
-            </Grid>
-
         </Grid>
     </Grid>
-
-    <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
-            <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
-                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
-            </shell:ApplicationBar.MenuItems>
-        </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
-
 </local:EtaBasePage>

@@ -117,28 +117,71 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CatalogBaseIsoFolder" xml:space="preserve">
-    <value>/Catalogs</value>
+  <data name="AllowGPSHeader" xml:space="preserve">
+    <value>Tillad brug af GPS</value>
   </data>
-  <data name="Eta_API_Key" xml:space="preserve">
-    <value>c2a0bb532723548de341506555749d8f</value>
+  <data name="AppBarAbout" xml:space="preserve">
+    <value>om</value>
   </data>
-  <data name="Eta_API_Secret" xml:space="preserve">
-    <value>80366342196ea27b14632a5b4e764b9d</value>
+  <data name="AppBarSettings" xml:space="preserve">
+    <value>indstillinger</value>
   </data>
-  <data name="Eta_BaseUri" xml:space="preserve">
-    <value>https://etilbudsavis.dk</value>
+  <data name="AppBarUpdate" xml:space="preserve">
+    <value>opdater</value>
   </data>
-  <data name="Hello" xml:space="preserve">
-    <value>World</value>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Annuller</value>
   </data>
-  <data name="LoadingCatalogPageImageThumb" xml:space="preserve">
-    <value>/Images/listbg.png</value>
+  <data name="CatalogHeader" xml:space="preserve">
+    <value>aviser</value>
   </data>
-  <data name="LoadingCatalogPageImageView" xml:space="preserve">
-    <value>/Images/_listbg450.png</value>
+  <data name="ConfirmButton" xml:space="preserve">
+    <value>Ok</value>
   </data>
-  <data name="LoadingCatalogPageImageZoom" xml:space="preserve">
-    <value>/Images/listbg.png</value>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>Fortsæt</value>
+  </data>
+  <data name="DistancePrefixKilometers" xml:space="preserve">
+    <value>Km</value>
+  </data>
+  <data name="DistancePrefixMeters" xml:space="preserve">
+    <value>m</value>
+  </data>
+  <data name="OfferHeader" xml:space="preserve">
+    <value>tilbud</value>
+  </data>
+  <data name="PostalNumberHeader" xml:space="preserve">
+    <value>Post nr.</value>
+  </data>
+  <data name="PrivacyPolicyLocationDataText" xml:space="preserve">
+    <value>Din aktuelle position bruges til at forbedre søgningen og vise mest relevante tilbud. Dine lokationsdata deles ikke med 3. part og du forbliver anonym.</value>
+  </data>
+  <data name="PrivacyPolicyLocationDataUri" xml:space="preserve">
+    <value>https://etilbudsavis.dk/about/</value>
+  </data>
+  <data name="PrivacyPolicyLocationDataUriText" xml:space="preserve">
+    <value>Læs mere her.</value>
+  </data>
+  <data name="SearchHeader" xml:space="preserve">
+    <value>søg</value>
+  </data>
+  <data name="SettingsHeader" xml:space="preserve">
+    <value>Indstillinger</value>
+  </data>
+  <data name="SplashScreenLoadingText" xml:space="preserve">
+    <value>Henter...</value>
+  </data>
+  <data name="SplashScreenPopupLoadtime" xml:space="preserve">
+    <value>1</value>
+    <comment>mili secounds</comment>
+  </data>
+  <data name="SplashScreenSubHeaderText" xml:space="preserve">
+    <value>for Windows Phone</value>
+  </data>
+  <data name="StoreHeader" xml:space="preserve">
+    <value>butikker</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>eTilbudsavis</value>
   </data>
 </root>

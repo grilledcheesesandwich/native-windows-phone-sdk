@@ -115,7 +115,7 @@ namespace EtaSDK.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /Images/listbg.png.
+        ///   Looks up a localized string similar to /Images/_listbg450.png.
         /// </summary>
         public static string LoadingCatalogPageImageView {
             get {

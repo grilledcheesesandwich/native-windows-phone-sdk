@@ -30,14 +30,14 @@
         <StackPanel
             x:Name="TitlePanel"
             Grid.Row="0"
-            Margin="12,20,0,28">
+            Margin="12,20,0,0">
             <TextBlock
                 x:Name="ApplicationTitle"
-                Text="eTilbudsavis"
+                Text="{Binding Path=LocalizedResources.Title, Source={StaticResource LocalizedStrings}}"
                 Style="{StaticResource PhoneTextNormalStyle}" />
             <TextBlock
                 x:Name="PageTitle"
-                Text="Indstilinger"
+                Text="{Binding Path=LocalizedResources.SettingsHeader, Source={StaticResource LocalizedStrings}}"
                 Margin="9,-7,0,0"
                 Style="{StaticResource PhoneTextTitle1Style}" />
         </StackPanel>
@@ -48,11 +48,10 @@
             Grid.Row="1"
             Margin="12,0,12,0">
             <ScrollViewer
+                x:Name="scrollView"
                 Margin="12,0,12,12">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition
-                            Height="Auto" />
                         <RowDefinition
                             Height="Auto" />
                         <RowDefinition
@@ -71,66 +70,78 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <TextBlock
-                        HorizontalAlignment="Right"
+                        HorizontalAlignment="Left"
                         TextWrapping="Wrap"
-                        Text="Tillad brug af GPS"
+                        Text="{Binding Path=LocalizedResources.AllowGPSHeader, Source={StaticResource LocalizedStrings}}"
                         VerticalAlignment="Center"
                         FontSize="26.667" />
                     <toolkitPrimitives:ToggleSwitchButton
                         Content="ToggleSwitchButton"
                         Grid.Column="1"
+                        Margin="0,0,-12,0"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Right"
                         IsChecked="{Binding UserViewModel.AllowGPS, Mode=TwoWay}"
                         Checked="ToggleSwitchButton_Checked"
                         Unchecked="ToggleSwitchButton_Unchecked" />
                     <TextBlock
+                        Margin="0,-20,0,0"
                         TextWrapping="Wrap"
-                        Text="Din aktuelle position bruges til at forbedre søgningen og vise mest relevante tilbud. Dine lokationsdata deles ikke med 3. part og du forbliver anonym."
+                        Text="{Binding Path=LocalizedResources.PrivacyPolicyLocationDataText, Source={StaticResource LocalizedStrings}}"
                         VerticalAlignment="Center"
                         Grid.Row="1"
                         Grid.ColumnSpan="2" />
+                    <HyperlinkButton
+                        Click="HyperlinkButton_Click"
+                        Margin="-12,12,0,0"
+                        HorizontalAlignment="Left"
+                        Grid.Row="2"
+                        Grid.ColumnSpan="2"
+                        Content="{Binding Path=LocalizedResources.PrivacyPolicyLocationDataUriText, Source={StaticResource LocalizedStrings}}" />
                     <TextBlock
                         TextWrapping="Wrap"
-                        Text="Post nr."
+                        Text="{Binding Path=LocalizedResources.PostalNumberHeader, Source={StaticResource LocalizedStrings}}"
                         FontSize="26.667"
                         Visibility="{Binding UserViewModel.AllowGPS, Converter={StaticResource BoolToVisibilityN}}"
-                        Grid.Row="2"
+                        Grid.Row="3"
                         VerticalAlignment="Center" />
                     <TextBox
                         x:Name="postalCodeTextBox"
                         TextWrapping="Wrap"
-                        Grid.Row="2"
+                        Grid.Row="3"
                         Grid.Column="2"
                         Text="{Binding UserViewModel.Location.ZipCode, Mode=TwoWay, Converter={StaticResource NegativeNumberToStringConverter}}"
                         InputScope="Number"
                         Visibility="{Binding UserViewModel.AllowGPS, Converter={StaticResource BoolToVisibilityN}}"
                         IsEnabled="{Binding UserViewModel.AllowGPS, Converter={StaticResource BoolNegationConverter}}"
-                        TextChanged="TextBox_TextChanged" />
+                        TextChanged="TextBox_TextChanged"
+                        Tap="postalCodeTextBox_Tap" />
                     <toolkit:PerformanceProgressBar
                         x:Name="progressBar"
                         Height="10"
                         Foreground="White"
                         Background="Transparent"
                         Visibility="Collapsed"
-                        Grid.Row="3"
+                        Grid.Row="4"
                         Grid.ColumnSpan="2"
                         IsIndeterminate="True" />
                     <Button
                         x:Name="btnNext"
-                        Grid.Row="4"
-                        Grid.Column="2"
+                        Margin="-12,0,0,0"
+                        Grid.Row="5"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
                         
                         Click="btnNext_Click"
-                        Content="Fortsæt -->"
+                        Content="{Binding Path=LocalizedResources.ConfirmButton, Source={StaticResource LocalizedStrings}}"
                         />
-                    <Button
+                    <!--<Button
                         x:Name="btnCancel"
                         Grid.Row="4"
                         Grid.Column="0"
                         IsEnabled="False"
                         Click="btnCancel_Click"
-                        Content="&lt;-- Cancel" />
+                        Content="&lt; Cancel" />-->
 
                 </Grid>
             </ScrollViewer>

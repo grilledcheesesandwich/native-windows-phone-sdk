@@ -24,15 +24,15 @@
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem
                     x:Name="updateMenuItem"
-                    Text="Opdater"
+                    Text="(update)"
                     Click="updateMenuItem_Click" />
                 <shell:ApplicationBarMenuItem
                     x:Name="settingsMenuItem"
-                    Text="indstillinger"
+                    Text="(settings)"
                     Click="settingsMenuItem_Click" />
                 <shell:ApplicationBarMenuItem
                     x:Name="aboutMenuItem"
-                    Text="Om"
+                    Text="(about)"
                     Click="aboutMenuItem_Click" />
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
@@ -47,7 +47,7 @@
                 Stretch="None" />
         </Grid.Background>
         <controls:Panorama
-            Title="eTilbudsavis"
+            Title="{Binding Path=LocalizedResources.Title, Source={StaticResource LocalizedStrings}}"
             Margin="0,0,0,60"
             Visibility="{Binding IsUserViewModelLoaded, Converter={StaticResource BoolToVisibility}}">
 
@@ -64,7 +64,7 @@
                         Text="{Binding OfferSearchQueryText, Mode=TwoWay}"
                         TextWrapping="NoWrap"
                         d:LayoutOverrides="Width"
-                        Hint="Søg efter tilbud"
+                        Hint="{Binding Path=LocalizedResources.SearchHeader, Source={StaticResource LocalizedStrings}}"
                         ActionIcon="/Images/search.icon.png"
                         AcceptsReturn="False"
                         HidesActionItemWhenEmpty="False"
@@ -88,7 +88,7 @@
 
             <!--Panorama item Aviser-->
             <controls:PanoramaItem
-                Header="aviser">
+                Header="{Binding Path=LocalizedResources.CatalogHeader, Source={StaticResource LocalizedStrings}}">
                 <Grid
                     Style="{StaticResource PanoramaItemGridContainer}">
                     <toolkit:PerformanceProgressBar
@@ -105,7 +105,7 @@
             
             <!--Panorama item Butikker-->
             <controls:PanoramaItem
-                Header="butikker">
+                Header="{Binding Path=LocalizedResources.StoreHeader, Source={StaticResource LocalizedStrings}}">
                 <Grid
                     Style="{StaticResource PanoramaItemGridContainer}">
                     <toolkit:PerformanceProgressBar
@@ -121,7 +121,8 @@
             </controls:PanoramaItem>
 
             <!--Panorama suggested Offers-->
-            <controls:PanoramaItem Header="tilbud">
+            <controls:PanoramaItem
+                Header="{Binding Path=LocalizedResources.OfferHeader, Source={StaticResource LocalizedStrings}}">
                 <Grid Style="{StaticResource PanoramaItemGridContainer}">
                     <toolkit:PerformanceProgressBar
                         Style="{StaticResource progressBarBase}"
