@@ -35,7 +35,7 @@ namespace EtaSampleApp.Helpers
         {
             double result = -1;
 
-            if (double.TryParse(value.ToString(),out result))
+            if (double.TryParse(value.ToString(), out result))
             {
                 return (int)result;
             }
@@ -55,7 +55,7 @@ namespace EtaSampleApp.Helpers
             try
             {
                 IsolatedStorageFile isoStore = IsolatedStorageFile.GetUserStoreForApplication();
-                
+
 
                 string isoFilename = value.ToString();
                 BitmapImage image = new BitmapImage();
@@ -71,13 +71,13 @@ namespace EtaSampleApp.Helpers
                         image.SetSource(stream);
                     }
                 }
-                
+
                 return image;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Image ex: " + ex.Message);
-                MessageBox.Show("UPS! image Load ex: " + ex.Message + "path: "+ value);
+                MessageBox.Show("UPS! image Load ex: " + ex.Message + "path: " + value);
                 return value.ToString();
             }
 
@@ -143,7 +143,7 @@ namespace EtaSampleApp.Helpers
         {
             string template = value.ToString();
             template = template.Replace("%d", "{0}");
-            return string.Format(template,1);
+            return string.Format(template, 1);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
@@ -167,7 +167,7 @@ namespace EtaSampleApp.Helpers
                 if (double.TryParse(offer.Preprice, out preprice) && double.TryParse(offer.Price, out price))
                 {
                     discount = preprice - price;
-                    return string.Format("{0},-, før {1},- (spar {2})", offer.Price, offer.Preprice,discount);
+                    return string.Format("{0},-, før {1},- (spar {2})", offer.Price, offer.Preprice, discount);
 
                 }
                 else
@@ -181,6 +181,49 @@ namespace EtaSampleApp.Helpers
             }
         }
 
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+    }
+    public class DistanceToStringConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            if (value == null)
+            {
+                return "?";
+            }
+            double distance = 0;
+            if (double.TryParse(value.ToString(), out distance))
+            {
+                bool isKm = distance >= 1000;
+                return string.Format("{0}{1}", isKm ? (distance / 1000).ToString("0.0") : distance.ToString("0.00"), isKm ? "km" : "m");
+            }
+            else
+            {
+                return "?";
+            }
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class PriceToStringConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            if (value == null)
+            {
+                return "?kr.";
+            }
+            return string.Format("{0}kr.",value);
+        }
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             throw new NotImplementedException();

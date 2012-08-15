@@ -159,21 +159,22 @@
             <Setter.Value>
                 <DataTemplate>
                     <Grid
+                        
                         Margin="0,0,0,12"
-                        Width="432">
+                       HorizontalAlignment="Stretch" Height="100">
                         <Grid.RowDefinitions>
                             <RowDefinition
-                                Height="60" />
+                                Height="*" />
                             <RowDefinition
-                                Height="30" />
+                                Height="*" />
                             <RowDefinition
-                                Height="10" />
+                                Height="*" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition
                                 Width="100" />
                             <ColumnDefinition
-                                Width="*" />
+                                Width="280" />
                         </Grid.ColumnDefinitions>
                         <Border Height="100"
                                 Width="100"
@@ -208,31 +209,49 @@
                             </Grid>
                         </Border>
 
-                        <StackPanel
-                            Margin="0"
+                        <Rectangle 
+                            Margin="0,0,0,0"
                             Grid.Row="0"
                             Grid.Column="1"
-                            Grid.RowSpan="3">
-                            <TextBlock
+                            Grid.RowSpan="3"
+                            HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="Black" Opacity=".3"/>
+                        <TextBlock
+                            Margin="12,0,0,0"
+                            Grid.Row="0"
+                            Grid.Column="1"
                             Text="{Binding Heading}"
                             TextWrapping="NoWrap"
                             Style="{StaticResource PhoneTextNormalStyle}" />
-                            <TextBlock
+                        <TextBlock
+                            Margin="12,0,0,0"
+                            Grid.Row="1"
+                            Grid.Column="1"
                             Text="{Binding Description}"
                             TextWrapping="NoWrap"
                             Style="{StaticResource PhoneTextSubtleStyle}" />
-                            <TextBlock
-                            Text="{Binding BindsDirectlyToSource=True, Converter={StaticResource OfferToPriceConverter}}"
+                        <Rectangle Margin="12,0,0,0"
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            HorizontalAlignment="Left"
+                            Width="10" Height="10" 
+                                   VerticalAlignment="Center" Fill="Pink"/> 
+                        <TextBlock
+                            Margin="24,0,0,0"
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            HorizontalAlignment="Left"
+                            Text="{Binding Price, Converter={StaticResource PriceToStringConverter}}"
                             TextWrapping="NoWrap"
                             Style="{StaticResource PhoneTextSubtleStyle}" />
-                            <TextBlock
-                            Text="{Binding Store.Distance}"
+                        <!-- Text="{Binding BindsDirectlyToSource=True, Converter={StaticResource OfferToPriceConverter}}" -->
+                        <TextBlock
+                            Margin="0,0,0,0"
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            HorizontalAlignment="Right"
+                            Text="{Binding Store.Distance, Converter={StaticResource DistanceToStringConverter}}"
                             TextWrapping="NoWrap"
                             Style="{StaticResource PhoneTextSubtleStyle}" />
-
-                        </StackPanel>
-
-                        
                     </Grid>
                 </DataTemplate>
             </Setter.Value>
