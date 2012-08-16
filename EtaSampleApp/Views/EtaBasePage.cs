@@ -55,17 +55,19 @@ namespace EtaSampleApp.Views
         static void ChecknetworkStatus(){
             IsNetworkAvailable = DeviceNetworkInformation.IsNetworkAvailable;
            // IsNetworkAvailable = false;
-            if (!IsNetworkAvailable)
-            {
-                Debug.WriteLine("no network");
-                NetworkErrorPopup.Child = new NetworkStatusUserControl();
-                NetworkErrorPopup.IsOpen = true;
-            }
-            else
-            {
-                NetworkErrorPopup.Child = null;
-                NetworkErrorPopup.IsOpen = false;
-            }
+            Deployment.Current.Dispatcher.BeginInvoke(() => { 
+                if (!IsNetworkAvailable)
+                {
+                    Debug.WriteLine("no network");
+                    NetworkErrorPopup.Child = new NetworkStatusUserControl();
+                    NetworkErrorPopup.IsOpen = true;
+                }
+                else
+                {
+                    NetworkErrorPopup.Child = null;
+                    NetworkErrorPopup.IsOpen = false;
+                }
+            });
         }
 
         public EtaBasePage()

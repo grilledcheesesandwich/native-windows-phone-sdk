@@ -59,14 +59,16 @@ namespace EtaSampleApp
             // Phone-specific initialization
             InitializePhoneApplication();
 
-            // Display memory usage counters
-            MemoryDiagnosticsHelper.Start(TimeSpan.FromMilliseconds(100), true);
-
+           
             SmartDispatcher.Initialize();
 
             // Show graphics profiling information while debugging.
             if (System.Diagnostics.Debugger.IsAttached)
             {
+                // Display memory usage counters
+                MemoryDiagnosticsHelper.Start(TimeSpan.FromMilliseconds(100), true);
+
+
                 //// Display memory usage counters
                 //MemoryDiagnosticsHelper.Start(TimeSpan.FromMilliseconds(100), true);
 

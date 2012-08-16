@@ -268,7 +268,7 @@ namespace EtaSampleApp.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 1.
+        ///   Looks up a localized string similar to 1988.
         /// </summary>
         public static string SplashScreenPopupLoadtime {
             get {
