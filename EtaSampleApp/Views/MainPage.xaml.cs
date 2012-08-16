@@ -7,11 +7,10 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using Eta.Controls;
+using EtaSampleApp.Strings;
 using EtaSampleApp.UserControls;
-using EtaSampleApp.ViewModels;
 using EtaSDK.ApiModels;
 using Microsoft.Phone.Shell;
-using EtaSampleApp.Strings;
 
 namespace EtaSampleApp.Views
 {
@@ -76,7 +75,7 @@ namespace EtaSampleApp.Views
         async private Task InitializeUserDataAndServices()
         {
             var userData = App.ViewModel.UserViewModel;
-            bool isFirstTimeApplicationRuns = true;//userData.FirstTimeApplicationRuns;
+            bool isFirstTimeApplicationRuns = userData.FirstTimeApplicationRuns;
             bool showApplicationIntroductionGuide = true;
 
             if (isFirstTimeApplicationRuns)
@@ -166,17 +165,6 @@ namespace EtaSampleApp.Views
             base.OnNavigatedFrom(e);
         }
        
-        //private void LocationUserControl_Click(object sender, RoutedEventArgs e)
-        //{
-        //    (sender as Control).Visibility = System.Windows.Visibility.Collapsed;
-        //    var location = App.ViewModel.UserViewModel.Location;
-        //    if (location.IsValid)
-        //    {
-        //        App.ViewModel.IsUserViewModelLoaded = true;
-        //    }
-
-        //}
-
         private void CatalogsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if(sender == null){
@@ -233,12 +221,6 @@ namespace EtaSampleApp.Views
             App.ViewModel.SelectedOffer = offer;
             NavigationService.Navigate(new Uri("/Views/OfferView.xaml?offerId=" + offer.Id,UriKind.Relative));
         }
-
-        //private void Button_Click(object sender, RoutedEventArgs e)
-        //{
-        //    searchListBox.SelectedIndex = -1;
-        //    App.ViewModel.LoadOfferSearchResult(App.ViewModel.OfferSearchQueryText);
-        //}
 
         private void settingsMenuItem_Click(object sender, EventArgs e)
         {

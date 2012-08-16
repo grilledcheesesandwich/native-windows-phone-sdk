@@ -174,7 +174,7 @@
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="Del tilbud" Click="ApplicationBarMenuItem_Click"/>
                 <shell:ApplicationBarMenuItem
-                    Text="Gå til butik"
+                    Text="åbn butik"
                     Click="ApplicationBarMenuItem_Click_1" />
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>

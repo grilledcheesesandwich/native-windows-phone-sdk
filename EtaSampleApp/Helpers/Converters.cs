@@ -198,7 +198,7 @@ namespace EtaSampleApp.Helpers
             var offer = value as Offer;
             if (offer == null)
             {
-                return "?";
+                return "-";
             }
             if (!string.IsNullOrWhiteSpace(offer.Preprice))
             {
@@ -209,7 +209,7 @@ namespace EtaSampleApp.Helpers
                     return string.Format("{0}kr.", discount.ToString("0.00"));
                 }
             }
-            return "?";
+            return "-";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

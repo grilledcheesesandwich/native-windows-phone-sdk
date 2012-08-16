@@ -12,100 +12,24 @@ namespace EtaSampleApp.ViewModels
     {
         const string SettingsKeyName = "UserViewModel";
 
-        #region Statics
-        #endregion
-
-        #region Properties
-
-        #endregion
-
-        ////[Obsolete("Use GetUserViewModel", true)]
-        //public UserViewModel()
-        //{
-        //    Location = new Location();
-        //}
-
-        //private UserViewModel(object dummy)
-        //{
-
-        //}
-
-        //private static UserViewModel Load()
-        //{
-        //    var settings = new AppSettingsHelper();
-        //    var model = settings.GetValueOrNew<UserViewModel>(SettingsKeyName);
-        //    return model;
-        //}
-
         public bool Save()
         {
-            //if (instance != null)
-            //{
-                if (FirstTimeApplicationRuns)
-                {
-                    FirstTimeApplicationRuns = false;
-                }
-                var settings = new AppSettingsHelper();
-                return settings.SetValue(SettingsKeyName, this);
-            //}
-            //return false;
+            if (FirstTimeApplicationRuns)
+            {
+                FirstTimeApplicationRuns = false;
+            }
+            var settings = new AppSettingsHelper();
+            return settings.SetValue(SettingsKeyName, this);
         }
 
-        //bool isUpdateingLocation = false;
-        //public bool IsUpdateingLocation
-        //{
-        //    get { return isUpdateingLocation; }
-        //    set
-        //    {
-        //        if (value != isUpdateingLocation)
-        //        {
-        //            isUpdateingLocation = value;
-        //            NotifyPropertyChanged(() => IsUpdateingLocation);
-        //        }
-        //    }
-        //}
-        //public void UpdateLocationInformationGPS(){
-        //    if (!IsUpdateingLocation)
-        //    {
-        //        IsUpdateingLocation = true;
-        //        UpdateLocationInformationGPSInternal();
-        //    }
-        //}
         public static async Task<UserViewModel> LoadModelAsync()
         {
             var userModel = await GetUserViewModelFromISOAsync();
-            //if (System.Diagnostics.Debugger.IsAttached)
-            //{
-            //    userModel.FirstTimeApplicationRuns = true;
-            //}
+          
             var tcs = new TaskCompletionSource<UserViewModel>();
             tcs.SetResult(userModel);
 
             return await tcs.Task;
-
-            ////Location newLocation = null;
-
-            //if (userModel.AllowGPS)
-            //{
-            //    userModel.Location = await GetLocationFromGPSAsync();
-            //}
-            //else
-            //{
-            //    if (userModel.Location.ZipCode == -1)
-            //    {
-            //        userModel.Location.ZipCode = 2900;
-            //    }
-            //    userModel.Location = await GetLocationFromPostalCodeAsync(userModel.Location.ZipCode.ToString());
-            //    if (!userModel.Location.IsValid)
-            //    {
-            //        int lksajf = 0;
-            //    }
-
-            //}
-
-            //tcs.SetResult(userModel);
-
-            //return await tcs.Task;
         }
 
         public static async Task<UserViewModel> GetUserViewModelFromISOAsync()
@@ -116,91 +40,6 @@ namespace EtaSampleApp.ViewModels
             tcs.SetResult(model);
             return await tcs.Task;
         }
-
-        //private static async Task<Location> GetLocationFromGPSAsync()
-        //{
-        //    var tcs = new TaskCompletionSource<Location>();
-        //    var gps = new GPSHelper();
-        //    var result = await gps.GetPositionAsync();
-        //    Location location = null;
-        //    if (result == null)
-        //    {
-        //        tcs.SetException(new Exception("Could not get position from GPS"));
-        //    }
-        //    location = new Location()
-        //        {
-        //            IsGeoCoded = true,
-        //            IsValid = true,
-        //            Latitude = result.Latitude,
-        //            Longitude = result.Longitude,
-        //            Timestamp = DateTime.Now.Ticks
-        //        };
-
-        //    var locationAPI = new LocationsAPIHelper();
-        //    var address = await locationAPI.GeoCoordinateToZipCodeAsync(result.Latitude, result.Longitude);
-
-        //    int zipCode = 0;
-        //    if (!string.IsNullOrWhiteSpace(address) && int.TryParse(address, out zipCode))
-        //    {
-        //        location.ZipCode = zipCode;
-        //    }
-        //    else
-        //    {
-        //        location.ZipCode = 0;
-        //        MessageBox.Show("Kunne ikke matche din lokation med et postnummer.", "Postnummer", MessageBoxButton.OK);
-        //    }
-        //    tcs.SetResult(location);
-        //    //IsUpdateingLocation = false;
-        //    return await tcs.Task;
-
-        //}
-
-        //public static async Task<Location> GetLocationFromPostalCodeAsync(string postalCode)
-        //{
-        //    var tcs = new TaskCompletionSource<Location>();
-        //    int post = 0;
-        //    if (int.TryParse(postalCode, out post))
-        //    {
-
-        //    }
-        //    //if (Location != null && Location.ZipCode.ToString() == postalCode)
-        //    //{
-        //    //    tcs.SetResult(Location);
-        //    //}
-        //    //else
-        //    //{
-        //    var location = new BingServices.LocationsAPIHelper();
-        //    var result = await location.ZipCodeToGeoCoordinateAsync(postalCode);
-        //    Location locationResult = null;
-        //    if (result != null)
-        //    {
-        //        locationResult = new Location
-        //        {
-        //            IsGeoCoded = false,
-        //            IsValid = true,
-        //            Latitude = result.Latitude,
-        //            Longitude = result.Longitude,
-        //            Timestamp = DateTime.Now.Ticks,
-        //            ZipCode = post
-        //        };
-        //    }
-        //    else
-        //    {
-        //        locationResult = new Location
-        //        {
-        //            IsGeoCoded = false,
-        //            IsValid = false,
-        //            Latitude = 0,
-        //            Longitude = 0,
-        //            Timestamp = DateTime.Now.Ticks,
-        //            ZipCode = post
-        //        };
-        //        MessageBox.Show("Kunne ikke genkende postnummeret.", "Postnummer", MessageBoxButton.OK);
-        //    }
-        //    tcs.SetResult(locationResult);
-        //    //}
-        //    return await tcs.Task;
-        //}
 
         bool firstTimeApplicationRuns = true;
         public bool FirstTimeApplicationRuns
@@ -216,7 +55,7 @@ namespace EtaSampleApp.ViewModels
             }
         }
 
-        bool allowGPS = false;
+        bool allowGPS = true;
         public bool AllowGPS
         {
             get { return allowGPS; }
@@ -331,9 +170,9 @@ namespace EtaSampleApp.ViewModels
                 }
             }
         }
-        
-        int zipCode = -1;
-        public int ZipCode
+
+        string zipCode = "1577";
+        public string ZipCode
         {
             get { return zipCode; }
             set

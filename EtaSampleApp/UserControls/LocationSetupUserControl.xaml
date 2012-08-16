@@ -110,7 +110,7 @@
                         TextWrapping="Wrap"
                         Grid.Row="3"
                         Grid.Column="2"
-                        Text="{Binding UserViewModel.Location.ZipCode, Mode=TwoWay, Converter={StaticResource NegativeNumberToStringConverter}}"
+                        Text="{Binding UserViewModel.Location.ZipCode, Mode=TwoWay}"
                         InputScope="Number"
                         Visibility="{Binding UserViewModel.AllowGPS, Converter={StaticResource BoolToVisibilityN}}"
                         IsEnabled="{Binding UserViewModel.AllowGPS, Converter={StaticResource BoolNegationConverter}}"

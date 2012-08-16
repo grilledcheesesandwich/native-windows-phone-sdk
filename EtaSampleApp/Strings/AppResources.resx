@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AboutUrl" xml:space="preserve">
+    <value>https://etilbudsavis.dk/about/</value>
+  </data>
   <data name="AllowGPSHeader" xml:space="preserve">
     <value>Tillad brug af GPS</value>
   </data>
@@ -172,7 +175,7 @@
     <value>Din aktuelle position bruges til at forbedre søgningen og vise mest relevante tilbud. Dine lokationsdata deles ikke med 3. part og du forbliver anonym.</value>
   </data>
   <data name="PrivacyPolicyLocationDataUri" xml:space="preserve">
-    <value>https://etilbudsavis.dk/about/</value>
+    <value>https://etilbudsavis.dk/privacy/</value>
   </data>
   <data name="PrivacyPolicyLocationDataUriText" xml:space="preserve">
     <value>Læs mere her.</value>

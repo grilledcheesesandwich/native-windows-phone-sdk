@@ -1,18 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 using BingServices;
-using Microsoft.Phone.Tasks;
 using EtaSampleApp.Strings;
+using Microsoft.Phone.Tasks;
 
 namespace EtaSampleApp.UserControls
 {
@@ -41,7 +34,6 @@ namespace EtaSampleApp.UserControls
             btnNext.IsEnabled = true;
             App.ViewModel.UserViewModel.Location.IsGeoCoded = false;
             App.ViewModel.UserViewModel.AllowGPS = true;
-
         }
 
         private void ToggleSwitchButton_Unchecked(object sender, RoutedEventArgs e)
@@ -50,7 +42,6 @@ namespace EtaSampleApp.UserControls
             App.ViewModel.UserViewModel.Location.IsGeoCoded = true;
             App.ViewModel.UserViewModel.AllowGPS = false;
             TextBox_TextChanged(null,null);
-
         }
 
         async private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -65,9 +56,8 @@ namespace EtaSampleApp.UserControls
                 {
                     progressBar.Visibility = System.Windows.Visibility.Visible;
                     // Do PostalCode to Geo Location lookup.
-
                     var bingApi = new LocationsAPIHelper();
-                    var result = await bingApi.ZipCodeToGeoCoordinateAsync(test.ToString());
+                    var result = await bingApi.ZipCodeToGeoCoordinateAsync(text);
                     if (result != null)
                     {
                         App.ViewModel.UserViewModel.Location.IsGeoCoded = true;
@@ -75,6 +65,7 @@ namespace EtaSampleApp.UserControls
                         App.ViewModel.UserViewModel.Location.Longitude = result.Longitude;
                         App.ViewModel.UserViewModel.Location.IsValid = true;
                         App.ViewModel.UserViewModel.Location.Timestamp = DateTime.Now.Ticks;
+                        App.ViewModel.UserViewModel.Location.ZipCode = text;
 
                         btnNext.IsEnabled = true;
                     }

@@ -458,7 +458,9 @@ namespace EtaSampleApp
             {
                 if (userViewModel == null)
                 {
-                    LoadUserViewModel();
+                    Task.WaitAll(
+                        new Task[]{LoadUserViewModel()
+                        });
                 }
                 return userViewModel;
             }
@@ -481,12 +483,12 @@ namespace EtaSampleApp
             IsUserViewModelLoading = true;
 
             var result = await UserViewModel.LoadModelAsync();
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
-            {
+            //Deployment.Current.Dispatcher.BeginInvoke(() =>
+            //{
                 UserViewModel = result;
                 IsUserViewModelLoaded = UserViewModel != null && UserViewModel.Location != null;
                 IsUserViewModelLoading = false;
-            });
+            //});
         }
         
         private bool IsMaintainGpsLocationRunning = false;

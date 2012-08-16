@@ -61,6 +61,15 @@ namespace EtaSampleApp.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to https://etilbudsavis.dk/about/.
+        /// </summary>
+        public static string AboutUrl {
+            get {
+                return ResourceManager.GetString("AboutUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tillad brug af GPS.
         /// </summary>
         public static string AllowGPSHeader {
@@ -223,7 +232,7 @@ namespace EtaSampleApp.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://etilbudsavis.dk/about/.
+        ///   Looks up a localized string similar to https://etilbudsavis.dk/privacy/.
         /// </summary>
         public static string PrivacyPolicyLocationDataUri {
             get {
