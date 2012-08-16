@@ -151,11 +151,56 @@ namespace EtaSampleApp.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FF7b9119.
+        /// </summary>
+        public static string EtaSignatureColor {
+            get {
+                return ResourceManager.GetString("EtaSignatureColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vis indenfor .
+        /// </summary>
+        public static string EtaSliderControlText {
+            get {
+                return ResourceManager.GetString("EtaSliderControlText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Der er ingen internet forbindelse ... og eTilbudsavis appen virker ikke uden!.
+        /// </summary>
+        public static string NoNetworkDescription {
+            get {
+                return ResourceManager.GetString("NoNetworkDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ups!.
+        /// </summary>
+        public static string NoNetworkHeader {
+            get {
+                return ResourceManager.GetString("NoNetworkHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to tilbud.
         /// </summary>
         public static string OfferHeader {
             get {
                 return ResourceManager.GetString("OfferHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Åben netværksopsætning.
+        /// </summary>
+        public static string OpenNetworkSettingsLabel {
+            get {
+                return ResourceManager.GetString("OpenNetworkSettingsLabel", resourceCulture);
             }
         }
         

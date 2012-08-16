@@ -105,6 +105,9 @@
     <Compile Include="UserControls\LocationSetupUserControl.xaml.cs">
       <DependentUpon>LocationSetupUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\NetworkStatusUserControl.xaml.cs">
+      <DependentUpon>NetworkStatusUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\SplashScreenLoadingUserControl.xaml.cs">
       <DependentUpon>SplashScreenLoadingUserControl.xaml</DependentUpon>
     </Compile>
@@ -161,6 +164,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\LocationSetupUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\NetworkStatusUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -57,8 +57,8 @@ namespace EtaSampleApp.ViewModels
             var userModel = App.ViewModel.UserViewModel;
 
             var options = new EtaApiQueryStringParameterOptions();
-            options.AddParm("from", EtaSDK.Utils.UNIXTime.GetTimestamp(DateTime.Now));
-            options.AddParm("to", EtaSDK.Utils.UNIXTime.GetTimestamp(DateTime.Now.AddDays(14)));
+            //options.AddParm("from", EtaSDK.Utils.UNIXTime.GetTimestamp(DateTime.Now));
+            //options.AddParm("to", EtaSDK.Utils.UNIXTime.GetTimestamp(DateTime.Now.AddDays(14)));
 
             options.AddParm(EtaApiConstants.EtaApi_Latitude, userModel.Location.Latitude.ToString("0.00000"));
             options.AddParm(EtaApiConstants.EtaApi_Longitude, userModel.Location.Longitude.ToString("0.00000"));
@@ -69,7 +69,8 @@ namespace EtaSampleApp.ViewModels
 
             //options.AddParm(EtaApiConstants.EtaApi_OfferId, "");
             options.AddParm("store", Store.Id); // 5d6dBY
-            options.AddParm("type", "suggested");
+            options.AddParm("dealer", Store.Dealer.Id); // 5d6dBY
+            options.AddParm("type", "all");
 
 
             EtaSdk.GetOfferList(options, result => {

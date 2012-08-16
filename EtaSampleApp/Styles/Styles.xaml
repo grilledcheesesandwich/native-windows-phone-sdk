@@ -1,45 +1,64 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"
-                    xmlns:telerikPrimitivesSlideView="clr-namespace:Telerik.Windows.Controls.SlideView;assembly=Telerik.Windows.Controls.Primitives"
-                    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"
+    xmlns:telerikPrimitivesSlideView="clr-namespace:Telerik.Windows.Controls.SlideView;assembly=Telerik.Windows.Controls.Primitives"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit">
 
-    <Color x:Key="PhoneAccentColor">#FF1BA1E2</Color>
+    <Color x:Key="EtaSignatureColor">
+        #FF7b9119
+    </Color>
+    <SolidColorBrush
+        x:Key="EtaSignatureBrush"
+        Color="{StaticResource EtaSignatureColor}" />
 
-    <Style TargetType="ListBox"
-           x:Key="CatalogPagesListBox">
-        <Setter Property="ItemsPanel">
+    <Color
+        x:Key="PhoneAccentColor">#FF1BA1E2</Color>
+
+    <Style
+        TargetType="ListBox"
+        x:Key="CatalogPagesListBox">
+        <Setter
+            Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
-                    <VirtualizingStackPanel Orientation="Horizontal"
-                                            VirtualizingStackPanel.VirtualizationMode="Recycling" />
+                    <VirtualizingStackPanel
+                        Orientation="Horizontal"
+                        VirtualizingStackPanel.VirtualizationMode="Recycling" />
                 </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="ItemTemplate">
+        <Setter
+            Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <Grid Width="450"
-                          MaxHeight="720"
-                          Margin="12,12,12,0">
-                        <Border Width="400"
-                                Height="450"
-                                BorderBrush="Black"
-                                BorderThickness="1">
+                    <Grid
+                        VerticalAlignment="Center"
+                        Width="450"
+                        MaxHeight="720"
+                        Margin="0,12,0,0">
+                        <Border
+                            Width="400"
+                            Height="450"
+                            BorderBrush="Black"
+                            BorderThickness="1">
                             <Grid>
-                                <Rectangle HorizontalAlignment="Stretch"
-                                           VerticalAlignment="Stretch"
-                                           Fill="White" />
-                                <TextBlock HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           Foreground="Black"
-                                           Style="{StaticResource PhoneTextExtraLargeStyle}"
-                                           Text="{Binding Path=LocalizedResources.SplashScreenLoadingText, Source={StaticResource LocalizedStrings}}" />
+                                <Rectangle
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    Fill="White" />
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Foreground="Black"
+                                    Style="{StaticResource PhoneTextExtraLargeStyle}"
+                                    Text="{Binding Path=LocalizedResources.SplashScreenLoadingText, Source={StaticResource LocalizedStrings}}" />
                             </Grid>
                         </Border>
 
-                        <Image Visibility="{Binding IsSelected,Converter={StaticResource BoolToVisibilityN},Mode=TwoWay}"
-                               Source="{Binding ViewUri, Converter={StaticResource IsoFileToBitmapImageConverter}}" />
+                        <Image
+                            Visibility="{Binding IsSelected,Converter={StaticResource BoolToVisibilityN},Mode=TwoWay}"
+                            Source="{Binding ViewUri, Converter={StaticResource IsoFileToBitmapImageConverter}}" />
 
                         <!--<telerikPrimitivesSlideView:PanAndZoomImage Height="400" Width="300" Visibility="{Binding ZoomVisibility}" ZoomMode="Free" Source="{Binding ZoomPageUri,Mode=TwoWay, Converter={StaticResource IsoFileToBitmapImageConverter}}"/>-->
                         <!--<telerikPrimitivesSlideView:PanAndZoomImage Visibility="{Binding IsSelected,Converter={StaticResource BoolToVisibility},Mode=TwoWay}"  Width="460" ZoomMode="Free" Source="{Binding PageUri, Converter={StaticResource IsoFileToBitmapImageConverter}}" />-->
@@ -74,183 +93,219 @@
                 </DataTemplate>
             </Setter.Value>
         </Setter>-->
-        <Setter Property="Margin"
-                Value="0,0,-12,0" />
-        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
-                Value="Auto" />
-        <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
-                Value="Disabled" />
-        <Setter Property="HorizontalAlignment"
-                Value="Center" />
-        <Setter Property="VerticalAlignment"
-                Value="Stretch" />
+        <Setter
+            Property="Margin"
+            Value="0,0,-12,0" />
+        <Setter
+            Property="ScrollViewer.HorizontalScrollBarVisibility"
+            Value="Auto" />
+        <Setter
+            Property="ScrollViewer.VerticalScrollBarVisibility"
+            Value="Disabled" />
+        <Setter
+            Property="HorizontalAlignment"
+            Value="Center" />
+        <Setter
+            Property="VerticalAlignment"
+            Value="Stretch" />
 
     </Style>
 
-    <Style x:Key="EtaMainPageGrid"
-           TargetType="Grid">
-        <Setter Property="Background">
+    <Style
+        x:Key="EtaMainPageGrid"
+        TargetType="Grid">
+        <Setter
+            Property="Background">
             <Setter.Value>
-                <ImageBrush ImageSource="/Images/win.png" />
+                <ImageBrush
+                    ImageSource="/Images/win.png" />
             </Setter.Value>
         </Setter>
     </Style>
 
     <!-- MainPage Styles START-->
 
-    <Style x:Key="progressBarBase"
-           TargetType="toolkit:PerformanceProgressBar">
+    <Style
+        x:Key="progressBarBase"
+        TargetType="toolkit:PerformanceProgressBar">
 
-        <Setter Property="IsIndeterminate"
-                Value="True" />
-        <Setter Property="Width"
-                Value="350" />
-        <Setter Property="Foreground"
-                Value="White" />
-        <Setter Property="HorizontalAlignment"
-                Value="Stretch" />
-        <Setter Property="VerticalAlignment"
-                Value="Top" />
-        <Setter Property="Margin"
-                Value="0,-20,0,0" />
+        <Setter
+            Property="IsIndeterminate"
+            Value="True" />
+        <Setter
+            Property="Width"
+            Value="350" />
+        <Setter
+            Property="Foreground"
+            Value="White" />
+        <Setter
+            Property="HorizontalAlignment"
+            Value="Stretch" />
+        <Setter
+            Property="VerticalAlignment"
+            Value="Top" />
+        <Setter
+            Property="Margin"
+            Value="0,-20,0,0" />
     </Style>
 
     <!-- mainPage PanoramaItem Grid Container -->
-    <Style x:Key="PanoramaItemGridContainer"
-           TargetType="Grid">
+    <Style
+        x:Key="PanoramaItemGridContainer"
+        TargetType="Grid">
 
-        <Setter Property="Margin"
-                Value="24,0,12,30" />
-        <Setter Property="HorizontalAlignment"
-                Value="Stretch" />
-        <Setter Property="VerticalAlignment"
-                Value="Stretch" />
+        <Setter
+            Property="Margin"
+            Value="24,0,12,30" />
+        <Setter
+            Property="HorizontalAlignment"
+            Value="Stretch" />
+        <Setter
+            Property="VerticalAlignment"
+            Value="Stretch" />
     </Style>
 
     <!-- MainPage ListBox Styles-->
     <!-- base -->
-    <Style x:Key="MainPageListBoxBase"
-           TargetType="ListBox">
-        <Setter Property="HorizontalAlignment"
-                Value="Stretch" />
-        <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
-                Value="Hidden" />
-        <Setter Property="VerticalAlignment"
-                Value="Stretch" />
-        <Setter Property="ItemsPanel">
+    <Style
+        x:Key="MainPageListBoxBase"
+        TargetType="ListBox">
+        <Setter
+            Property="HorizontalAlignment"
+            Value="Stretch" />
+        <Setter
+            Property="ScrollViewer.VerticalScrollBarVisibility"
+            Value="Hidden" />
+        <Setter
+            Property="VerticalAlignment"
+            Value="Stretch" />
+        <Setter
+            Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
-                    <VirtualizingStackPanel Orientation="Vertical"
-                                            VirtualizingStackPanel.VirtualizationMode="Recycling" />
+                    <VirtualizingStackPanel
+                        Orientation="Vertical"
+                        VirtualizingStackPanel.VirtualizationMode="Recycling" />
                 </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
     </Style>
     <!-- MainPageListBoxOffersBase -->
-    <Style x:Key="MainPageListBoxOffersBase"
-           BasedOn="{StaticResource MainPageListBoxBase}"
-           TargetType="ListBox">
-        <Setter Property="HorizontalAlignment"
-                Value="Stretch" />
-        <Setter Property="VerticalAlignment"
-                Value="Stretch" />
-        <Setter Property="ItemTemplate">
+    <Style
+        x:Key="MainPageListBoxOffersBase"
+        BasedOn="{StaticResource MainPageListBoxBase}"
+        TargetType="ListBox">
+        <Setter
+            Property="HorizontalAlignment"
+            Value="Stretch" />
+        <Setter
+            Property="VerticalAlignment"
+            Value="Stretch" />
+        <Setter
+            Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <Grid Margin="0,0,0,12"
-                          HorizontalAlignment="Stretch"
-                          Height="100">
+                    <Grid
+                        Margin="0,0,0,12"
+                        HorizontalAlignment="Stretch"
+                        Height="100">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
+                            <RowDefinition
+                                Height="*" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="280" />
+                            <ColumnDefinition
+                                Width="100" />
+                            <ColumnDefinition
+                                Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Border Height="100"
-                                Width="100"
-                                Grid.Row="0"
-                                Grid.RowSpan="3"
-                                Grid.Column="0"
-                                Background="Pink"
-                                BorderBrush="Black"
-                                BorderThickness="1">
-                            <Grid Background="White"
-                                  VerticalAlignment="Stretch"
-                                  HorizontalAlignment="Stretch">
-                                <Image Height="200"
-                                       Width="200"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Center"
-                                       Source="{Binding Images.Thumb}"
-                                       MinHeight="100"
-                                       MinWidth="100"
-                                       Stretch="UniformToFill" />
-                                <Border VerticalAlignment="Bottom"
-                                        Width="100"
-                                        Height="30"
-                                        BorderBrush="Black"
-                                        BorderThickness="1">
+                        <Border
+                            Height="100"
+                            Width="100"
+                            Grid.Row="0"
+                            Grid.RowSpan="3"
+                            Grid.Column="0"
+                            Background="Pink"
+                            BorderBrush="Black"
+                            BorderThickness="1">
+                            <Grid
+                                Background="White"
+                                VerticalAlignment="Stretch"
+                                HorizontalAlignment="Stretch">
+                                <Image
+                                    Height="200"
+                                    Width="200"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Source="{Binding Images.Thumb}"
+                                    MinHeight="100"
+                                    MinWidth="100"
+                                    Stretch="UniformToFill" />
+                                <Border
+                                    VerticalAlignment="Bottom"
+                                    Width="100"
+                                    Height="30"
+                                    BorderBrush="Black"
+                                    BorderThickness="1">
                                     <Grid>
-                                        <Rectangle Fill="White"
-                                                   VerticalAlignment="Bottom"
-                                                   Width="100"
-                                                   Height="30" />
-                                        <Image VerticalAlignment="Bottom"
-                                               Source="{Binding Dealer.Branding.Logo}"
-                                               Height="30"
-                                               Stretch="Uniform"
-                                               MaxWidth="100" />
+                                        <Rectangle
+                                            Fill="White"
+                                            VerticalAlignment="Bottom"
+                                            Width="100"
+                                            Height="30" />
+                                        <Image
+                                            VerticalAlignment="Bottom"
+                                            Source="{Binding Dealer.Branding.Logo}"
+                                            Height="30"
+                                            Stretch="Uniform"
+                                            MaxWidth="100" />
                                     </Grid>
                                 </Border>
                             </Grid>
                         </Border>
 
-                        <Rectangle Margin="0,0,0,0"
-                                   Grid.Row="0"
-                                   Grid.Column="1"
-                                   Grid.RowSpan="3"
-                                   HorizontalAlignment="Stretch"
-                                   VerticalAlignment="Stretch"
-                                   Fill="Black"
-                                   Opacity="0" />
-                        <TextBlock Margin="12,0,0,0"
-                                   Grid.Row="0"
-                                   Grid.Column="1"
-                                   Text="{Binding Heading}"
-                                   TextWrapping="NoWrap"
-                                   Style="{StaticResource PhoneTextNormalStyle}" />
-                        <TextBlock Margin="12,0,0,0"
-                                   Grid.Row="1"
-                                   Grid.Column="1"
-                                   Text="{Binding Description}"
-                                   TextWrapping="NoWrap"
-                                   Style="{StaticResource PhoneTextSubtleStyle}" />
-                        <Rectangle Margin="12,0,0,0"
-                                   Grid.Row="2"
-                                   Grid.Column="1"
-                                   HorizontalAlignment="Left"
-                                   Width="10"
-                                   Height="10"
-                                   VerticalAlignment="Center"
-                                   Fill="Pink" />
-                        <TextBlock Margin="24,0,0,0"
-                                   Grid.Row="2"
-                                   Grid.Column="1"
-                                   HorizontalAlignment="Left"
-                                   Text="{Binding Price, Converter={StaticResource PriceToStringConverter}}"
-                                   TextWrapping="NoWrap"
-                                   Style="{StaticResource PhoneTextSubtleStyle}" />
-                        <!-- Text="{Binding BindsDirectlyToSource=True, Converter={StaticResource OfferToPriceConverter}}" -->
-                        <TextBlock Margin="0,0,0,0"
-                                   Grid.Row="2"
-                                   Grid.Column="1"
-                                   HorizontalAlignment="Right"
-                                   Text="{Binding Store.Distance, Converter={StaticResource DistanceToStringConverter}}"
-                                   TextWrapping="NoWrap"
-                                   Style="{StaticResource PhoneTextSubtleStyle}" />
+                        <StackPanel
+                            Margin="12,-6,0,0"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch">
+                            <TextBlock
+                                Text="{Binding Heading}"
+                                TextWrapping="NoWrap"
+                                Style="{StaticResource PhoneTextNormalStyle}" />
+                            <TextBlock
+                                Text="{Binding Description}"
+                                TextWrapping="NoWrap"
+                                Style="{StaticResource PhoneTextSubtleStyle}" />
+                            <StackPanel
+                                Orientation="Horizontal">
+                                <Rectangle
+                                    Margin="12,0,0,0"
+                                    HorizontalAlignment="Left"
+                                    Width="10"
+                                    Height="10"
+                                    VerticalAlignment="Center"
+                                    Fill="{Binding BindsDirectlyToSource=True,Converter={StaticResource DurationToColorConverter}}" />
+                                <TextBlock
+                                    HorizontalAlignment="Left"
+                                    Text="{Binding Price, Converter={StaticResource PriceToStringConverter}}"
+                                    TextWrapping="NoWrap"
+                                    Style="{StaticResource PhoneTextSubtleStyle}" />
+                                
+                                <TextBlock
+                                    Text="{Binding BindsDirectlyToSource=True,Converter={StaticResource DurationToStringConverter}}"
+                                    HorizontalAlignment="Right"
+                                    TextWrapping="NoWrap"
+                                    Style="{StaticResource PhoneTextSubtleStyle}" />
+                            </StackPanel>
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                Text="{Binding Store.Distance, Converter={StaticResource DistanceToStringConverter}}"
+                                TextWrapping="NoWrap"
+                                Style="{StaticResource PhoneTextSubtleStyle}" />
+                        </StackPanel>
+                                               
                     </Grid>
                 </DataTemplate>
             </Setter.Value>
@@ -258,77 +313,95 @@
     </Style>
 
     <!-- MainPageListBoxSearch -->
-    <Style x:Key="MainPageListBoxSearch"
-           BasedOn="{StaticResource MainPageListBoxOffersBase}"
-           TargetType="ListBox">
+    <Style
+        x:Key="MainPageListBoxSearch"
+        BasedOn="{StaticResource MainPageListBoxOffersBase}"
+        TargetType="ListBox">
     </Style>
 
     <!-- MainPageListBoxSuggestedOffers -->
-    <Style x:Key="MainPageListBoxSuggestedOffers"
-           BasedOn="{StaticResource MainPageListBoxOffersBase}"
-           TargetType="ListBox">
+    <Style
+        x:Key="MainPageListBoxSuggestedOffers"
+        BasedOn="{StaticResource MainPageListBoxOffersBase}"
+        TargetType="ListBox">
     </Style>
 
     <!-- Catalogs List-->
-    <Style x:Key="MainPageListBoxCatalogs"
-           BasedOn="{StaticResource MainPageListBoxBase}"
-           TargetType="ListBox">
-        <Setter Property="HorizontalAlignment"
-                Value="Stretch" />
-        <Setter Property="VerticalAlignment"
-                Value="Stretch" />
-        <Setter Property="ItemTemplate">
+    <Style
+        x:Key="MainPageListBoxCatalogs"
+        BasedOn="{StaticResource MainPageListBoxBase}"
+        TargetType="ListBox">
+        <Setter
+            Property="HorizontalAlignment"
+            Value="Stretch" />
+        <Setter
+            Property="VerticalAlignment"
+            Value="Stretch" />
+        <Setter
+            Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <Grid Margin="0,0,0,12"
-                          HorizontalAlignment="Stretch">
+                    <Grid
+                        Margin="0,0,0,12"
+                        HorizontalAlignment="Stretch">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="100" />
+                            <RowDefinition
+                                Height="100" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition
+                                Width="100" />
+                            <ColumnDefinition
+                                Width="*" />
                         </Grid.ColumnDefinitions>
-                        <StackPanel Margin="0,-7,0,0"
-                                    VerticalAlignment="Top"
-                                    Grid.Row="0"
-                                    Grid.Column="1">
-                            <TextBlock Text="{Binding Dealer.Name}"
-                                       TextWrapping="NoWrap"
-                                       Style="{StaticResource PhoneTextExtraLargeStyle}" />
-                            <StackPanel Orientation="Horizontal">
-                                <Rectangle Margin="12,0,0,0"
-                                           HorizontalAlignment="Left"
-                                           Width="10"
-                                           Height="10"
-                                           VerticalAlignment="Center"
-                                           Fill="Pink" />
-                                <TextBlock Text="Gyldig fra mandag"
-                                           HorizontalAlignment="Left"
-                                           TextWrapping="NoWrap"
-                                           Style="{StaticResource PhoneTextSubtleStyle}" />
+                        <StackPanel
+                            Margin="0,-7,0,0"
+                            VerticalAlignment="Top"
+                            Grid.Row="0"
+                            Grid.Column="1">
+                            <TextBlock
+                                Text="{Binding Dealer.Name}"
+                                TextWrapping="NoWrap"
+                                Style="{StaticResource PhoneTextExtraLargeStyle}" />
+                            <StackPanel
+                                Orientation="Horizontal">
+                                <Rectangle
+                                    Margin="12,0,0,0"
+                                    HorizontalAlignment="Left"
+                                    Width="10"
+                                    Height="10"
+                                    VerticalAlignment="Center"
+                                    Fill="{Binding BindsDirectlyToSource=True,Converter={StaticResource DurationToColorConverter}}" />
+                                <TextBlock
+                                    Text="{Binding BindsDirectlyToSource=True,Converter={StaticResource DurationToStringConverter}}"
+                                    HorizontalAlignment="Left"
+                                    TextWrapping="NoWrap"
+                                    Style="{StaticResource PhoneTextSubtleStyle}" />
                             </StackPanel>
-                            <TextBlock Text="{Binding Store.Distance, Converter={StaticResource DistanceToStringConverter}}"
-                                       TextWrapping="NoWrap"
-                                       Style="{StaticResource PhoneTextSubtleStyle}" />
+                            <TextBlock
+                                Text="{Binding Store.Distance, Converter={StaticResource DistanceToStringConverter}}"
+                                TextWrapping="NoWrap"
+                                Style="{StaticResource PhoneTextSubtleStyle}" />
                         </StackPanel>
-                        <Rectangle Grid.Row="0"
-                                   Grid.RowSpan="2"
-                                   Grid.Column="0"
-                                   Fill="White"
-                                   Opacity="1"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   Width="100"
-                                   Height="100" />
-                        <Image Grid.Row="0"
-                               Grid.RowSpan="2"
-                               Grid.Column="0"
-                               Source="{Binding Images.Thumb, Converter={StaticResource CatalogUriTemplateConverter}}"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               Width="100"
-                               Height="100" />
+                        <Rectangle
+                            Grid.Row="0"
+                            Grid.RowSpan="2"
+                            Grid.Column="0"
+                            Fill="White"
+                            Opacity="1"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Width="100"
+                            Height="100" />
+                        <Image
+                            Grid.Row="0"
+                            Grid.RowSpan="2"
+                            Grid.Column="0"
+                            Source="{Binding Images.Thumb, Converter={StaticResource CatalogUriTemplateConverter}}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Width="100"
+                            Height="100" />
                     </Grid>
                 </DataTemplate>
             </Setter.Value>
@@ -336,66 +409,83 @@
     </Style>
 
     <!-- Stores -->
-    <Style x:Key="MainPageListBoxStores"
-           BasedOn="{StaticResource MainPageListBoxBase}"
-           TargetType="ListBox">
-        <Setter Property="HorizontalAlignment"
-                Value="Stretch" />
-        <Setter Property="VerticalAlignment"
-                Value="Stretch" />
-        <Setter Property="ItemTemplate">
+    <Style
+        x:Key="MainPageListBoxStores"
+        BasedOn="{StaticResource MainPageListBoxBase}"
+        TargetType="ListBox">
+        <Setter
+            Property="HorizontalAlignment"
+            Value="Stretch" />
+        <Setter
+            Property="VerticalAlignment"
+            Value="Stretch" />
+        <Setter
+            Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <Grid Margin="0,0,0,12"
-                          HorizontalAlignment="Stretch">
+                    <Grid
+                        Margin="0,0,0,12"
+                        HorizontalAlignment="Stretch">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="100" />
+                            <RowDefinition
+                                Height="100" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition
+                                Width="100" />
+                            <ColumnDefinition
+                                Width="*" />
                         </Grid.ColumnDefinitions>
-                        <StackPanel Margin="0,-7,0,0"
-                                    VerticalAlignment="Top"
-                                    Grid.Row="0"
-                                    Grid.Column="1">
-                            <TextBlock Text="{Binding Dealer.Name}"
-                                       TextWrapping="NoWrap"
-                                       Style="{StaticResource PhoneTextNormalStyle}" />
-                            <TextBlock Text="{Binding Street}"
-                                       TextWrapping="NoWrap"
-                                       Style="{StaticResource PhoneTextSubtleStyle}" />
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Zipcode}"
-                                           TextWrapping="NoWrap"
-                                           Style="{StaticResource PhoneTextSubtleStyle}" />
-                                <TextBlock Text="{Binding City}"
-                                           HorizontalAlignment="Left"
-                                           TextWrapping="NoWrap"
-                                           Style="{StaticResource PhoneTextSubtleStyle}" />
+                        <StackPanel
+                            Margin="0,-7,0,0"
+                            VerticalAlignment="Top"
+                            Grid.Row="0"
+                            Grid.Column="1">
+                            <TextBlock
+                                Text="{Binding Dealer.Name}"
+                                TextWrapping="NoWrap"
+                                Style="{StaticResource PhoneTextNormalStyle}" />
+                            <TextBlock
+                                Text="{Binding Street}"
+                                TextWrapping="NoWrap"
+                                Style="{StaticResource PhoneTextSubtleStyle}" />
+                            <StackPanel
+                                Orientation="Horizontal">
+                                <TextBlock
+                                    Text="{Binding Zipcode}"
+                                    TextWrapping="NoWrap"
+                                    Style="{StaticResource PhoneTextSubtleStyle}" />
+                                <TextBlock
+                                    Text="{Binding City}"
+                                    HorizontalAlignment="Left"
+                                    TextWrapping="NoWrap"
+                                    Style="{StaticResource PhoneTextSubtleStyle}" />
 
                             </StackPanel>
-                            <TextBlock Text="{Binding Distance, Converter={StaticResource DistanceToStringConverter}}"
-                                       TextWrapping="NoWrap"
-                                       Style="{StaticResource PhoneTextSubtleStyle}" />
+                            <TextBlock
+                                Text="{Binding Distance, Converter={StaticResource DistanceToStringConverter}}"
+                                TextWrapping="NoWrap"
+                                Style="{StaticResource PhoneTextSubtleStyle}" />
                         </StackPanel>
-                        <Rectangle Grid.Row="0"
-                                   Grid.RowSpan="2"
-                                   Grid.Column="0"
-                                   Fill="White"
-                                   Opacity="1"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   Width="100"
-                                   Height="100" />
-                        <Image Grid.Row="0"
-                               Grid.RowSpan="2"
-                               Grid.Column="0"
-                               Source="{Binding Dealer.Branding.Logo}"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               Width="100"
-                               Height="100" />
+                        <Rectangle
+                            Grid.Row="0"
+                            Grid.RowSpan="2"
+                            Grid.Column="0"
+                            Fill="White"
+                            Opacity="1"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Width="100"
+                            Height="100" />
+                        <Image
+                            Grid.Row="0"
+                            Grid.RowSpan="2"
+                            Grid.Column="0"
+                            Source="{Binding Dealer.Branding.Logo}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Width="100"
+                            Height="100" />
                     </Grid>
                 </DataTemplate>
             </Setter.Value>
@@ -405,5 +495,41 @@
     <!-- MainPage END -->
 
 
+    <!-- TextBlocks-->
+    <Style
+        x:Key="TextBlockHeaderStyle"
+        BasedOn="{StaticResource PhoneTextNormalStyle}"
+        TargetType="TextBlock">
+        <Setter
+            Property="HorizontalAlignment"
+            Value="Right" />
+        <Setter
+            Property="FontWeight"
+            Value="Bold" />
+        <Setter
+            Property="TextWrapping"
+            Value="NoWrap" />
+    </Style>
+
+    <Style
+        x:Key="TextBlockNormalStyle"
+        BasedOn="{StaticResource PhoneTextNormalStyle}"
+        TargetType="TextBlock">
+        <Setter
+            Property="HorizontalAlignment"
+            Value="Left" />
+        <Setter
+            Property="TextWrapping"
+            Value="NoWrap" />
+    </Style>
+
+    <Style
+        x:Key="TextBlockLongTextStyle"
+        BasedOn="{StaticResource TextBlockNormalStyle}"
+        TargetType="TextBlock">
+        <Setter
+            Property="TextWrapping"
+            Value="Wrap" />
+    </Style>
 
 </ResourceDictionary>

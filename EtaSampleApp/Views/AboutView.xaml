@@ -20,7 +20,7 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid
         x:Name="LayoutRoot"
-        Background="#9CB227">
+        Background="{StaticResource EtaSignatureBrush}">
         <Grid.RowDefinitions>
             <RowDefinition
                 Height="Auto" />

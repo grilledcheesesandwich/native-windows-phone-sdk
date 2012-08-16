@@ -50,11 +50,29 @@ namespace EtaSampleApp.Views
             this.ApplicationBar.IsVisible = false;
             etaSlider.UpdateEvent += Slider_UpdateEvent;
             await InitializeSplachScreenAsync();
+            await WaitForNetwork();
             await InitializeUserDataAndServices();
             var sliderMoveTo = Eta.Controls.Slider.DistanceToStepValue((int)App.ViewModel.UserViewModel.Distance);
             etaSlider.EtaSliderControl.Value = sliderMoveTo;
         }
-
+        async private Task WaitForNetwork()
+        {
+            if (IsNetworkAvailable)
+            {
+                return;
+            }
+            else
+            {
+                await TaskEx.Run(() =>
+                {
+                    while (!IsNetworkAvailable)
+                    {
+                        Thread.Sleep(250);
+                    }
+                });
+            }
+        }
+        
         async private Task InitializeUserDataAndServices()
         {
             var userData = App.ViewModel.UserViewModel;

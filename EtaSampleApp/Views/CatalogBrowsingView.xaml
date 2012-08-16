@@ -12,7 +12,7 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    SupportedOrientations="Portrait"
+    SupportedOrientations="PortraitOrLandscape"
     Orientation="Portrait"
     mc:Ignorable="d"
     d:DesignHeight="800"
@@ -20,7 +20,7 @@
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid
-        Background="#9CB227"
+        Background="{StaticResource EtaSignatureBrush}"
         x:Name="LayoutRoot">
         <Grid.RowDefinitions>
             <RowDefinition

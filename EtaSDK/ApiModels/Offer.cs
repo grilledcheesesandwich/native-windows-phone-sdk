@@ -30,7 +30,9 @@ namespace EtaSDK.ApiModels
 
         public Dealer Dealer { get; set; }
 
-        public Timespan Timespan { get; set; }
+        //public Timespan Timespan { get; set; }
+        public string RunFrom { get; set; }
+        public string RunTill { get; set; }
         public CatalogIndex Catalog { get; set; }
         public Store Store { get; set; }
 
@@ -51,6 +53,8 @@ namespace EtaSDK.ApiModels
                 offer.Preprice = json.GetJsonValue(() => offer.Preprice);
                 offer.Images =  Images.FromJson(json);
                 offer.Url = json.GetJsonValue(() => offer.Url);
+                offer.RunFrom = json.GetJsonValue(() => offer.RunFrom);
+                offer.RunTill = json.GetJsonValue(() => offer.RunTill);
                 offer.Dealer = Dealer.FromJson(json);
 
                 //offer.Timespan = Timespan.FromJson(json.GetJsonValue(() => offer.Timespan));

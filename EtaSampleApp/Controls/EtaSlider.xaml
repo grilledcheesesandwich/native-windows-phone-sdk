@@ -53,7 +53,7 @@
             <TextBlock
                 Foreground="White"
                 Name="EtaSliderTooltip"
-                Text="Vis indenfor"
+                Text="{Binding Path=LocalizedResources.EtaSliderControlText, Source={StaticResource LocalizedStrings}}"
                 HorizontalAlignment="Center"
                 Margin="0,6"
                 FontSize="24">

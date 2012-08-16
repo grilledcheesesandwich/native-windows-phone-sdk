@@ -61,11 +61,38 @@ namespace EtaSDK.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Green.
+        /// </summary>
+        public static string ActiveColor {
+            get {
+                return ResourceManager.GetString("ActiveColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aktiv.
+        /// </summary>
+        public static string ActiveLabel {
+            get {
+                return ResourceManager.GetString("ActiveLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to /Catalogs.
         /// </summary>
         public static string CatalogBaseIsoFolder {
             get {
                 return ResourceManager.GetString("CatalogBaseIsoFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to da-DK.
+        /// </summary>
+        public static string CultureString {
+            get {
+                return ResourceManager.GetString("CultureString", resourceCulture);
             }
         }
         
@@ -97,11 +124,38 @@ namespace EtaSDK.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Red.
+        /// </summary>
+        public static string ExpiredColor {
+            get {
+                return ResourceManager.GetString("ExpiredColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Udløbet.
+        /// </summary>
+        public static string ExpiredLabel {
+            get {
+                return ResourceManager.GetString("ExpiredLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to World.
         /// </summary>
         public static string Hello {
             get {
                 return ResourceManager.GetString("Hello", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kommer snart.
+        /// </summary>
+        public static string InActiveLabel {
+            get {
+                return ResourceManager.GetString("InActiveLabel", resourceCulture);
             }
         }
         
@@ -129,6 +183,51 @@ namespace EtaSDK.Properties {
         public static string LoadingCatalogPageImageZoom {
             get {
                 return ResourceManager.GetString("LoadingCatalogPageImageZoom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yellow.
+        /// </summary>
+        public static string NotActiveColor {
+            get {
+                return ResourceManager.GetString("NotActiveColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to fra.
+        /// </summary>
+        public static string RunFromLabel {
+            get {
+                return ResourceManager.GetString("RunFromLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to til.
+        /// </summary>
+        public static string RunTillLabel {
+            get {
+                return ResourceManager.GetString("RunTillLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fra i dag.
+        /// </summary>
+        public static string TodayLabel {
+            get {
+                return ResourceManager.GetString("TodayLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fra i morgen.
+        /// </summary>
+        public static string TomorrowLabel {
+            get {
+                return ResourceManager.GetString("TomorrowLabel", resourceCulture);
             }
         }
     }

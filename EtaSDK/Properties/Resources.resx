@@ -117,8 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActiveColor" xml:space="preserve">
+    <value>Green</value>
+  </data>
+  <data name="ActiveLabel" xml:space="preserve">
+    <value>Aktiv</value>
+  </data>
   <data name="CatalogBaseIsoFolder" xml:space="preserve">
     <value>/Catalogs</value>
+  </data>
+  <data name="CultureString" xml:space="preserve">
+    <value>da-DK</value>
   </data>
   <data name="Eta_API_Key" xml:space="preserve">
     <value>c2a0bb532723548de341506555749d8f</value>
@@ -129,8 +138,17 @@
   <data name="Eta_BaseUri" xml:space="preserve">
     <value>https://etilbudsavis.dk</value>
   </data>
+  <data name="ExpiredColor" xml:space="preserve">
+    <value>Red</value>
+  </data>
+  <data name="ExpiredLabel" xml:space="preserve">
+    <value>Udløbet</value>
+  </data>
   <data name="Hello" xml:space="preserve">
     <value>World</value>
+  </data>
+  <data name="InActiveLabel" xml:space="preserve">
+    <value>Kommer snart</value>
   </data>
   <data name="LoadingCatalogPageImageThumb" xml:space="preserve">
     <value>/Images/listbg.png</value>
@@ -140,5 +158,20 @@
   </data>
   <data name="LoadingCatalogPageImageZoom" xml:space="preserve">
     <value>/Images/listbg.png</value>
+  </data>
+  <data name="NotActiveColor" xml:space="preserve">
+    <value>Yellow</value>
+  </data>
+  <data name="RunFromLabel" xml:space="preserve">
+    <value>fra</value>
+  </data>
+  <data name="RunTillLabel" xml:space="preserve">
+    <value>til</value>
+  </data>
+  <data name="TodayLabel" xml:space="preserve">
+    <value>Fra i dag</value>
+  </data>
+  <data name="TomorrowLabel" xml:space="preserve">
+    <value>Fra i morgen</value>
   </data>
 </root>

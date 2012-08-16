@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Diagnostics;
+using EtaSampleApp.Strings;
 //using EtaSampleApp.Controls;
 
 namespace Eta.Controls
@@ -24,7 +25,7 @@ namespace Eta.Controls
         {
             InitializeComponent();
             EtaSliderControl.Value = Slider.currentStep;
-            EtaSliderTooltip.Text = "Vis indenfor " + Slider.DistanceString();
+            EtaSliderTooltip.Text = AppResources.EtaSliderControlText + Slider.DistanceString();
             previous = EtaSliderControl.Value;
         }
 
@@ -32,7 +33,7 @@ namespace Eta.Controls
         {
             EtaSliderControl.Value = Math.Round(e.NewValue);
             Slider.currentStep = (int)EtaSliderControl.Value;
-            EtaSliderTooltip.Text = "Vis indenfor " + Slider.DistanceString();
+            EtaSliderTooltip.Text = AppResources.EtaSliderControlText + Slider.DistanceString();
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)

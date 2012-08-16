@@ -16,14 +16,14 @@
     SupportedOrientations="Portrait"
     Orientation="Portrait"
     mc:Ignorable="d"
-    d:DesignHeight="800"
+    d:DesignHeight="728"
     d:DesignWidth="480"
     >
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid
         x:Name="LayoutRoot"
-        Background="#FF9CB227">
+        Background="{StaticResource EtaSignatureBrush}">
         <Grid.RowDefinitions>
             <RowDefinition
                 Height="80" />
@@ -38,7 +38,7 @@
             Margin="12,17,0,28">
             <TextBlock
                 x:Name="ApplicationTitle"
-                Text="{Binding Store.Dealer.Name, Mode=OneWay}"
+                Text="{Binding Heading, Mode=OneWay}"
                 Style="{StaticResource PhoneTextNormalStyle}" />
         </StackPanel>
 
@@ -49,58 +49,117 @@
             Margin="12,0,12,0">
             <ScrollViewer>
                 <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition
+                            Width="200" />
+                        <ColumnDefinition
+                            Width="*" />
+                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition
-                            Height="Auto" />
+                            Height="*" />
                         <RowDefinition
-                            Height="Auto" />
+                            Height="*" />
                         <RowDefinition
-                            Height="Auto" />
+                            Height="140" />
                         <RowDefinition
-                            Height="Auto" />
+                            Height="*" />
                         <RowDefinition
-                            Height="Auto" />
+                            Height="*" />
+                        <RowDefinition
+                            Height="*" />
+                        <RowDefinition
+                            Height="*" />
+                        <RowDefinition
+                            Height="*" />
+                        <RowDefinition
+                            Height="*" />
+                        <RowDefinition
+                            Height="*" />
                     </Grid.RowDefinitions>
-                    <Image
-                        Grid.Row="0"
-                        MinHeight="300"
-                        MaxHeight="400"
-                        Source="{Binding Images.View}" />
-                    <!--<TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Price}" />-->
                     <Button
-                        Grid.Row="5"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="0"
+                        x:Name="routeBtn"
+                        Content="Køb i butik"
+                        Click="routeBtn_Click"
+                        VerticalAlignment="Center" />
+                    <Button
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
                         x:Name="OpenCatalogButton"
                         Content="Se i katalog"
                         Click="OpenCatalogButton_Click"
                         VerticalAlignment="Center" />
-                    <TextBlock
-                        TextWrapping="Wrap"
-                        Text="{Binding Heading}"
-                        Margin="24"
-                        VerticalAlignment="Top"
-                        Grid.Row="1"
-                        Grid.Column="1" Style="{StaticResource PhoneTextExtraLargeStyle}" />
-                    <TextBlock
-                        TextWrapping="Wrap"
-                        Text="{Binding Description}"
-                        Margin="24"
-                        VerticalAlignment="Top"
+                    <Image
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
                         Grid.Row="2"
-                        Grid.Column="1" />
+                        Margin="0,20,0,20"
+                        Source="{Binding Dealer.Branding.Logo}" />
                     <TextBlock
-                        TextWrapping="Wrap"
-                        Text="{Binding Price}"
-                        VerticalAlignment="Top"
-                        Margin="24"
+                        
                         Grid.Row="3"
-                        Grid.Column="1" />
+                        Grid.Column="0"
+                        Text="Pris"
+                        Style="{StaticResource TextBlockHeaderStyle}" />
                     <TextBlock
-                        TextWrapping="Wrap"
-                        Text="{Binding Preprice}"
-                        VerticalAlignment="Top"
-                        Margin="24"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Text="{Binding Price, Converter={StaticResource PriceToStringConverter}}"
+                        Style="{StaticResource TextBlockNormalStyle}" />
+                    <TextBlock
                         Grid.Row="4"
-                        Grid.Column="1" />
+                        Grid.Column="0"
+                        Text="Besparelse"
+                        Style="{StaticResource TextBlockHeaderStyle}" />
+                    <TextBlock
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Text="{Binding BindsDirectlyToSource=True,Converter={StaticResource OfferToDiscountAmountConverter}}"
+                        Style="{StaticResource TextBlockNormalStyle}" />
+
+                    <TextBlock
+                        Grid.Row="5"
+                        Grid.Column="0"
+                        Text="Dato"
+                        Style="{StaticResource TextBlockHeaderStyle}" />
+                    <TextBlock
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        Text="{Binding BindsDirectlyToSource=True,Converter={StaticResource DurationToStringConverter}}"
+                        Style="{StaticResource TextBlockNormalStyle}" />
+
+                    <TextBlock
+                        Grid.Row="6"
+                        Grid.Column="0"
+                        Text="Butik"
+                        Style="{StaticResource TextBlockHeaderStyle}" />
+                    <TextBlock
+                        Grid.Row="6"
+                        Grid.Column="1"
+                        Text="{Binding Store.Dealer.Name}"
+                        Style="{StaticResource TextBlockNormalStyle}" />
+
+                    <TextBlock
+                        Grid.Row="7"
+                        Grid.Column="0"
+                        Text="Beskrivelse"
+                        Style="{StaticResource TextBlockHeaderStyle}" />
+                    <TextBlock
+                        Grid.Row="7"
+                        Grid.Column="1"
+                        Text="{Binding Description}"
+                        Style="{StaticResource TextBlockLongTextStyle}" />
+           
+                    <Image
+                        Margin="24"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="8"
+                        Source="{Binding Images.View}" />
                 </Grid>
             </ScrollViewer>
             <!--<telerikPrimitivesSlideView:PanAndZoomImage Margin="0" x:Name="zoomImage" Visibility="Visible" Source="{Binding SelectedPageItem.ZoomUri, Converter={StaticResource IsoFileToBitmapImageConverter}}" ZoomMode="Free"  />-->
@@ -110,15 +169,15 @@
 
 
     <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" Mode="Minimized" IsMenuEnabled="True">
             <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
-                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
+                <shell:ApplicationBarMenuItem Text="Del tilbud" Click="ApplicationBarMenuItem_Click"/>
+                <shell:ApplicationBarMenuItem
+                    Text="Gå til butik"
+                    Click="ApplicationBarMenuItem_Click_1" />
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
+    </phone:PhoneApplicationPage.ApplicationBar>
 
 </local:EtaBasePage>

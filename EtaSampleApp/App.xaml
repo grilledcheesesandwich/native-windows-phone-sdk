@@ -32,8 +32,16 @@
             x:Key="OfferToPriceConverter" />
         <helpers:NegativeNumberToStringConverter
             x:Key="NegativeNumberToStringConverter" />
-        <helpers:DistanceToStringConverter x:Key="DistanceToStringConverter"/>
-        <helpers:PriceToStringConverter x:Key="PriceToStringConverter"/>
+        <helpers:DistanceToStringConverter
+            x:Key="DistanceToStringConverter" />
+        <helpers:PriceToStringConverter
+            x:Key="PriceToStringConverter" />
+        <helpers:DurationToStringConverter
+            x:Key="DurationToStringConverter" />
+        <helpers:DurationToColorConverter
+            x:Key="DurationToColorConverter" />
+        <helpers:OfferToDiscountAmountConverter
+            x:Key="OfferToDiscountAmountConverter" />
 
         <!-- Localization strings -->
         <local:LocalizedStrings

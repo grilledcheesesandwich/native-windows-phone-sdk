@@ -190,6 +190,33 @@ namespace EtaSampleApp.Helpers
 
 
     }
+
+    public class OfferToDiscountAmountConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            var offer = value as Offer;
+            if (offer == null)
+            {
+                return "?";
+            }
+            if (!string.IsNullOrWhiteSpace(offer.Preprice))
+            {
+                double preprice, price, discount;
+                if (double.TryParse(offer.Preprice, out preprice) && double.TryParse(offer.Price, out price))
+                {
+                    discount = preprice - price;
+                    return string.Format("{0}kr.", discount.ToString("0.00"));
+                }
+            }
+            return "?";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
     public class DistanceToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
@@ -224,6 +251,60 @@ namespace EtaSampleApp.Helpers
                 return "?kr.";
             }
             return string.Format("{0}kr.",value);
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class DurationToStringConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            if (value == null)
+            {
+                return "";
+            }
+
+            var catalog = value as Catalog;
+            if (catalog != null)
+            {
+                return EtaSDK.Utils.DurationHelper.GetDurationLabel(catalog.RunFrom, catalog.RunTill);
+            }
+            var offer = value as Offer;
+            if (offer != null)
+            {
+                return EtaSDK.Utils.DurationHelper.GetDurationLabel(offer.RunFrom, offer.RunTill);
+            }
+            return "";
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class DurationToColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            if (value == null)
+            {
+                return "Transparent";
+            }
+
+            var catalog = value as Catalog;
+            if (catalog != null)
+            {
+                return EtaSDK.Utils.DurationHelper.GetDurationColor(catalog.RunFrom, catalog.RunTill);
+            }
+            var offer = value as Offer;
+            if (offer != null)
+            {
+                return EtaSDK.Utils.DurationHelper.GetDurationColor(offer.RunFrom, offer.RunTill);
+            }
+            return "Transparent";
         }
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {

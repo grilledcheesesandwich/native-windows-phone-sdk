@@ -10,7 +10,7 @@
 
     <Grid
         x:Name="LayoutRoot"
-        Background="#9CB227">
+        Background="{StaticResource EtaSignatureBrush}">
 		<Image Source="/SplashScreenImage.jpg"/>
         <TextBlock
             Foreground="White"

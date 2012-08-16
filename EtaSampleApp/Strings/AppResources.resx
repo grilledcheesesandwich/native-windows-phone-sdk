@@ -147,8 +147,23 @@
   <data name="DistancePrefixMeters" xml:space="preserve">
     <value>m</value>
   </data>
+  <data name="EtaSignatureColor" xml:space="preserve">
+    <value>FF7b9119</value>
+  </data>
+  <data name="EtaSliderControlText" xml:space="preserve">
+    <value>Vis indenfor </value>
+  </data>
+  <data name="NoNetworkDescription" xml:space="preserve">
+    <value>Der er ingen internet forbindelse ... og eTilbudsavis appen virker ikke uden!</value>
+  </data>
+  <data name="NoNetworkHeader" xml:space="preserve">
+    <value>Ups!</value>
+  </data>
   <data name="OfferHeader" xml:space="preserve">
     <value>tilbud</value>
+  </data>
+  <data name="OpenNetworkSettingsLabel" xml:space="preserve">
+    <value>Åben netværksopsætning</value>
   </data>
   <data name="PostalNumberHeader" xml:space="preserve">
     <value>Post nr.</value>

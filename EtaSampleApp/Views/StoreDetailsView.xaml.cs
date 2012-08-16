@@ -12,6 +12,7 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using EtaSDK.ApiModels;
 using EtaSampleApp.ViewModels;
+using Microsoft.Phone.Tasks;
 
 namespace EtaSampleApp.Views
 {
@@ -35,11 +36,7 @@ namespace EtaSampleApp.Views
             base.OnNavigatedTo(e);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            // navigate to directions service/map
-            NavigationService.Navigate(new Uri("/Views/NavigationView.xaml?storeId=" + Model.Store.Id, UriKind.Relative));
-        }
+       
 
         private void storeOffersListbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -68,6 +65,19 @@ namespace EtaSampleApp.Views
             }
             App.ViewModel.SelectedOffer = offer;
             NavigationService.Navigate(new Uri("/Views/OfferView.xaml?offerId=" + offer.Id, UriKind.Relative));
+        }
+
+        private void ApplicationBarMenuItem_Click(object sender, EventArgs e)
+        {
+            // navigate to directions service/map
+            NavigationService.Navigate(new Uri("/Views/NavigationView.xaml?storeId=" + Model.Store.Id, UriKind.Relative));
+        }
+
+        private void ApplicationBarMenuItem_Click_1(object sender, EventArgs e)
+        {
+            WebBrowserTask web = new WebBrowserTask();
+            web.Uri = new Uri(Model.Store.Dealer.Website);
+            web.Show();
         }
     }
 }

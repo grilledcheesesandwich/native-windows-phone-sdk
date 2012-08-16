@@ -89,6 +89,7 @@
     <Compile Include="Tests\EtaSDKv2Tests\EtaOfferTests.cs" />
     <Compile Include="Tests\EtaSDKv2Tests\EtaStoreTests.cs" />
     <Compile Include="Tests\EtaSDKv2Tests\EtaCatalogTests.cs" />
+    <Compile Include="Tests\Utils\DurationHelperTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

@@ -66,6 +66,7 @@
     <Compile Include="ApiModels\Name.cs" />
     <Compile Include="ApiModels\Offer.cs" />
     <Compile Include="ApiModels\Timespan.cs" />
+    <Compile Include="Utils\DurationHelper.cs" />
     <Compile Include="v2\EtaSDKv2.offer.cs" />
     <Compile Include="v2\EtaSDKv2.store.cs" />
     <Compile Include="v2\EtaSDKv2.catalog.cs" />
