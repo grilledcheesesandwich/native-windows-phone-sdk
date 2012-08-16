@@ -35,32 +35,32 @@ namespace EtaSampleApp.Views
             
         }
 
-        private void ToggleSwitchButton_Checked(object sender, RoutedEventArgs e)
-        {
-            //App.ViewModel.UserViewModel.LoadModelAsync();// UpdateLocationInformationGPS();
-        }
+        //private void ToggleSwitchButton_Checked(object sender, RoutedEventArgs e)
+        //{
+        //    //App.ViewModel.UserViewModel.LoadModelAsync();// UpdateLocationInformationGPS();
+        //}
 
-        private void ToggleSwitchButton_Unchecked(object sender, RoutedEventArgs e)
-        {
-            // nop
-        }
+        //private void ToggleSwitchButton_Unchecked(object sender, RoutedEventArgs e)
+        //{
+        //    // nop
+        //}
 
-        private async void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            var textbox = sender as TextBox;
-            var text = textbox.Text;
-            if (!string.IsNullOrWhiteSpace(text))
-            {
-                text = text.Trim();
-                int test = 0;
-                if(text.Length == 4 && int.TryParse(text,out test)){
-                    if (App.ViewModel.UserViewModel.Location.ZipCode != test && !App.ViewModel.UserViewModel.Location.IsValid)
-                    {
-                        var result = await UserViewModel.GetLocationFromPostalCodeAsync(text);// UpdateLocationInformationZipCode(text);
-                        App.ViewModel.UserViewModel.Location = result;
-                    }
-                }
-            }
-        }
+        //private async void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    var textbox = sender as TextBox;
+        //    var text = textbox.Text;
+        //    if (!string.IsNullOrWhiteSpace(text))
+        //    {
+        //        text = text.Trim();
+        //        int test = 0;
+        //        if(text.Length == 4 && int.TryParse(text,out test)){
+        //            if (App.ViewModel.UserViewModel.Location.ZipCode != test && !App.ViewModel.UserViewModel.Location.IsValid)
+        //            {
+        //                var result = await UserViewModel.GetLocationFromPostalCodeAsync(text);// UpdateLocationInformationZipCode(text);
+        //                App.ViewModel.UserViewModel.Location = result;
+        //            }
+        //        }
+        //    }
+        //}
     }
 }

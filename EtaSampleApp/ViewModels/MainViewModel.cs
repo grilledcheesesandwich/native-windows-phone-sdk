@@ -484,7 +484,7 @@ namespace EtaSampleApp
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
                 UserViewModel = result;
-                IsUserViewModelLoaded = UserViewModel != null && UserViewModel.Location != null && UserViewModel.Location.IsValid;
+                IsUserViewModelLoaded = UserViewModel != null && UserViewModel.Location != null;
                 IsUserViewModelLoading = false;
             });
         }
