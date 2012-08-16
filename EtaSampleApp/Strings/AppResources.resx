@@ -156,6 +156,9 @@
   <data name="EtaSliderControlText" xml:space="preserve">
     <value>Vis indenfor </value>
   </data>
+  <data name="FacebookUrl" xml:space="preserve">
+    <value>http://facebook.com/eTilbudsavis</value>
+  </data>
   <data name="NoNetworkDescription" xml:space="preserve">
     <value>Der er ingen internet forbindelse ... og eTilbudsavis appen virker ikke uden!</value>
   </data>
@@ -199,8 +202,14 @@
   <data name="StoreHeader" xml:space="preserve">
     <value>butikker</value>
   </data>
+  <data name="SupportEmail" xml:space="preserve">
+    <value>windowsphone@etilbudsavis.dk</value>
+  </data>
   <data name="Title" xml:space="preserve">
     <value>eTilbudsavis</value>
+  </data>
+  <data name="TwitterUrl" xml:space="preserve">
+    <value>http://twitter.com/etilbudsavis</value>
   </data>
   <data name="WebSiteUrl" xml:space="preserve">
     <value>https://etilbudsavis.dk/</value>

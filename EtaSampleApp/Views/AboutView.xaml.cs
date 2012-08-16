@@ -25,7 +25,7 @@ namespace EtaSampleApp.Views
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             EmailComposeTask emailTask = new EmailComposeTask();
-            emailTask.To = "support@etilbudsavis.dk";
+            emailTask.To = AppResources.SupportEmail;
             emailTask.Subject = "eTilbudsavis til Windows Phone - min mening";
             emailTask.Body = "Hej eTilbudsavis,\n";
             emailTask.Show();
@@ -49,6 +49,20 @@ namespace EtaSampleApp.Views
         {
             MarketplaceReviewTask reviewTask = new MarketplaceReviewTask();
             reviewTask.Show();
+        }
+
+        private void facebookMenu_Click(object sender, EventArgs e)
+        {
+            WebBrowserTask browser = new WebBrowserTask();
+            browser.Uri = new Uri(AppResources.FacebookUrl);
+            browser.Show();
+        }
+
+        private void twitterMenu_Click(object sender, EventArgs e)
+        {
+            WebBrowserTask browser = new WebBrowserTask();
+            browser.Uri = new Uri(AppResources.TwitterUrl);
+            browser.Show();
         }
     }
 }

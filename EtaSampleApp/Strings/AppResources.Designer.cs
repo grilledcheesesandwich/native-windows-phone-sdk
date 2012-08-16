@@ -178,6 +178,15 @@ namespace EtaSampleApp.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to http://facebook.com/eTilbudsavis.
+        /// </summary>
+        public static string FacebookUrl {
+            get {
+                return ResourceManager.GetString("FacebookUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Der er ingen internet forbindelse ... og eTilbudsavis appen virker ikke uden!.
         /// </summary>
         public static string NoNetworkDescription {
@@ -304,11 +313,29 @@ namespace EtaSampleApp.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to windowsphone@etilbudsavis.dk.
+        /// </summary>
+        public static string SupportEmail {
+            get {
+                return ResourceManager.GetString("SupportEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to eTilbudsavis.
         /// </summary>
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://twitter.com/etilbudsavis.
+        /// </summary>
+        public static string TwitterUrl {
+            get {
+                return ResourceManager.GetString("TwitterUrl", resourceCulture);
             }
         }
         

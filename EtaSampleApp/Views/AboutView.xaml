@@ -86,6 +86,14 @@
                     x:Name="rateMenu"
                     Text="Bedøm app"
                     Click="rateMenu_Click"/>
+                <shell:ApplicationBarMenuItem
+                    x:Name="facebookMenu"
+                    Text="Facebook"
+                    Click="facebookMenu_Click" />
+                <shell:ApplicationBarMenuItem
+                    x:Name="twitterMenu"
+                    Text="Twitter"
+                    Click="twitterMenu_Click" />
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
