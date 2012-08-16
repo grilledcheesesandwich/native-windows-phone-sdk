@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Tasks;
+using EtaSampleApp.Strings;
 
 namespace EtaSampleApp.Views
 {
@@ -25,10 +26,29 @@ namespace EtaSampleApp.Views
         {
             EmailComposeTask emailTask = new EmailComposeTask();
             emailTask.To = "support@etilbudsavis.dk";
-            emailTask.Cc = "mesmann@microsoft.com";
             emailTask.Subject = "eTilbudsavis til Windows Phone - min mening";
             emailTask.Body = "Hej eTilbudsavis,\n";
             emailTask.Show();
+        }
+
+        private void webSiteMenu_Click(object sender, EventArgs e)
+        {
+            WebBrowserTask browser = new WebBrowserTask();
+            browser.Uri = new Uri( AppResources.WebSiteUrl);
+            browser.Show();
+        }
+
+        private void privacyMenu_Click(object sender, EventArgs e)
+        {
+            WebBrowserTask browser = new WebBrowserTask();
+            browser.Uri = new Uri(AppResources.PrivacyPolicyLocationDataUri);
+            browser.Show();
+        }
+
+        private void rateMenu_Click(object sender, EventArgs e)
+        {
+            MarketplaceReviewTask reviewTask = new MarketplaceReviewTask();
+            reviewTask.Show();
         }
     }
 }

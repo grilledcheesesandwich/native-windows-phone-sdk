@@ -311,5 +311,14 @@ namespace EtaSampleApp.Strings {
                 return ResourceManager.GetString("Title", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://etilbudsavis.dk/.
+        /// </summary>
+        public static string WebSiteUrl {
+            get {
+                return ResourceManager.GetString("WebSiteUrl", resourceCulture);
+            }
+        }
     }
 }

@@ -14,8 +14,7 @@
     Orientation="Portrait"
     mc:Ignorable="d"
     d:DesignHeight="800"
-    d:DesignWidth="480"
-    >
+    d:DesignWidth="480">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid
@@ -55,27 +54,40 @@
                 VerticalScrollBarVisibility="Auto"
                 HorizontalScrollBarVisibility="Disabled">
                 <StackPanel>
-                	<TextBlock TextWrapping="Wrap"><Run Text="Denne app er udviklet i samarbejde med Microsoft Danmark"/><Run Text="."/><LineBreak/><Run/><LineBreak/><Run Text="Dette er en preview "/><Run Text="version"/><Run Text=", som skal give "/><Run Text="os (eTilbudsavis &amp; Microsoft) "/><Run Text="mulighed for at vurdere om appliaktionen lever op til "/><Run Text="jers "/><Run Text="forventninger"/><Run Text=" som brugere af eTilbudsavis"/><Run Text="."/><LineBreak/><Run/><LineBreak/><Run Text="Forventet udgivelse af eTilbudsavis til Windows Phone er august 2012. "/><LineBreak/><Run/><LineBreak/><Run Text="Tak for din interesse i vores Windows Phone app og "/><Run Text="din hjælp med at teste den!"/><LineBreak/><Run/><LineBreak/><Run Text="Venlig Hilsen"/><LineBreak/><Run Text="eTilbudsavis &amp; Microsoft Danmark"/><LineBreak/><LineBreak/><Run Text="Version: preview 1."/><LineBreak/><Run/><LineBreak/><Run/></TextBlock>
-                	<Button Content="Fortæl os din mening"
+                    <TextBlock
+                        TextWrapping="Wrap"><Run Text="eTilbudsavis gør det muligt at finde tilbud nær dig, hvad enten du benytter en computer, tablet eller smartphone."/><LineBreak/><Run/><LineBreak/><Run Text="eTilbudsavis vandt e-handelsprisen 2011 (mobil e-handel) og med eTilbudsavis gør du både dig selv og din postkasse en stor tjeneste; Du kan nemt overskue tilbudsaviserne og spare miljøet for CO2."/><LineBreak/><Run/><LineBreak/><Run FontSize="26.667" Text="Iværksætterne bag"/><LineBreak/><Run Text="eTilbudsavis er stiftet af de to unge aalborgensiske iværksættere Christian Birch og Morten Bo, som er tidligere kendt fra internetprojekter. Både Christian og Morten er dygtige IT-folk og kan således hurtigt udvikle de funktioner, som du elsker."/><LineBreak/><Run/><LineBreak/><Run Text="Tak for din interesse i vores Windows Phone app og "/><Run Text="vi håber at du får stor glæde af den!"/><LineBreak/><Run/><LineBreak/><Run Text="Denne app er udviklet i samarbejde med Nokia &amp; Microsoft DK."/><LineBreak/><LineBreak/><Run Text="Venlig Hilsen"/><LineBreak/><Run Text="eTilbudsavis"/><Run Text=", "/><Run Text="Microsoft "/><Run Text="DK &amp; Nokia"/><LineBreak/><LineBreak/><Run Text="Version: 1."/><Run Text="0 (Aug. 2012)"/><LineBreak/><Run Text="Udvikler: Martin Esmann"/><LineBreak/><Run/><LineBreak/><Run/></TextBlock>
+                    <Button
+                        Content="Fortæl os din mening"
                         Click="Button_Click" />
-                        
+
                 </StackPanel>
-                
+
             </ScrollViewer>
 
         </Grid>
     </Grid>
 
     <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar
+            IsVisible="True"
+            Mode="Minimized"
+            IsMenuEnabled="True">
             <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
-                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
+                <shell:ApplicationBarMenuItem
+                    x:Name="webSiteMenu"
+                    Text="Hjemmeside"
+                    Click="webSiteMenu_Click"/>
+                <shell:ApplicationBarMenuItem
+                    x:Name="privacyMenu"
+                    Text="Privatlivspolitik"
+                    Click="privacyMenu_Click"/>
+                <shell:ApplicationBarMenuItem
+                    x:Name="rateMenu"
+                    Text="Bedøm app"
+                    Click="rateMenu_Click"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
+    </phone:PhoneApplicationPage.ApplicationBar>
 
 </local:EtaBasePage>
