@@ -132,6 +132,9 @@
   <data name="AppBarUpdate" xml:space="preserve">
     <value>opdater</value>
   </data>
+  <data name="BingApiKey" xml:space="preserve">
+    <value>AoPAIDmWifIAFXmb6FhfaoNFRJvEu3zWjCYPUNtIU6rcruFx5RW6sIzJKGo0WP9N</value>
+  </data>
   <data name="CancelButton" xml:space="preserve">
     <value>Annuller</value>
   </data>

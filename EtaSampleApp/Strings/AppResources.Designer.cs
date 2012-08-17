@@ -106,6 +106,15 @@ namespace EtaSampleApp.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AoPAIDmWifIAFXmb6FhfaoNFRJvEu3zWjCYPUNtIU6rcruFx5RW6sIzJKGo0WP9N.
+        /// </summary>
+        public static string BingApiKey {
+            get {
+                return ResourceManager.GetString("BingApiKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Annuller.
         /// </summary>
         public static string CancelButton {

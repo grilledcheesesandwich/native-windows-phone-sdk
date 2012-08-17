@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using Microsoft.Phone.Controls;
-using BingServices;
 using System.Device.Location;
+using System.Linq;
+using BingServices;
 using Microsoft.Phone.Controls.Maps;
 
 namespace EtaSampleApp.Views
@@ -25,10 +15,8 @@ namespace EtaSampleApp.Views
 
         async protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
-
             var storeId = NavigationContext.QueryString["storeId"];
             var store = App.ViewModel.Stores.Where(item => item.Id == storeId).FirstOrDefault();
-
 
             base.OnNavigatedTo(e);
 
@@ -48,10 +36,22 @@ namespace EtaSampleApp.Views
             {
                 RouteLayer.Children.Add(route);
                 RouteMap.SetView(LocationRect.CreateLocationRect(route.Locations));
-
             }
 
+            RouteMap.Children.Add(new Pushpin() { Location = from, Content="o" });
+            RouteMap.Children.Add(new Pushpin() { Location = to, Content=store.Dealer.Name });
+        }
 
+        private void switchView_Click(object sender, EventArgs e)
+        {
+            if (RouteMap.Mode is AerialMode)
+            {
+                RouteMap.Mode = new RoadMode();
+            }
+            else
+            {
+                RouteMap.Mode = new AerialMode(true);
+            }
         }
     }
 }

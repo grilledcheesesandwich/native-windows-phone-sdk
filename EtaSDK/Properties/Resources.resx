@@ -123,6 +123,9 @@
   <data name="ActiveLabel" xml:space="preserve">
     <value>Aktiv</value>
   </data>
+  <data name="BingApiKey" xml:space="preserve">
+    <value>AoPAIDmWifIAFXmb6FhfaoNFRJvEu3zWjCYPUNtIU6rcruFx5RW6sIzJKGo0WP9N</value>
+  </data>
   <data name="CatalogBaseIsoFolder" xml:space="preserve">
     <value>/Catalogs</value>
   </data>
