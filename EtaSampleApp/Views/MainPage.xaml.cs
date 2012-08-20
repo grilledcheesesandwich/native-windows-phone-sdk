@@ -236,7 +236,6 @@ namespace EtaSampleApp.Views
         private void UpdateSearchList()
         {
             searchListBox.SelectedIndex = -1;
-            var textbox = phoneTextBox1;
             App.ViewModel.OfferSearchQueryText = phoneTextBox1.Text;
         }
 

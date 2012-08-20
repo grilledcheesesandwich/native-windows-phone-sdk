@@ -214,6 +214,15 @@ namespace EtaSampleApp.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ingen resultater fundet. Prøv evt. at øge afstanden..
+        /// </summary>
+        public static string NoSearchResultsText {
+            get {
+                return ResourceManager.GetString("NoSearchResultsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to tilbud.
         /// </summary>
         public static string OfferHeader {

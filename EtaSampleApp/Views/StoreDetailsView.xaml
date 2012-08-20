@@ -97,7 +97,7 @@
                         Text="." /></TextBlock>
                 <toolkit:PerformanceProgressBar
                     Height="10"
-                    Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibility}}"
+                    Visibility="{Binding IsStoreOffersLoading, Converter={StaticResource BoolToVisibility}}"
                     VerticalAlignment="Top"
                     Margin="12,12,12,0"
                     Foreground="White"

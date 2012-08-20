@@ -15,8 +15,7 @@
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     mc:Ignorable="d"
     SupportedOrientations="Portrait"
-    Orientation="Portrait"
-    >
+    Orientation="Portrait">
 
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar
@@ -75,14 +74,21 @@
                     Style="{StaticResource PanoramaItemGridContainer}">
                     <toolkit:PerformanceProgressBar
                         Style="{StaticResource progressBarBase}"
-                        Visibility="{Binding IsSearchOffersLoading, Converter={StaticResource BoolToVisibility}}"
-                        />
+                        Visibility="{Binding IsSearchOffersLoading, Converter={StaticResource BoolToVisibility}}" />
                     <ListBox
+                        Visibility="{Binding HasSearchOffers, Converter={StaticResource NullableBoolToVisibility}}"
                         Style="{StaticResource MainPageListBoxSearch}"
                         x:Name="searchListBox"
                         ItemsSource="{Binding OffersSearch}"
                         SelectionChanged="searchListBox_SelectionChanged">
                     </ListBox>
+                    <TextBlock
+                        TextWrapping="Wrap"
+                        Width="350"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Center"
+                        Text="{Binding Path=LocalizedResources.NoSearchResultsText, Source={StaticResource LocalizedStrings}}"
+                        Visibility="{Binding HasSearchOffers, Converter={StaticResource NullableBoolToVisibilityN}}" />
                 </Grid>
             </controls:PanoramaItem>
 
@@ -102,7 +108,7 @@
                     </ListBox>
                 </Grid>
             </controls:PanoramaItem>
-            
+
             <!--Panorama item Butikker-->
             <controls:PanoramaItem
                 Header="{Binding Path=LocalizedResources.StoreHeader, Source={StaticResource LocalizedStrings}}">
@@ -110,7 +116,7 @@
                     Style="{StaticResource PanoramaItemGridContainer}">
                     <toolkit:PerformanceProgressBar
                         Style="{StaticResource progressBarBase}"
-                        Visibility="{Binding IsStoresLoading, Converter={StaticResource BoolToVisibility}}"/>
+                        Visibility="{Binding IsStoresLoading, Converter={StaticResource BoolToVisibility}}" />
                     <ListBox
                         x:Name="StoresListBox"
                         Style="{StaticResource MainPageListBoxStores}"
@@ -123,10 +129,11 @@
             <!--Panorama suggested Offers-->
             <controls:PanoramaItem
                 Header="{Binding Path=LocalizedResources.OfferHeader, Source={StaticResource LocalizedStrings}}">
-                <Grid Style="{StaticResource PanoramaItemGridContainer}">
+                <Grid
+                    Style="{StaticResource PanoramaItemGridContainer}">
                     <toolkit:PerformanceProgressBar
                         Style="{StaticResource progressBarBase}"
-                        Visibility="{Binding IsSuggestedOffersLoading, Converter={StaticResource BoolToVisibility}}"/>
+                        Visibility="{Binding IsSuggestedOffersLoading, Converter={StaticResource BoolToVisibility}}" />
                     <ListBox
                         Style="{StaticResource MainPageListBoxSuggestedOffers}"
                         x:Name="suggestedOffersListBox"
@@ -135,13 +142,12 @@
                     </ListBox>
                 </Grid>
             </controls:PanoramaItem>
-            
+
         </controls:Panorama>
         <eta:EtaSlider
             x:Name="etaSlider"
             VerticalAlignment="Bottom"
             Margin="0,0"
-            Visibility="Visible"
-           />
+            Visibility="Visible" />
     </Grid>
 </local:EtaBasePage>

@@ -67,14 +67,10 @@
     <Compile Include="ApiModels\Offer.cs" />
     <Compile Include="ApiModels\Timespan.cs" />
     <Compile Include="Utils\DurationHelper.cs" />
-    <Compile Include="v2\EtaSDKv2.offer.cs" />
-    <Compile Include="v2\EtaSDKv2.store.cs" />
-    <Compile Include="v2\EtaSDKv2.catalog.cs" />
     <Compile Include="EtaApiQueryStringParameterOptions.cs" />
     <Compile Include="EtaException.cs" />
     <Compile Include="EtaSDK.cs" />
     <Compile Include="EtaApiOptions.cs" />
-    <Compile Include="v2\EtaSDKv2.raw.cs" />
     <Compile Include="ApiModels\Branding.cs" />
     <Compile Include="ApiModels\Catalog.cs" />
     <Compile Include="ApiModels\Country.cs" />

@@ -311,4 +311,36 @@ namespace EtaSampleApp.Helpers
             throw new NotImplementedException();
         }
     }
+
+    public class NullableBoolToVisibility : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            bool? helper = (bool?)value;
+            var result = helper.HasValue && helper.Value ? Visibility.Visible : Visibility.Collapsed;
+            //Debug.Assert(result != (Visibility)value);
+            return result;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class NullableBoolToVisibilityN : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            bool? helper = (bool?)value;
+            var result = helper.HasValue && !helper.Value ? Visibility.Visible : Visibility.Collapsed;
+            //Debug.Assert(result != (Visibility)value);
+            return result;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

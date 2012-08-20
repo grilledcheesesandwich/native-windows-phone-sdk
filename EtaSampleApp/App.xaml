@@ -42,7 +42,10 @@
             x:Key="DurationToColorConverter" />
         <helpers:OfferToDiscountAmountConverter
             x:Key="OfferToDiscountAmountConverter" />
-
+        <helpers:NullableBoolToVisibility
+            x:Key="NullableBoolToVisibility" />
+        <helpers:NullableBoolToVisibilityN
+            x:Key="NullableBoolToVisibilityN" />
         <!-- Localization strings -->
         <local:LocalizedStrings
             xmlns:local="clr-namespace:EtaSampleApp.Strings"

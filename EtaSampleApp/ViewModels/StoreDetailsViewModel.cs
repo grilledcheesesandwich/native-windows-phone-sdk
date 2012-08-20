@@ -14,6 +14,8 @@ using System.Linq;
 using System.Collections.ObjectModel;
 using EtaSDK;
 using EtaSDK.Utils;
+using EtaSDK.v3;
+using System.Threading.Tasks;
 
 namespace EtaSampleApp.ViewModels
 {
@@ -36,69 +38,27 @@ namespace EtaSampleApp.ViewModels
                 }
             }
         }
-        public ObservableCollection<Offer> StoreOffers { get; private set; }
+        //public ObservableCollection<Offer> StoreOffers { get; private set; }
 
-        private EtaSDKv2 EtaSdk;
+        private EtaApi Api;
         public StoreDetailsViewModel(string storeId)
         {
+            Api = new EtaApi();
             StoreOffers = new ObservableCollection<Offer>();
+            
             Store = App.ViewModel.Stores.Where(item => item.Id == storeId).FirstOrDefault();
             if (Store != null)
             {
                 LoadData();
             }
+            else{
+                MessageBox.Show("App.ViewModel.Stores er blevet nultillet... ØV! " + storeId);
+            }
         }
 
-        private void LoadData()
+        async private void LoadData()
         {
-            IsLoading = true;
-
-            EtaSdk = new EtaSDK.EtaSDKv2();
-            var userModel = App.ViewModel.UserViewModel;
-
-            var options = new EtaApiQueryStringParameterOptions();
-            //options.AddParm("from", EtaSDK.Utils.UNIXTime.GetTimestamp(DateTime.Now));
-            //options.AddParm("to", EtaSDK.Utils.UNIXTime.GetTimestamp(DateTime.Now.AddDays(14)));
-
-            options.AddParm(EtaApiConstants.EtaApi_Latitude, userModel.Location.Latitude.ToString("0.00000"));
-            options.AddParm(EtaApiConstants.EtaApi_Longitude, userModel.Location.Longitude.ToString("0.00000"));
-            options.AddParm(EtaApiConstants.EtaApi_LocationDetermined, UNIXTime.GetTimestamp(DateTime.Now));
-            options.AddParm(EtaApiConstants.EtaApi_Geocoded, userModel.Location.IsGeoCoded ? "0" : "0");
-            options.AddParm(EtaApiConstants.EtaApi_Accuracy, "0");//userModel.Location.Accuracy.ToString());
-            options.AddParm(EtaApiConstants.EtaApi_Ditance, "700000");
-
-            //options.AddParm(EtaApiConstants.EtaApi_OfferId, "");
-            options.AddParm("store", Store.Id); // 5d6dBY
-            options.AddParm("dealer", Store.Dealer.Id); // 5d6dBY
-            options.AddParm("type", "all");
-
-
-            EtaSdk.GetOfferList(options, result => {
-                Deployment.Current.Dispatcher.BeginInvoke(() => {
-                    StoreOffers.Clear();
-                    if (result != null)
-                    {
-                        foreach (var offer in result.Where(item=> item.Store.Id == Store.Id))
-                        {
-                            StoreOffers.Add(offer);
-                        }
-                        HasOffers = StoreOffers.Any();
-                        IsLoading = false;
-
-                        ShowText = !HasOffers;
-
-                    }
-                });
-                
-            
-            }, (error,uri) => {
-
-                var msg = error.Message;
-                IsLoading = false;
-                HasOffers = false;
-                ShowText = true;
-            
-            });
+            await LoadStoreOffers();
         }
 
         private bool isLoading = true;
@@ -118,6 +78,93 @@ namespace EtaSampleApp.ViewModels
                 }
             }
         }
+
+
+        #region Offers (store)
+        public ObservableCollection<Offer> StoreOffers { get; private set; }
+
+        private bool isStoreOffersLoaded = false;
+        public bool IsStoreOffersLoaded
+        {
+            get
+            {
+                return isStoreOffersLoaded;
+            }
+            set
+            {
+                if (value != isStoreOffersLoaded)
+                {
+                    isStoreOffersLoaded = value;
+                    this.NotifyPropertyChanged(() => isStoreOffersLoaded);
+                    //this.NotifyPropertyChanged(() => IsDataLoaded);
+
+                }
+            }
+        }
+
+        private bool isStoreOffersLoading = false;
+        public bool IsStoreOffersLoading
+        {
+            get
+            {
+                return isStoreOffersLoading;
+            }
+            set
+            {
+                if (value != isStoreOffersLoading)
+                {
+                    isStoreOffersLoading = value;
+                    this.NotifyPropertyChanged(() => IsStoreOffersLoading);
+                }
+            }
+        }
+
+        async public Task LoadStoreOffers()
+        {
+            if (IsStoreOffersLoading)
+            {
+                return;
+            }
+            IsStoreOffersLoading = true;
+
+            var options = new EtaApiQueryStringParameterOptions();
+            options.AddParm(EtaApiConstants.EtaApi_Latitude, App.ViewModel.UserViewModel.Location.Latitude.ToString("0.00000"));
+            options.AddParm(EtaApiConstants.EtaApi_Longitude, App.ViewModel.UserViewModel.Location.Longitude.ToString("0.00000"));
+            options.AddParm(EtaApiConstants.EtaApi_LocationDetermined, UNIXTime.GetTimestamp(DateTime.Now));
+            options.AddParm(EtaApiConstants.EtaApi_Geocoded, App.ViewModel.UserViewModel.Location.IsGeoCoded ? "0" : "0");
+            options.AddParm(EtaApiConstants.EtaApi_Accuracy, "0");//userModel.Location.Accuracy.ToString());
+            options.AddParm(EtaApiConstants.EtaApi_Ditance, "700000");
+            options.AddParm("store", Store.Id);
+            options.AddParm("dealer", Store.Dealer.Id);
+            options.AddParm("type", "all");
+
+            var response = await Api.GetOfferListAsync(options);
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                if (StoreOffers.Any())
+                {
+                    StoreOffers.Clear();
+                }
+                if (response.HasErrors)
+                {
+                    IsStoreOffersLoaded = false;
+                    HasOffers = false;
+                }
+                else
+                {
+                    foreach (var offer in response.Result)
+                    {
+                        StoreOffers.Add(offer);
+                    }
+                    IsStoreOffersLoaded = true;
+                    HasOffers = true;
+                }
+                IsStoreOffersLoading = false;
+                ShowText = !HasOffers;
+            });
+        }
+
+        #endregion
 
         private bool hasOffers = false;
         public bool HasOffers

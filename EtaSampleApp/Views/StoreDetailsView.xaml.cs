@@ -28,8 +28,10 @@ namespace EtaSampleApp.Views
         {
             storeOffersListbox.SelectedIndex = -1;
             var storeId = NavigationContext.QueryString["storeId"];
-
-            Model = new StoreDetailsViewModel(storeId);
+            if (Model == null || !Model.IsStoreOffersLoaded)
+            {
+                Model = new StoreDetailsViewModel(storeId);
+            }
 
             this.DataContext = Model;
 

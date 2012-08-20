@@ -239,6 +239,23 @@ namespace EtaSampleApp
 
         public ObservableCollection<Store> Stores { get; private set; }
 
+        private Store selectedStore;
+        public Store SelectedStore
+        {
+            get
+            {
+                return selectedStore;
+            }
+            set
+            {
+                if (value != selectedStore)
+                {
+                    selectedStore = value;
+                    this.NotifyPropertyChanged(() => SelectedStore);
+                }
+            }
+        }
+
         private bool isStoresLoaded = false;
         public bool IsStoresLoaded
         {
@@ -351,6 +368,23 @@ namespace EtaSampleApp
             }
         }
 
+        private bool? hasSearchOffers = null;
+        public bool? HasSearchOffers
+        {
+            get
+            {
+                return hasSearchOffers;
+            }
+            set
+            {
+                if (value != hasSearchOffers)
+                {
+                    hasSearchOffers = value;
+                    this.NotifyPropertyChanged(() => HasSearchOffers);
+                }
+            }
+        }
+
         private string offerSearchQueryText = "";
         public string OfferSearchQueryText
         {
@@ -380,6 +414,7 @@ namespace EtaSampleApp
             {
                 return;
             }
+            HasSearchOffers = null;
             IsSearchOffersLoading = true;
 
             var options = new EtaApiQueryStringParameterOptions();
@@ -391,8 +426,9 @@ namespace EtaSampleApp
             options.AddParm(EtaApiConstants.EtaApi_Ditance, UserViewModel.Distance.ToString());
 
             var response = await Api.GetOfferSearchAsync(options, q);
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            await Deployment.Current.Dispatcher.InvokeAsync(() =>
             {
+                
                 if (OffersSearch.Any())
                 {
                     OffersSearch.Clear();
@@ -409,8 +445,10 @@ namespace EtaSampleApp
                     }
                     IsSearchLoaded = true;
                 }
+                HasSearchOffers = OffersSearch.Any();
                 IsSearchOffersLoading = false;
             });
+            
         }
 
         #endregion

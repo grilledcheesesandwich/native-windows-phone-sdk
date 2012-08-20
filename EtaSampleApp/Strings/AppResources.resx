@@ -168,6 +168,9 @@
   <data name="NoNetworkHeader" xml:space="preserve">
     <value>Ups!</value>
   </data>
+  <data name="NoSearchResultsText" xml:space="preserve">
+    <value>Ingen resultater fundet. Prøv evt. at øge afstanden.</value>
+  </data>
   <data name="OfferHeader" xml:space="preserve">
     <value>tilbud</value>
   </data>

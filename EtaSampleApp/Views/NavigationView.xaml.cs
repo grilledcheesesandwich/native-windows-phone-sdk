@@ -3,6 +3,7 @@ using System.Device.Location;
 using System.Linq;
 using BingServices;
 using Microsoft.Phone.Controls.Maps;
+using EtaSDK.ApiModels;
 
 namespace EtaSampleApp.Views
 {
@@ -16,7 +17,15 @@ namespace EtaSampleApp.Views
         async protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             var storeId = NavigationContext.QueryString["storeId"];
-            var store = App.ViewModel.Stores.Where(item => item.Id == storeId).FirstOrDefault();
+            Store store = App.ViewModel.Stores.Where(item => item.Id == storeId).FirstOrDefault();
+            if (store == null)
+            {
+                store = App.ViewModel.SelectedStore;
+            }
+            if (store == null)
+            {
+                store = App.ViewModel.SelectedOffer.Store;
+            }
 
             base.OnNavigatedTo(e);
 
