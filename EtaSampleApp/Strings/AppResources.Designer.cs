@@ -196,6 +196,15 @@ namespace EtaSampleApp.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ingen tilbudsaviser fundet. Prøv evt. at øge afstanden..
+        /// </summary>
+        public static string NoCatalogResultsText {
+            get {
+                return ResourceManager.GetString("NoCatalogResultsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Der er ingen internet forbindelse ... og eTilbudsavis appen virker ikke uden!.
         /// </summary>
         public static string NoNetworkDescription {
@@ -219,6 +228,24 @@ namespace EtaSampleApp.Strings {
         public static string NoSearchResultsText {
             get {
                 return ResourceManager.GetString("NoSearchResultsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ingen buttikker fundet. Prøv evt. at øge afstanden..
+        /// </summary>
+        public static string NoStoreResultsText {
+            get {
+                return ResourceManager.GetString("NoStoreResultsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ingen anbefalede tilbud fundet. Prøv evt. at øge afstanden..
+        /// </summary>
+        public static string NoSuggestedOfferResultsText {
+            get {
+                return ResourceManager.GetString("NoSuggestedOfferResultsText", resourceCulture);
             }
         }
         
@@ -363,6 +390,15 @@ namespace EtaSampleApp.Strings {
         public static string WebSiteUrl {
             get {
                 return ResourceManager.GetString("WebSiteUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.windowsphone.com/s?appid=d7113cb9-aec4-43c6-87b6-c04f445b65a6.
+        /// </summary>
+        public static string WindowsPhoneMarketPlaceAppUri {
+            get {
+                return ResourceManager.GetString("WindowsPhoneMarketPlaceAppUri", resourceCulture);
             }
         }
     }

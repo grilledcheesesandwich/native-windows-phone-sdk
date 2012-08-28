@@ -65,6 +65,7 @@ namespace EtaSampleApp.Views
         public EtaBasePage()
             : base()
         {
+            this.SetValue(TiltEffect.IsTiltEnabledProperty, true);
 
             this.Background = GetColorFromHexa("#9CB227");
             //progressIndicator = new PerformanceProgressBar() 

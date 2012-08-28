@@ -30,6 +30,34 @@
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
+        <!--<StackPanel
+            x:Name="TitlePanel"
+            Grid.Row="0"
+            Margin="12,17,0,28">
+            <TextBlock
+                x:Name="ApplicationTitle"
+                Text="Rutevejledning"
+                Style="{StaticResource PhoneTextNormalStyle}" />
+        </StackPanel>-->
+        <!--
+        <TextBlock
+                HorizontalAlignment="Left"
+                TextWrapping="NoWrap"
+                Text="{Binding Store.Street}"
+                VerticalAlignment="Top" />
+            <StackPanel
+                Orientation="Horizontal">
+                <TextBlock
+                    TextWrapping="NoWrap"
+                    Text="{Binding Store.Zipcode}"
+                    VerticalAlignment="Top" />
+                <TextBlock
+                    Margin="5,0,0,0"
+                    TextWrapping="NoWrap"
+                    Text="{Binding Store.City}"
+                    VerticalAlignment="Top" />
+            </StackPanel>
+        -->
         <StackPanel
             x:Name="TitlePanel"
             Grid.Row="0"
@@ -38,13 +66,38 @@
                 x:Name="ApplicationTitle"
                 Text="Rutevejledning"
                 Style="{StaticResource PhoneTextNormalStyle}" />
+            <TextBlock
+                x:Name="PageTitle"
+                Text="{Binding Dealer.Name}"
+                Margin="9,-7,0,0"
+                Style="{StaticResource PhoneTextTitle1Style}" />
+
+            <TextBlock
+                Margin="12,0,0,0"
+                HorizontalAlignment="Left"
+                TextWrapping="NoWrap"
+                Text="{Binding Street}"
+                VerticalAlignment="Top" />
+            <StackPanel
+                Margin="12,0,0,0"
+                Orientation="Horizontal">
+                <TextBlock
+                    TextWrapping="NoWrap"
+                    Text="{Binding Zipcode}"
+                    VerticalAlignment="Top" />
+                <TextBlock
+                    Margin="5,0,0,0"
+                    TextWrapping="NoWrap"
+                    Text="{Binding City}"
+                    VerticalAlignment="Top" />
+            </StackPanel>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <Grid
             x:Name="ContentPanel"
             Grid.Row="1"
-            Margin="24,24,24,24">
+            Margin="24,0,24,24">
             <!-- {Binding Path=LocalizedResources.BingApiKey, Source={StaticResource LocalizedStrings}}-->
             <maps:Map
                 CredentialsProvider="AoPAIDmWifIAFXmb6FhfaoNFRJvEu3zWjCYPUNtIU6rcruFx5RW6sIzJKGo0WP9N"
@@ -95,7 +148,7 @@
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" Mode="Minimized" IsMenuEnabled="True">
             <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem x:Name="switchView" Click="switchView_Click" Text="Switch view"/>
+                <shell:ApplicationBarMenuItem x:Name="switchView" Click="switchView_Click" Text="Vis Luftfoto"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>

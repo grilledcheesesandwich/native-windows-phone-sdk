@@ -58,7 +58,6 @@ namespace EtaSampleApp
 
             // Phone-specific initialization
             InitializePhoneApplication();
-
            
             SmartDispatcher.Initialize();
 
@@ -68,9 +67,8 @@ namespace EtaSampleApp
                 // Display memory usage counters
                 MemoryDiagnosticsHelper.Start(TimeSpan.FromMilliseconds(100), true);
 
-
-                //// Display memory usage counters
-                //MemoryDiagnosticsHelper.Start(TimeSpan.FromMilliseconds(100), true);
+                // Display the metro grid helper.
+                MetroGridHelper.IsVisible = true;
 
                 // Display the current frame rate counters
                 Application.Current.Host.Settings.EnableFrameRateCounter = true;

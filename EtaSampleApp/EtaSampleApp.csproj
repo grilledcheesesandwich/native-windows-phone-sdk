@@ -102,6 +102,9 @@
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Strings\LocalizedStrings.cs" />
+    <Compile Include="temp_delete\Page1.xaml.cs">
+      <DependentUpon>Page1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\LocationSetupUserControl.xaml.cs">
       <DependentUpon>LocationSetupUserControl.xaml</DependentUpon>
     </Compile>
@@ -160,6 +163,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="temp_delete\Page1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -236,6 +243,8 @@
     <Content Include="Images\map.png" />
     <Content Include="Images\placeholder.png" />
     <Content Include="Images\red.png" />
+    <Content Include="Images\search.icon.100x100.png" />
+    <Content Include="Images\search.icon.60x60.png" />
     <Content Include="Images\search.icon.png" />
     <Content Include="Images\thumb.png" />
     <Content Include="Images\win.png" />

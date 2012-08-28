@@ -162,6 +162,9 @@
   <data name="FacebookUrl" xml:space="preserve">
     <value>http://facebook.com/eTilbudsavis</value>
   </data>
+  <data name="NoCatalogResultsText" xml:space="preserve">
+    <value>Ingen tilbudsaviser fundet. Prøv evt. at øge afstanden.</value>
+  </data>
   <data name="NoNetworkDescription" xml:space="preserve">
     <value>Der er ingen internet forbindelse ... og eTilbudsavis appen virker ikke uden!</value>
   </data>
@@ -170,6 +173,12 @@
   </data>
   <data name="NoSearchResultsText" xml:space="preserve">
     <value>Ingen resultater fundet. Prøv evt. at øge afstanden.</value>
+  </data>
+  <data name="NoStoreResultsText" xml:space="preserve">
+    <value>Ingen buttikker fundet. Prøv evt. at øge afstanden.</value>
+  </data>
+  <data name="NoSuggestedOfferResultsText" xml:space="preserve">
+    <value>Ingen anbefalede tilbud fundet. Prøv evt. at øge afstanden.</value>
   </data>
   <data name="OfferHeader" xml:space="preserve">
     <value>tilbud</value>
@@ -219,5 +228,8 @@
   </data>
   <data name="WebSiteUrl" xml:space="preserve">
     <value>https://etilbudsavis.dk/</value>
+  </data>
+  <data name="WindowsPhoneMarketPlaceAppUri" xml:space="preserve">
+    <value>http://www.windowsphone.com/s?appid=d7113cb9-aec4-43c6-87b6-c04f445b65a6</value>
   </data>
 </root>

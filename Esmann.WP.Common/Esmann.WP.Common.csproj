@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppSettings\AppSettingsHelper.cs" />
+    <Compile Include="DesignHelpers\MetroGridHelper.cs" />
     <Compile Include="Diagnostics\MemoryDiagnosticsHelper.cs" />
     <Compile Include="IsolatedStorage\ImageHelper.cs" />
     <Compile Include="IsolatedStorage\IsoStorageHelper.cs" />

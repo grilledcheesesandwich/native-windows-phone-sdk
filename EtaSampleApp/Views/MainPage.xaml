@@ -55,16 +55,16 @@
                 <controls:PanoramaItem.Header>
                     <toolkit:PhoneTextBox
                         x:Name="phoneTextBox1"
-                        Width="400"
+                        HorizontalAlignment="Stretch"
                         Height="74"
-                        Margin="0,25,0,0"
+                        Margin="-10,25,0,0"
                         VerticalAlignment="Center"
-                        HorizontalAlignment="Left"
+                        Width="400"
                         Text="{Binding OfferSearchQueryText, Mode=TwoWay}"
                         TextWrapping="NoWrap"
                         d:LayoutOverrides="Width"
                         Hint="{Binding Path=LocalizedResources.SearchHeader, Source={StaticResource LocalizedStrings}}"
-                        ActionIcon="/Images/search.icon.png"
+                        ActionIcon="/Images/search.icon.60x60.png"
                         AcceptsReturn="False"
                         HidesActionItemWhenEmpty="False"
                         KeyUp="phoneTextBox1_KeyUp"
@@ -101,11 +101,19 @@
                         Style="{StaticResource progressBarBase}"
                         Visibility="{Binding IsCatalogsLoading, Converter={StaticResource BoolToVisibility}}" />
                     <ListBox
+                        Visibility="{Binding HasCatalogs, Converter={StaticResource NullableBoolToVisibility}}"
                         x:Name="CatalogsListBox"
                         Style="{StaticResource MainPageListBoxCatalogs}"
                         ItemsSource="{Binding Catalogs}"
                         SelectionChanged="CatalogsListBox_SelectionChanged">
                     </ListBox>
+                    <TextBlock
+                        TextWrapping="Wrap"
+                        Width="350"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Center"
+                        Text="{Binding Path=LocalizedResources.NoCatalogResultsText, Source={StaticResource LocalizedStrings}}"
+                        Visibility="{Binding HasCatalogs, Converter={StaticResource NullableBoolToVisibilityN}}" />
                 </Grid>
             </controls:PanoramaItem>
 
@@ -118,11 +126,19 @@
                         Style="{StaticResource progressBarBase}"
                         Visibility="{Binding IsStoresLoading, Converter={StaticResource BoolToVisibility}}" />
                     <ListBox
+                        Visibility="{Binding HasStors, Converter={StaticResource NullableBoolToVisibility}}"
                         x:Name="StoresListBox"
                         Style="{StaticResource MainPageListBoxStores}"
                         ItemsSource="{Binding Stores}"
                         SelectionChanged="StoresListBox_SelectionChanged">
                     </ListBox>
+                    <TextBlock
+                        TextWrapping="Wrap"
+                        Width="350"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Center"
+                        Text="{Binding Path=LocalizedResources.NoStoreResultsText, Source={StaticResource LocalizedStrings}}"
+                        Visibility="{Binding HasStors, Converter={StaticResource NullableBoolToVisibilityN}}" />
                 </Grid>
             </controls:PanoramaItem>
 
@@ -135,11 +151,19 @@
                         Style="{StaticResource progressBarBase}"
                         Visibility="{Binding IsSuggestedOffersLoading, Converter={StaticResource BoolToVisibility}}" />
                     <ListBox
+                        Visibility="{Binding HasSuggestedOffers, Converter={StaticResource NullableBoolToVisibility}}"
                         Style="{StaticResource MainPageListBoxSuggestedOffers}"
                         x:Name="suggestedOffersListBox"
                         ItemsSource="{Binding SuggestedOffers}"
                         SelectionChanged="searchListBox_SelectionChanged">
                     </ListBox>
+                    <TextBlock
+                        TextWrapping="Wrap"
+                        Width="350"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Center"
+                        Text="{Binding Path=LocalizedResources.NoSuggestedOfferResultsText, Source={StaticResource LocalizedStrings}}"
+                        Visibility="{Binding HasSuggestedOffers, Converter={StaticResource NullableBoolToVisibilityN}}" />
                 </Grid>
             </controls:PanoramaItem>
 

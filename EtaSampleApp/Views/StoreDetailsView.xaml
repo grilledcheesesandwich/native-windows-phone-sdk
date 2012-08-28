@@ -36,22 +36,27 @@
             Margin="12,17,12,28">
             <TextBlock
                 x:Name="ApplicationTitle"
-                Text="{Binding Store.Dealer.Name}"
+                Text="BUTIK"
                 Style="{StaticResource PhoneTextNormalStyle}" />
-            <Image
+            <TextBlock
+                x:Name="PageTitle"
+                Text="{Binding Store.Dealer.Name}"
+                Margin="9,-7,0,0"
+                Style="{StaticResource PhoneTextTitle1Style}" />
+            <!--<Image
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 Height="150"
                 MaxWidth="400"
                 Margin="0,0,12,0"
-                Source="{Binding Store.Dealer.Branding.Logo}" />
+                Source="{Binding Store.Dealer.Branding.Logo}" />-->
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <StackPanel
             x:Name="ContentPanel"
             Grid.Row="1"
-            Margin="12,0,12,0">
+            Margin="24,0,12,0">
             
             <TextBlock
                 HorizontalAlignment="Left"
@@ -72,10 +77,12 @@
             </StackPanel>
             
             <!-- lime: #FF9CD232-->
+            <!--Background="{StaticResource EtaSignatureBrush}"-->
             <Grid
                 Background="{StaticResource EtaSignatureBrush}"
                 Margin="0,20,0,12"
-                Height="400">
+                
+                Height="520">
                 <ListBox
                     Visibility="{Binding HasOffers, Converter={StaticResource BoolToVisibility}}"
                     x:Name="storeOffersListbox"

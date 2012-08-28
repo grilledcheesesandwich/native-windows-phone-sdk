@@ -44,8 +44,8 @@ namespace EtaSampleApp
 
         /*async*/ internal void UpdateViewModel()
         {
-            /*await*/ LoadStores();
             /*await*/ LoadCatalogs();
+            /*await*/ LoadStores();
             /*await*/ LoadSuggestedOffers();
             /*await*/ LoadSearchOffers(OfferSearchQueryText);
             MaintainGpsLocation();
@@ -72,6 +72,23 @@ namespace EtaSampleApp
 
         #region Offers (suggested)
         public ObservableCollection<Offer> SuggestedOffers { get; private set; }
+
+        private bool? hasSuggestedOffers = null;
+        public bool? HasSuggestedOffers
+        {
+            get
+            {
+                return hasSuggestedOffers;
+            }
+            set
+            {
+                if (value != hasSuggestedOffers)
+                {
+                    hasSuggestedOffers = value;
+                    this.NotifyPropertyChanged(() => HasSuggestedOffers);
+                }
+            }
+        }
 
         private bool isSuggestedOffersLoaded = false;
         public bool IsSuggestedOffersLoaded
@@ -116,6 +133,7 @@ namespace EtaSampleApp
                 return;
             }
             IsSuggestedOffersLoading = true;
+            HasSuggestedOffers = null;
 
             var options = new EtaApiQueryStringParameterOptions();
             options.AddParm(EtaApiConstants.EtaApi_Latitude, UserViewModel.Location.Latitude.ToString("0.00000"));
@@ -148,6 +166,7 @@ namespace EtaSampleApp
                     }
                     IsSuggestedOffersLoaded = true;
                 }
+                HasSuggestedOffers = SuggestedOffers.Any();
                 IsSuggestedOffersLoading = false;
             });
         }
@@ -157,6 +176,23 @@ namespace EtaSampleApp
         #region Catalog List
 
         public ObservableCollection<Catalog> Catalogs { get; private set; }
+
+        private bool? hasCatalogs = null;
+        public bool? HasCatalogs
+        {
+            get
+            {
+                return hasCatalogs;
+            }
+            set
+            {
+                if (value != hasCatalogs)
+                {
+                    hasCatalogs = value;
+                    this.NotifyPropertyChanged(() => HasCatalogs);
+                }
+            }
+        }
 
         private bool isCatalogsLoaded = false;
         public bool IsCatalogsLoaded
@@ -200,6 +236,7 @@ namespace EtaSampleApp
                 return;
             }
             IsCatalogsLoading = true;
+            hasCatalogs = null;
 
             var options = new EtaApiQueryStringParameterOptions();
             options.AddParm(EtaApiConstants.EtaApi_Latitude, UserViewModel.Location.Latitude.ToString("0.00000"));
@@ -229,7 +266,9 @@ namespace EtaSampleApp
                     }
                     IsCatalogsLoaded = true;
                 }
+                HasCatalogs = Catalogs.Any();
                 IsCatalogsLoading = false;
+
             });
         }
 
@@ -252,6 +291,23 @@ namespace EtaSampleApp
                 {
                     selectedStore = value;
                     this.NotifyPropertyChanged(() => SelectedStore);
+                }
+            }
+        }
+
+        private bool? hasStors = null;
+        public bool? HasStors
+        {
+            get
+            {
+                return hasStors;
+            }
+            set
+            {
+                if (value != hasStors)
+                {
+                    hasStors = value;
+                    this.NotifyPropertyChanged(() => HasStors);
                 }
             }
         }
@@ -298,6 +354,7 @@ namespace EtaSampleApp
                 return;
             }
             IsStoresLoading = true;
+            HasStors = null;
 
             var options = new EtaApiQueryStringParameterOptions();
             options.AddParm(EtaApiConstants.EtaApi_Latitude, UserViewModel.Location.Latitude.ToString("0.00000"));
@@ -325,6 +382,7 @@ namespace EtaSampleApp
                     }
                     IsStoresLoaded = true;
                 }
+                HasStors = Stores.Any();
                 IsStoresLoading = false;
             });
         }
@@ -560,7 +618,7 @@ namespace EtaSampleApp
                             }
                         });
                     }
-                    Thread.Sleep(TimeSpan.FromSeconds(60));
+                    Thread.Sleep(TimeSpan.FromSeconds(10));
                 }
                 IsMaintainGpsLocationRunning = false;
             });

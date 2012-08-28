@@ -27,6 +27,7 @@ namespace Eta.Controls
             EtaSliderControl.Value = Slider.currentStep;
             EtaSliderTooltip.Text = AppResources.EtaSliderControlText + Slider.DistanceString();
             previous = EtaSliderControl.Value;
+            EtaBubble.Opacity = 1;
         }
 
         private void EtaSliderControl_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

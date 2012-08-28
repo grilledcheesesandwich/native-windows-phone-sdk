@@ -55,7 +55,23 @@
                 HorizontalScrollBarVisibility="Disabled">
                 <StackPanel>
                     <TextBlock
-                        TextWrapping="Wrap"><Run Text="eTilbudsavis gør det muligt at finde tilbud nær dig, hvad enten du benytter en computer, tablet eller smartphone."/><LineBreak/><Run/><LineBreak/><Run Text="eTilbudsavis vandt e-handelsprisen 2011 (mobil e-handel) og med eTilbudsavis gør du både dig selv og din postkasse en stor tjeneste; Du kan nemt overskue tilbudsaviserne og spare miljøet for CO2."/><LineBreak/><Run/><LineBreak/><Run FontSize="26.667" Text="Iværksætterne bag"/><LineBreak/><Run Text="eTilbudsavis er stiftet af de to unge aalborgensiske iværksættere Christian Birch og Morten Bo, som er tidligere kendt fra internetprojekter. Både Christian og Morten er dygtige IT-folk og kan således hurtigt udvikle de funktioner, som du elsker."/><LineBreak/><Run/><LineBreak/><Run Text="Tak for din interesse i vores Windows Phone app og "/><Run Text="vi håber at du får stor glæde af den!"/><LineBreak/><Run/><LineBreak/><Run Text="Denne app er udviklet i samarbejde med Nokia &amp; Microsoft DK."/><LineBreak/><LineBreak/><Run Text="Venlig Hilsen"/><LineBreak/><Run Text="eTilbudsavis"/><Run Text=", "/><Run Text="Microsoft "/><Run Text="DK &amp; Nokia"/><LineBreak/><LineBreak/><Run Text="Version: 1."/><Run Text="0 (Aug. 2012)"/><LineBreak/><Run Text="Udvikler: Martin Esmann"/><LineBreak/><Run/><LineBreak/><Run/></TextBlock>
+                        TextWrapping="Wrap"><Run
+                            Text="eTilbudsavis gør det muligt at finde tilbud nær dig, hvad enten du benytter en computer, tablet eller smartphone." /><LineBreak /><Run /><LineBreak /><Run
+                            Text="eTilbudsavis vandt e-handelsprisen 2011 (mobil e-handel) og med eTilbudsavis gør du både dig selv og din postkasse en stor tjeneste; Du kan nemt overskue tilbudsaviserne og spare miljøet for CO2." /><LineBreak /><Run /><LineBreak /><Run
+                            FontSize="26.667"
+                            Text="Iværksætterne bag" /><LineBreak /><Run
+                            Text="eTilbudsavis er stiftet af de to unge aalborgensiske iværksættere Christian Birch og Morten Bo, som er tidligere kendt fra internetprojekter. Både Christian og Morten er dygtige IT-folk og kan således hurtigt udvikle de funktioner, som du elsker." /><LineBreak /><Run /><LineBreak /><Run
+                            Text="Tak for din interesse i vores Windows Phone app og " /><Run
+                            Text="vi håber at du får stor glæde af den!" /><LineBreak /><Run /><LineBreak /><Run
+                            Text="Denne app er udviklet i samarbejde med Nokia &amp; Microsoft DK." /><LineBreak /><LineBreak /><Run
+                            Text="Venlig Hilsen" /><LineBreak /><Run
+                            Text="eTilbudsavis" /><Run
+                            Text=", " /><Run
+                            Text="Microsoft " /><Run
+                            Text="DK &amp; Nokia" /><LineBreak /><LineBreak /><Run
+                            Text="Version: 1.1" /><Run
+                            Text="(Aug. 2012)" /><LineBreak /><Run
+                            Text="Udvikler: Martin Esmann" /><LineBreak /><Run /><LineBreak /><Run /></TextBlock>
                     <Button
                         Content="Fortæl os din mening"
                         Click="Button_Click" />
@@ -75,17 +91,21 @@
             IsMenuEnabled="True">
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem
+                    x:Name="shareAppMenu"
+                    Text="Del Appen"
+                    Click="shareAppMenu_Click" />
+                <shell:ApplicationBarMenuItem
                     x:Name="webSiteMenu"
                     Text="Hjemmeside"
-                    Click="webSiteMenu_Click"/>
+                    Click="webSiteMenu_Click" />
                 <shell:ApplicationBarMenuItem
                     x:Name="privacyMenu"
                     Text="Privatlivspolitik"
-                    Click="privacyMenu_Click"/>
+                    Click="privacyMenu_Click" />
                 <shell:ApplicationBarMenuItem
                     x:Name="rateMenu"
                     Text="Bedøm app"
-                    Click="rateMenu_Click"/>
+                    Click="rateMenu_Click" />
                 <shell:ApplicationBarMenuItem
                     x:Name="facebookMenu"
                     Text="Facebook"
@@ -94,6 +114,7 @@
                     x:Name="twitterMenu"
                     Text="Twitter"
                     Click="twitterMenu_Click" />
+
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>

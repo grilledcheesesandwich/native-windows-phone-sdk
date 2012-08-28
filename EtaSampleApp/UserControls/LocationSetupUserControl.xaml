@@ -11,6 +11,7 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
+    toolkit:TiltEffect.IsTiltEnabled="True"
     Height="800"
     Width="480">
 
@@ -69,23 +70,19 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <TextBlock
-                        HorizontalAlignment="Left"
-                        TextWrapping="Wrap"
-                        Text="{Binding Path=LocalizedResources.AllowGPSHeader, Source={StaticResource LocalizedStrings}}"
-                        VerticalAlignment="Center"
-                        FontSize="26.667" />
-                    <toolkitPrimitives:ToggleSwitchButton
-                        Content="ToggleSwitchButton"
-                        Grid.Column="1"
+                    
+                    <toolkit:ToggleSwitch
+                        Header="{Binding Path=LocalizedResources.AllowGPSHeader, Source={StaticResource LocalizedStrings}}"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
                         Margin="0,0,-12,0"
                         VerticalAlignment="Center"
-                        HorizontalAlignment="Right"
+                        HorizontalAlignment="Stretch"
                         IsChecked="{Binding UserViewModel.AllowGPS, Mode=TwoWay}"
                         Checked="ToggleSwitchButton_Checked"
                         Unchecked="ToggleSwitchButton_Unchecked" />
                     <TextBlock
-                        Margin="0,-20,0,0"
+                        Margin="12,-20,0,0"
                         TextWrapping="Wrap"
                         Text="{Binding Path=LocalizedResources.PrivacyPolicyLocationDataText, Source={StaticResource LocalizedStrings}}"
                         VerticalAlignment="Center"
@@ -93,12 +90,13 @@
                         Grid.ColumnSpan="2" />
                     <HyperlinkButton
                         Click="HyperlinkButton_Click"
-                        Margin="-12,12,0,0"
+                        Margin="0,12,0,0"
                         HorizontalAlignment="Left"
                         Grid.Row="2"
                         Grid.ColumnSpan="2"
                         Content="{Binding Path=LocalizedResources.PrivacyPolicyLocationDataUriText, Source={StaticResource LocalizedStrings}}" />
                     <TextBlock
+                        Margin="12"
                         TextWrapping="Wrap"
                         Text="{Binding Path=LocalizedResources.PostalNumberHeader, Source={StaticResource LocalizedStrings}}"
                         FontSize="26.667"
@@ -127,7 +125,7 @@
                         IsIndeterminate="True" />
                     <Button
                         x:Name="btnNext"
-                        Margin="-12,0,0,0"
+                        Margin="0,0,0,0"
                         Grid.Row="5"
                         Grid.Column="0"
                         Grid.ColumnSpan="2"

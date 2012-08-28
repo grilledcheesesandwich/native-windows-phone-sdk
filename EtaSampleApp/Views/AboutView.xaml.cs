@@ -64,5 +64,14 @@ namespace EtaSampleApp.Views
             browser.Uri = new Uri(AppResources.TwitterUrl);
             browser.Show();
         }
+
+        private void shareAppMenu_Click(object sender, EventArgs e)
+        {
+            ShareLinkTask share = new ShareLinkTask();
+            share.Message = "Prøv eTilbudsavis til Winodws Phone";
+            share.Title = "eTilbudsavis til WP";
+            share.LinkUri = new Uri(AppResources.WindowsPhoneMarketPlaceAppUri);
+            share.Show();
+        }
     }
 }

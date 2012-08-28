@@ -4,6 +4,7 @@ using System.Linq;
 using BingServices;
 using Microsoft.Phone.Controls.Maps;
 using EtaSDK.ApiModels;
+using Microsoft.Phone.Shell;
 
 namespace EtaSampleApp.Views
 {
@@ -26,6 +27,8 @@ namespace EtaSampleApp.Views
             {
                 store = App.ViewModel.SelectedOffer.Store;
             }
+
+            DataContext = store;
 
             base.OnNavigatedTo(e);
 
@@ -56,10 +59,12 @@ namespace EtaSampleApp.Views
             if (RouteMap.Mode is AerialMode)
             {
                 RouteMap.Mode = new RoadMode();
+                (sender as ApplicationBarMenuItem).Text = "Vis Luftfoto";
             }
             else
             {
                 RouteMap.Mode = new AerialMode(true);
+                (sender as ApplicationBarMenuItem).Text = "Vis vejkort";
             }
         }
     }
