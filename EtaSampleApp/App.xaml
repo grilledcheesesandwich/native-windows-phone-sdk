@@ -18,6 +18,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 
+        
         <helpers:IsoFileToBitmapImageConverter
             x:Key="IsoFileToBitmapImageConverter" />
         <helpers:BoolToVisibilityN

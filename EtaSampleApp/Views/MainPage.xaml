@@ -46,10 +46,19 @@
                 Stretch="None" />
         </Grid.Background>
         <controls:Panorama
-            Title="{Binding Path=LocalizedResources.Title, Source={StaticResource LocalizedStrings}}"
             Margin="0,0,0,60"
             Visibility="{Binding IsUserViewModelLoaded, Converter={StaticResource BoolToVisibility}}">
+            <controls:Panorama.TitleTemplate>
+                <DataTemplate>
+                    <TextBlock
+                        Text="{Binding Path=LocalizedResources.Title, Source={StaticResource LocalizedStrings}}"
+                        FontSize="200"
+                        FontWeight="Thin"
+                        FontFamily="{StaticResource Eurostile}"
+                        Margin="0,60,0,-50" />
+                </DataTemplate>
 
+            </controls:Panorama.TitleTemplate>
             <!--Panorama item Søg-->
             <controls:PanoramaItem>
                 <controls:PanoramaItem.Header>

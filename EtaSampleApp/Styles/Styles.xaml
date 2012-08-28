@@ -5,6 +5,9 @@
     xmlns:telerikPrimitivesSlideView="clr-namespace:Telerik.Windows.Controls.SlideView;assembly=Telerik.Windows.Controls.Primitives"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit">
 
+    <FontFamily
+        x:Key="Eurostile">Assets/Fonts/euro/Eurosti.TTF#Eurostile</FontFamily>
+
     <Color x:Key="EtaSignatureColor">
         #FF7b9119
     </Color>
