@@ -15,20 +15,15 @@ namespace EtaSDK.ApiModels
         public static Dealer FromJson(JsonValue item)
         {
 
-            if (item.ContainsKey("dealer"))
-            {
-                Dealer dealer = new Dealer();
-                var json = item.GetJsonValue(() => dealer);
-                dealer.Branding = Branding.FromJson(json);
-                dealer.Id = json.GetJsonValue(() => dealer.Id);
-                dealer.Name = json.GetJsonValue(() => dealer.Name);
-                dealer.Url = json.GetJsonValue(() => dealer.Url);
-                dealer.Website = json.GetJsonValue(() => dealer.Website);
+               Dealer dealer = new Dealer();
+                var json = item.ContainsKey("dealer") ? item.GetJsonValue(() => dealer) : item;
+               dealer.Branding = Branding.FromJson(item);
+               dealer.Id = json.GetJsonValue(() => dealer.Id);
+               dealer.Name = json.GetJsonValue(() => dealer.Name);
+               dealer.Url = json.GetJsonValue(() => dealer.Url);
+               dealer.Website = json.GetJsonValue(() => dealer.Website);
                 return dealer;
             }
-            
-            return null;
-        }
 
     }
 }

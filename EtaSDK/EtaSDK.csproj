@@ -61,8 +61,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiModels\CatalogHotspots.cs" />
     <Compile Include="ApiModels\CatalogIndex.cs" />
     <Compile Include="ApiModels\Header.cs" />
+    <Compile Include="ApiModels\Hotspot.cs" />
     <Compile Include="ApiModels\Name.cs" />
     <Compile Include="ApiModels\Offer.cs" />
     <Compile Include="ApiModels\Timespan.cs" />
@@ -78,6 +80,7 @@
     <Compile Include="ApiModels\Images.cs" />
     <Compile Include="ApiModels\Store.cs" />
     <Compile Include="ApiModels\Weeks.cs" />
+    <Compile Include="v3\EtaAPI.dealer.cs" />
     <Compile Include="v3\EtaAPI.raw.cs" />
     <Compile Include="Utils\CatalogPageHelper.cs" />
     <Compile Include="Utils\EtaCatalogStorageHelper.cs" />

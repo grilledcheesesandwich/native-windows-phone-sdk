@@ -24,7 +24,7 @@ namespace EtaSDK.v3
                 options.AddParm("type", "all");
             }
 
-            var eta = await ApiRawAsync("/api/v1/store/list/", options);
+            var eta = await ApiRawAsync("/api/v1/offer/info/", options);
             if (eta.HasErrors)
             {
                 return new EtaResponse<JsonValue>(eta.Uri, eta.Error);
