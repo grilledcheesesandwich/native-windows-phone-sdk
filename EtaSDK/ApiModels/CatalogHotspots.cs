@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Json;
 using Esmann.WP.Common.Json;
 using System.Linq;
+using System.Threading;
 namespace EtaSDK.ApiModels
 {
     public class CatalogHotspot
@@ -23,10 +24,11 @@ namespace EtaSDK.ApiModels
         /// <returns></returns>
         public static CatalogHotspot FromJson(JsonValue item)
         {
-
+            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
                 CatalogHotspot ch = new CatalogHotspot();
                 var dimensions = item.GetJsonValue(() => ch.Dimensions);
-                ch.Dimensions = new Point(dimensions["width"], dimensions["height"]);
+                ch.Dimensions = new Point(Convert.ToDouble(((string)dimensions["width"])), Convert.ToDouble(((string)dimensions["height"])));
                 foreach (var hotSpot in item["hotspots"] as JsonArray)
                 {
                     ch.Hotspots.Add(Hotspot.FromJson(hotSpot));
