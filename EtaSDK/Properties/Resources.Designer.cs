@@ -106,24 +106,6 @@ namespace EtaSDK.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 6ba722adfda4f3644ef0c947cb57d410.
-        /// </summary>
-        public static string Eta_API_Key {
-            get {
-                return ResourceManager.GetString("Eta_API_Key", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 1c841457d642d5dba9a98354583b75c8.
-        /// </summary>
-        public static string Eta_API_Secret {
-            get {
-                return ResourceManager.GetString("Eta_API_Secret", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to https://etilbudsavis.dk.
         /// </summary>
         public static string Eta_BaseUri {

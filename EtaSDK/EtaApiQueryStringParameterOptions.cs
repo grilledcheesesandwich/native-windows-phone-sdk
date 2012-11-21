@@ -14,10 +14,9 @@ namespace EtaSDK
         public string responseType = "application/json";//text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";//"application/json";// text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
         public string webMethod = "GET";
         public string contentType = "application/x-www-form-urlencoded";
-
+        public string EtaSecret = "";
         public EtaApiQueryStringParameterOptions()
         {
-            queryStringParams.Add(EtaApiConstants.EtaApi_ApiKey, Resources.Eta_API_Key);
             queryStringParams.Add(EtaApiConstants.EtaApi_Uuid, Uuid);
             queryStringParams.Add(EtaApiConstants.EtaApi_Timestamp, GetTimestamp(DateTime.Now));
         }
@@ -89,9 +88,9 @@ namespace EtaSDK
 
             sb = sb.Remove(sb.Length - 1, 1);
 
-            if (Resources.Eta_API_Secret != "")
+            if (EtaSecret != "")
             {
-                checkSumValues.Append(Resources.Eta_API_Secret);
+                checkSumValues.Append(EtaSecret);
 
                 sb.Append("&");
                 sb.Append(EtaApiConstants.EtaApi_Checksum);

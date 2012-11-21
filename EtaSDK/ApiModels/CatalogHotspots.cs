@@ -24,11 +24,9 @@ namespace EtaSDK.ApiModels
         /// <returns></returns>
         public static CatalogHotspot FromJson(JsonValue item)
         {
-            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
-            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
                 CatalogHotspot ch = new CatalogHotspot();
                 var dimensions = item.GetJsonValue(() => ch.Dimensions);
-                ch.Dimensions = new Point(Convert.ToDouble(((string)dimensions["width"])), Convert.ToDouble(((string)dimensions["height"])));
+                ch.Dimensions = new Point(dimensions["width"], dimensions["height"]);
                 foreach (var hotSpot in item["hotspots"] as JsonArray)
                 {
                     ch.Hotspots.Add(Hotspot.FromJson(hotSpot));
@@ -95,16 +93,17 @@ namespace EtaSDK.ApiModels
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        public Hotspot FindMatchingHotspot(Point p)
+        public List<Hotspot> FindMatchingHotspots(Point p)
         {
+            List<Hotspot> hotSpots = new List<Hotspot>();
             foreach (var h in PhoneHotspots)
             {
                 if (PointInPolygon(p, h.Polygon))
                 {
-                    return h;
+                    hotSpots.Add(h);
                 }
             }
-            return null;
+            return hotSpots;
         }
        /// <summary>  
     ///     Determines if the specified <see cref="PointF"/> if within this polygon.  

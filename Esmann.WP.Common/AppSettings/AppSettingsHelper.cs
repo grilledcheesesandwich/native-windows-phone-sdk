@@ -12,7 +12,7 @@ using System.IO.IsolatedStorage;
 
 namespace Esmann.WP.Common.AppSettings
 {
-    public class AppSettingsHelper
+    public class AppSettingsHelper 
     {
         IsolatedStorageSettings settings;
         public AppSettingsHelper()
